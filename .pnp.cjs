@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:9.17.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:18.2.0"],\
+            ["react-icons", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0"],\
             ["react-router-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:6.8.2"],\
             ["react-scripts", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:5.0.1"],\
             ["stylelint", "npm:15.2.0"],\
@@ -10462,6 +10463,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:9.17.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:18.2.0"],\
+            ["react-icons", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0"],\
             ["react-router-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:6.8.2"],\
             ["react-scripts", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:5.0.1"],\
             ["stylelint", "npm:15.2.0"],\
@@ -16316,6 +16318,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.11-021cdeaa92-ce7b44c38f.zip/node_modules/react-error-overlay/",\
           "packageDependencies": [\
             ["react-error-overlay", "npm:6.0.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-icons", [\
+        ["npm:4.8.0", {\
+          "packageLocation": "./.yarn/cache/react-icons-npm-4.8.0-aa5423cd6c-4dbba7ad98.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "npm:4.8.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-icons-virtual-563ea795ec/0/cache/react-icons-npm-4.8.0-aa5423cd6c-4dbba7ad98.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0"],\
+            ["@types/react", null],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
