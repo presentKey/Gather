@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi';
-import {
-  anonymouseLogin,
-  googleLogin,
-  onUserStateChange,
-} from '../api/firebase';
+import { useAuthContext } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    onUserStateChange(setUser);
-  }, []);
+  const { user, googleLogin, anonymouseLogin } = useAuthContext();
+
+  if (user === undefined) return <></>;
+  if (user) return <Navigate to="/" replace />;
 
   return (
     <>

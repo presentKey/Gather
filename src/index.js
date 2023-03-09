@@ -8,11 +8,17 @@ import reportWebVitals from './reportWebVitals';
 import NotFound from './pages/NotFound';
 import Main from './pages/Main';
 import Login from './pages/Login';
+import { AuthContextProvider } from './context/AuthContext';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFound />,
     children: [{ index: true, element: <Main /> }],
   },
@@ -25,7 +31,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
