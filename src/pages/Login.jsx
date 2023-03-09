@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi';
-import { googleLogin, onUserStateChange } from '../api/firebase';
+import {
+  anonymouseLogin,
+  googleLogin,
+  onUserStateChange,
+} from '../api/firebase';
 
 export default function Login() {
   const [user, setUser] = useState();
@@ -16,7 +20,9 @@ export default function Login() {
         <button onClick={googleLogin} type="button">
           로그인
         </button>
-        <button type="button">게스트</button>
+        <button onClick={anonymouseLogin} type="button">
+          게스트
+        </button>
       </div>
     </>
   );

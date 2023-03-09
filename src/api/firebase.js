@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithPopup,
+  signInAnonymously,
   GoogleAuthProvider,
   onAuthStateChanged,
 } from 'firebase/auth';
@@ -19,6 +20,15 @@ const db = getFirestore(app);
 
 export function googleLogin() {
   signInWithPopup(auth, provider)
+    .then((result) => {
+      const { uid, isAnonymous } = result.user;
+      isMember(uid, isAnonymous);
+    })
+    .catch(console.error);
+}
+
+export function anonymouseLogin() {
+  signInAnonymously(auth)
     .then((result) => {
       const { uid, isAnonymous } = result.user;
       isMember(uid, isAnonymous);
