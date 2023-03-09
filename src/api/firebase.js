@@ -3,6 +3,7 @@ import {
   getAuth,
   signInWithPopup,
   signInAnonymously,
+  signOut,
   GoogleAuthProvider,
   onAuthStateChanged,
 } from 'firebase/auth';
@@ -34,6 +35,10 @@ export function anonymouseLogin() {
       isMember(uid, isAnonymous);
     })
     .catch(console.error);
+}
+
+export function logout() {
+  signOut(auth).catch(console.error);
 }
 
 export function onUserStateChange(callback) {

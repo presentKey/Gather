@@ -3,6 +3,7 @@ import {
   googleLogin,
   anonymouseLogin,
   onUserStateChange,
+  logout,
 } from '../api/firebase';
 
 const AuthContext = createContext();
@@ -15,7 +16,9 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, googleLogin, anonymouseLogin }}>
+    <AuthContext.Provider
+      value={{ user, googleLogin, anonymouseLogin, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
