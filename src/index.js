@@ -6,7 +6,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotFound from './pages/NotFound';
-import Main from './pages/Main';
+import Main from './components/Main';
 import Login from './pages/Login';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './pages/ProtectedRoute';
