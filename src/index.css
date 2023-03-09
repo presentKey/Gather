@@ -1,9 +1,43 @@
+:root {
+  /* Color */
+  --color-brand: #3c6255;
+  --color-yellow: #f2d974;
+  --color-green: #a6bb8d;
+  --color-green-light: #eae7b1;
+  --color-red: #da0037;
+  --color-gray: #ededed;
+  --color-black: #171717;
+  --color-white: #fff;
+  /* Size */
+  --side-padding: 1rem;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   font-family: 'Noto Sans KR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (min-width: 48rem) {
+  html {
+    font-size: 22px;
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-gray);
+}
+
+#root {
+  width: 100%;
+  max-width: 48rem;
+  background-color: var(--color-white);
 }
 
 h1 {
