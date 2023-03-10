@@ -1,0 +1,23 @@
+.avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  overflow: hidden;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.75);
+  -moz-box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.75);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.none-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-gray);
+}

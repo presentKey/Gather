@@ -3,16 +3,19 @@ import { ImExit } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import Avatar from '../Avatar/Avatar';
+import styles from './Header.module.css';
 
 export default function Header() {
   const { user, logout } = useAuthContext();
 
   return (
-    <header>
+    <header className={styles.header}>
       <Avatar image={user.photoURL} />
-      <Link to="/">Gather</Link>
-      <button type="button" onClick={logout}>
-        <ImExit />
+      <Link to="/" className={styles.title}>
+        Gather
+      </Link>
+      <button className={styles.button} type="button" onClick={logout}>
+        <ImExit className={styles.logout} />
       </button>
     </header>
   );
