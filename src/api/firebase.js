@@ -7,7 +7,15 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  arrayUnion,
+  writeBatch,
+} from 'firebase/firestore';
+import generateCode from '../utils/generateCode';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -64,4 +72,25 @@ async function saveMemberInDB(uid, isAnonymous) {
   const memberRef = doc(db, 'members', uid);
 
   await setDoc(memberRef, docData);
+}
+
+export async function createClass(uid, info) {
+  const { title, bank, number } = info;
+  const code = generateCode();
+  const batch = writeBatch(db);
+
+  const codeRef = doc(db, 'classes', code);
+  batch.set(codeRef, {
+    title,
+    account: { bank, number },
+    memebers: [uid],
+    total: 0,
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayUnion(code),
+  });
+
+  await batch.commit();
 }
