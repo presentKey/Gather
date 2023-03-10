@@ -1,0 +1,36 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.125rem;
+  padding: 0 var(--side-padding);
+  background-color: var(--color-brand);
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-yellow);
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  position: relative;
+  right: -0.25rem;
+  padding: 0.25rem;
+  color: var(--color-gray);
+}
+
+.button:hover {
+  color: var(--color-white);
+}
+
+.logout {
+  position: relative;
+  top: 0.125rem;
+}
