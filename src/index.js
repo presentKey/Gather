@@ -10,6 +10,7 @@ import Main from './components/Main/Main';
 import Login from './pages/Login/Login';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './pages/ProtectedRoute';
+import ClassDetail from './pages/ClassDetail/ClassDetail';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,10 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     errorElement: <NotFound />,
-    children: [{ index: true, element: <Main /> }],
+    children: [
+      { index: true, element: <Main /> },
+      { path: '/class', element: <ClassDetail /> },
+    ],
   },
   {
     path: 'login',
