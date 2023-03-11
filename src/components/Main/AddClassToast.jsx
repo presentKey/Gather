@@ -12,7 +12,7 @@ export default function AddClassToast() {
       <AiFillPlusCircle className={styles.plus} />
       <div className={styles['btn-group']}>
         <button
-          className={styles['create-class']}
+          className={`${styles.btn} ${content.create && styles['is-active']}`}
           type="button"
           data-type="create"
           onClick={handleContent}
@@ -20,7 +20,9 @@ export default function AddClassToast() {
           모임 만들기
         </button>
         <button
-          className={styles['participation-class']}
+          className={`${styles.btn} ${
+            content.participation && styles['is-active']
+          }`}
           type="button"
           data-type="participation"
           onClick={handleContent}
