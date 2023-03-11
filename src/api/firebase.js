@@ -115,3 +115,17 @@ export async function participationClass(uid, info) {
 
   await batch.commit();
 }
+
+export async function getClassList(uid) {
+  const docRef = doc(db, 'members', uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) return docSnap.data();
+}
+
+export async function getClassDetail(code) {
+  const docRef = doc(db, 'classes', code);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) return docSnap.data();
+}
