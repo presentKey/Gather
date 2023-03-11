@@ -1,13 +1,14 @@
 import React from 'react';
 import useCreateClass from './hooks/useCreateClass';
+import styles from './addForm.module.css';
 
 export default function CreateForm() {
   const { createInfo, handleChange, handleSubmit } = useCreateClass();
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles['input-box']}>
           <input
             type="text"
             name="title"
@@ -17,7 +18,7 @@ export default function CreateForm() {
           />
           <span>모임 이름</span>
         </div>
-        <div>
+        <div className={styles['input-box']}>
           <input
             type="text"
             name="bank"
@@ -27,7 +28,7 @@ export default function CreateForm() {
           />
           <span>은행</span>
         </div>
-        <div>
+        <div className={styles['input-box']}>
           <input
             type="text"
             name="number"
