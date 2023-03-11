@@ -4,6 +4,7 @@ import { useAuthContext } from '../../context/AuthContext';
 import AddClassToast from './AddClassToast';
 import { useQuery } from '@tanstack/react-query';
 import ClassCard from './ClassCard';
+import styles from './Main.module.css';
 
 export default function Main() {
   const { user } = useAuthContext();
@@ -18,7 +19,7 @@ export default function Main() {
   return (
     <>
       {classes && (
-        <ul>
+        <ul className={styles['class-list']}>
           {classes.myClasses.map((myClass) => (
             <ClassCard key={myClass} code={myClass} />
           ))}

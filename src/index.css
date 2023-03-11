@@ -39,6 +39,8 @@ body {
 #root {
   width: 100%;
   max-width: 48rem;
+  height: 100vh;
+  overflow-x: hidden;
   background-color: var(--color-white);
 }
 
