@@ -1,18 +1,18 @@
 import React from 'react';
-import useCreateClass from './hooks/useCreateClass';
+import useAddClass from './hooks/useAddClass';
 import styles from './addForm.module.css';
 
 export default function CreateForm() {
-  const { createInfo, handleChange, handleSubmit } = useCreateClass();
+  const { info, handleChange, handleCreateSubmit } = useAddClass();
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleCreateSubmit} className={styles.form}>
         <div className={styles['input-box']}>
           <input
             type="text"
             name="title"
-            value={createInfo.title ?? ''}
+            value={info.title ?? ''}
             onChange={handleChange}
             required
           />
@@ -22,7 +22,7 @@ export default function CreateForm() {
           <input
             type="text"
             name="bank"
-            value={createInfo.bank ?? ''}
+            value={info.bank ?? ''}
             onChange={handleChange}
             required
           />
@@ -32,7 +32,7 @@ export default function CreateForm() {
           <input
             type="text"
             name="number"
-            value={createInfo.number ?? ''}
+            value={info.number ?? ''}
             onChange={handleChange}
             required
           />
