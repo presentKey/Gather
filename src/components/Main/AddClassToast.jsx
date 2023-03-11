@@ -3,6 +3,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import styles from './AddClassToast.module.css';
 import CreateForm from './CreateForm';
 import useToggleContent from './hooks/useToggleContent';
+import ParticipationForm from './ParticipationForm';
 
 export default function AddClassToast() {
   const [content, handleContent] = useToggleContent();
@@ -31,7 +32,7 @@ export default function AddClassToast() {
         </button>
       </div>
       {content.create && <CreateForm />}
-      {content.participation && <CreateForm />}
+      {content.participation && <ParticipationForm />}
     </aside>
   );
 }

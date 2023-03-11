@@ -83,8 +83,29 @@ export async function createClass(uid, info) {
   batch.set(codeRef, {
     title,
     account: { bank, number },
-    memebers: [uid],
+    members: [uid],
     total: 0,
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayUnion(code),
+  });
+
+  await batch.commit();
+}
+
+export async function participationClass(uid, info) {
+  const { code } = info;
+  const docRef = doc(db, 'classes', code);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) throw new Error('코드가 잘못되었습니다.');
+
+  const batch = writeBatch(db);
+  const codeRef = doc(db, 'classes', code);
+  batch.update(codeRef, {
+    members: arrayUnion(uid),
   });
 
   const uidRef = doc(db, 'members', uid);

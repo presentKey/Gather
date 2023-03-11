@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthContext } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { createClass } from '../../../api/firebase';
+import { createClass, participationClass } from '../../../api/firebase';
 
 export default function useAddClass() {
   const [info, setInfo] = useState({});
@@ -18,5 +18,12 @@ export default function useAddClass() {
     createClass(user.uid, info).then(() => navigate('/class'));
   };
 
-  return { info, handleChange, handleCreateSubmit };
+  const handleParticipationSubmit = (e) => {
+    e.preventDefault();
+    participationClass(user.uid, info)
+      .then(() => navigate('/class'))
+      .catch((error) => console.log(error.message));
+  };
+
+  return { info, handleChange, handleCreateSubmit, handleParticipationSubmit };
 }
