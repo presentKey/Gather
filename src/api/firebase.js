@@ -68,13 +68,15 @@ async function saveMemberInDB(uid, isAnonymous) {
   const docData = {
     uid,
     isAnonymous,
+    myClasses: [],
   };
   const memberRef = doc(db, 'members', uid);
 
   await setDoc(memberRef, docData);
 }
 
-export async function createClass(uid, info) {
+export async function createClass(user, info) {
+  const { uid, photoURL } = user;
   const { title, bank, number } = info;
   const code = generateCode();
   const batch = writeBatch(db);
@@ -83,7 +85,7 @@ export async function createClass(uid, info) {
   batch.set(codeRef, {
     title,
     account: { bank, number },
-    members: [uid],
+    members: [{ uid, photoURL }],
     total: 0,
   });
 
@@ -95,7 +97,8 @@ export async function createClass(uid, info) {
   await batch.commit();
 }
 
-export async function participationClass(uid, info) {
+export async function participationClass(user, info) {
+  const { uid, photoURL } = user;
   const { code } = info;
   const docRef = doc(db, 'classes', code);
   const docSnap = await getDoc(docRef);
@@ -105,7 +108,7 @@ export async function participationClass(uid, info) {
   const batch = writeBatch(db);
   const codeRef = doc(db, 'classes', code);
   batch.update(codeRef, {
-    members: arrayUnion(uid),
+    members: arrayUnion({ uid, photoURL }),
   });
 
   const uidRef = doc(db, 'members', uid);
@@ -120,12 +123,20 @@ export async function getClassList(uid) {
   const docRef = doc(db, 'members', uid);
   const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) return docSnap.data();
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+
+  return null;
 }
 
 export async function getClassDetail(code) {
   const docRef = doc(db, 'classes', code);
   const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) return docSnap.data();
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+
+  return null;
 }

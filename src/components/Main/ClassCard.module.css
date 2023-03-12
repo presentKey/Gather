@@ -52,10 +52,23 @@
   width: 16.25rem;
 }
 
+.member-content {
+  display: flex;
+  align-items: center;
+  order: 3;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.member-list {
+  display: flex;
+  margin-right: 0.25rem;
+}
+
 .right {
   display: flex;
   justify-content: flex-end;
-  order: 3;
+  order: 4;
   font-weight: 700;
 }
 

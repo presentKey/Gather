@@ -15,12 +15,12 @@ export default function useAddClass() {
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
-    createClass(user.uid, info).then(() => navigate('/class'));
+    createClass(user, info).then(() => navigate('/class'));
   };
 
   const handleParticipationSubmit = (e) => {
     e.preventDefault();
-    participationClass(user.uid, info)
+    participationClass(user, info)
       .then(() => navigate('/class'))
       .catch((error) => console.log(error.message));
   };
