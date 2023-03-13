@@ -12,6 +12,10 @@
 
   /* Size */
   --side-padding: 1rem;
+
+  /* z-index */
+  --overlay-level: 100;
+  --add-class-toast: 110;
 }
 
 * {
