@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getClassDetail } from '../../api/firebase';
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../common/Avatar/Avatar';
 import styles from './ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
