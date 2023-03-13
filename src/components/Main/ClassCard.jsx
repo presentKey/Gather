@@ -1,20 +1,15 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getClassDetail } from '../../api/firebase';
 import Avatar from '../common/Avatar/Avatar';
 import styles from './ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
 import LoadingCard from './LoadingCard';
+import useClass from './hooks/useClass';
 
 export default function ClassCard({ code }) {
-  const { isLoading, data: myClass } = useQuery(
-    ['myClass', code],
-    () => getClassDetail(code),
-    {
-      staleTime: 1000 * 60 * 60,
-    }
-  );
+  const {
+    classDetailQuery: { isLoading, data: myClass },
+  } = useClass(code);
 
   if (isLoading) return <LoadingCard />;
   const [members, overLength] = showMax7Members(myClass.members);

@@ -1,10 +1,10 @@
 import React from 'react';
-import useAddClass from './hooks/useAddClass';
+import useClass from './hooks/useClass';
 import styles from './addForm.module.css';
 
 export default function CreateForm() {
   const { info, isLoading, error, handleChange, handleCreateSubmit } =
-    useAddClass();
+    useClass();
 
   return (
     <>
