@@ -69,7 +69,7 @@
   margin-right: 0.25rem;
 }
 
-.right {
+.amount {
   display: flex;
   justify-content: flex-end;
   order: 4;

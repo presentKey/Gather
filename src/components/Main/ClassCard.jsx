@@ -37,7 +37,7 @@ export default function ClassCard({ code }) {
               </ul>
               {overLength !== 0 && <b>+{overLength}</b>}
             </div>
-            <div className={styles['right']}>
+            <div className={styles.amount}>
               <span
                 className={styles.total}
               >{`${myClass.total.toLocaleString()}원`}</span>
