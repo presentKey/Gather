@@ -26,5 +26,9 @@ export default function useToggleContent() {
     }
   };
 
-  return [content, handleContent];
+  const handleClose = () => {
+    setContent({ create: false, participation: false });
+  };
+
+  return [content, handleContent, handleClose];
 }
