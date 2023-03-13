@@ -78,6 +78,11 @@ async function saveMemberInDB(uid, isAnonymous) {
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number } = info;
+
+  if (!title || !bank || !number) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
   const code = generateCode();
   const batch = writeBatch(db);
 
@@ -100,10 +105,17 @@ export async function createClass(user, info) {
 export async function participationClass(user, info) {
   const { uid, photoURL } = user;
   const { code } = info;
+
+  if (!code) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
   const docRef = doc(db, 'classes', code);
   const docSnap = await getDoc(docRef);
 
-  if (!docSnap.exists()) throw new Error('코드가 잘못되었습니다.');
+  if (!docSnap.exists()) {
+    throw new Error('코드가 잘못되었습니다.');
+  }
 
   const batch = writeBatch(db);
   const codeRef = doc(db, 'classes', code);

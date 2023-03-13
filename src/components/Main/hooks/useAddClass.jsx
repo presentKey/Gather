@@ -18,7 +18,15 @@ export default function useAddClass() {
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    createClass(user, info).then(() => navigate('/class'));
+    createClass(user, info)
+      .then(() => navigate('/class'))
+      .catch(() => {
+        setError(true);
+        setIsLoading(false);
+        setTimeout(() => {
+          setError(false);
+        }, 600);
+      });
   };
 
   const handleParticipationSubmit = (e) => {

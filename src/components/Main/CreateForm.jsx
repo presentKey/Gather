@@ -3,7 +3,8 @@ import useAddClass from './hooks/useAddClass';
 import styles from './addForm.module.css';
 
 export default function CreateForm() {
-  const { info, isLoading, handleChange, handleCreateSubmit } = useAddClass();
+  const { info, isLoading, error, handleChange, handleCreateSubmit } =
+    useAddClass();
 
   return (
     <>
@@ -38,7 +39,12 @@ export default function CreateForm() {
           />
           <span>계좌번호</span>
         </div>
-        <button disabled={isLoading}>모임 생성!</button>
+        <button
+          className={`${error && styles['is-error']}`}
+          disabled={isLoading}
+        >
+          모임 생성!
+        </button>
       </form>
     </>
   );
