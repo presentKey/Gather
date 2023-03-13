@@ -3,7 +3,7 @@ import useAddClass from './hooks/useAddClass';
 import styles from './addForm.module.css';
 
 export default function ParticipationForm() {
-  const { info, error, handleChange, handleParticipationSubmit } =
+  const { info, isLoading, error, handleChange, handleParticipationSubmit } =
     useAddClass();
 
   return (
@@ -21,7 +21,7 @@ export default function ParticipationForm() {
           <span>모임 코드</span>
         </div>
 
-        <button>모임 참여!</button>
+        <button disabled={isLoading}>모임 참여!</button>
       </form>
     </>
   );
