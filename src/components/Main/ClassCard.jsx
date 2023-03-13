@@ -5,6 +5,7 @@ import Avatar from '../common/Avatar/Avatar';
 import styles from './ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
+import LoadingCard from './LoadingCard';
 
 export default function ClassCard({ code }) {
   const { isLoading, data: myClass } = useQuery(
@@ -15,7 +16,7 @@ export default function ClassCard({ code }) {
     }
   );
 
-  if (isLoading) return <p>로딩중</p>;
+  if (isLoading) return <LoadingCard />;
   const [members, overLength] = showMax7Members(myClass.members);
 
   return (
