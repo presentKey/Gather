@@ -5,6 +5,7 @@ import { createClass, participationClass } from '../../../api/firebase';
 
 export default function useAddClass() {
   const [info, setInfo] = useState({});
+  const [error, setError] = useState(false);
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
@@ -22,8 +23,19 @@ export default function useAddClass() {
     e.preventDefault();
     participationClass(user, info)
       .then(() => navigate('/class'))
-      .catch((error) => console.log(error.message));
+      .catch(() => {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 600);
+      });
   };
 
-  return { info, handleChange, handleCreateSubmit, handleParticipationSubmit };
+  return {
+    info,
+    error,
+    handleChange,
+    handleCreateSubmit,
+    handleParticipationSubmit,
+  };
 }

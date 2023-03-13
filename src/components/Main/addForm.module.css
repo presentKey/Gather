@@ -35,6 +35,12 @@
   transform: translate(0.625rem, -7px);
 }
 
+.input-box input.is-error {
+  animation-name: error;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
 .input-box span {
   position: absolute;
   left: 0;
@@ -68,5 +74,25 @@
   .input-box,
   .form button {
     max-width: 25rem;
+  }
+}
+
+@keyframes error {
+  0% {
+    position: relative;
+    left: -1px;
+    border: 2px solid var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    border: 2px solid var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    border: 2px solid var(--color-red);
   }
 }

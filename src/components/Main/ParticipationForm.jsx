@@ -3,13 +3,15 @@ import useAddClass from './hooks/useAddClass';
 import styles from './addForm.module.css';
 
 export default function ParticipationForm() {
-  const { info, handleChange, handleParticipationSubmit } = useAddClass();
+  const { info, error, handleChange, handleParticipationSubmit } =
+    useAddClass();
 
   return (
     <>
       <form onSubmit={handleParticipationSubmit} className={styles.form}>
         <div className={styles['input-box']}>
           <input
+            className={`${error && styles['is-error']}`}
             type="text"
             name="code"
             value={info.code ?? ''}
