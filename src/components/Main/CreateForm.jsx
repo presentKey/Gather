@@ -1,10 +1,11 @@
 import React from 'react';
 import useClass from './hooks/useClass';
 import styles from './addForm.module.css';
+import useInput from '../../hooks/useInput';
 
 export default function CreateForm() {
-  const { info, isLoading, error, handleChange, handleCreateSubmit } =
-    useClass();
+  const [info, handleChange] = useInput();
+  const { isLoading, error, handleCreateSubmit } = useClass(null, info);
 
   return (
     <>

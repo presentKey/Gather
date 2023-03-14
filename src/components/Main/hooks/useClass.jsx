@@ -9,8 +9,7 @@ import {
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function useClass(code) {
-  const [info, setInfo] = useState({});
+export default function useClass(code, info) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const { user } = useAuthContext();
@@ -44,11 +43,6 @@ export default function useClass(code) {
       staleTime: 1000 * 60 * 60,
     }
   );
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInfo((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
@@ -87,12 +81,10 @@ export default function useClass(code) {
   };
 
   return {
-    info,
     isLoading,
     error,
     classListQuery,
     classDetailQuery,
-    handleChange,
     handleCreateSubmit,
     handleParticipationSubmit,
   };

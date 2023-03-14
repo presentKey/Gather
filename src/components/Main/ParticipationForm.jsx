@@ -1,10 +1,11 @@
 import React from 'react';
 import useClass from './hooks/useClass';
 import styles from './addForm.module.css';
+import useInput from '../../hooks/useInput';
 
 export default function ParticipationForm() {
-  const { info, isLoading, error, handleChange, handleParticipationSubmit } =
-    useClass();
+  const [info, handleChange] = useInput();
+  const { isLoading, error, handleParticipationSubmit } = useClass(null, info);
 
   return (
     <>
