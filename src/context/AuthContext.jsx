@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
   googleLogin,
+  googleRedirectResult,
   anonymouseLogin,
   onUserStateChange,
   logout,
@@ -12,12 +13,18 @@ export function AuthContextProvider({ children }) {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    googleRedirectResult();
     onUserStateChange(setUser);
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, googleLogin, anonymouseLogin, logout }}
+      value={{
+        user,
+        googleLogin,
+        anonymouseLogin,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,7 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
+  getRedirectResult,
   signInWithPopup,
+  signInWithRedirect,
   signInAnonymously,
   signOut,
   GoogleAuthProvider,
@@ -16,6 +18,7 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import generateCode from '../utils/generateCode';
+import isMobile from '../utils/isMobile';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -28,12 +31,28 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 export function googleLogin() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const { uid, isAnonymous } = result.user;
-      isMember(uid, isAnonymous);
-    })
-    .catch(console.error);
+  if (isMobile()) {
+    signInWithRedirect(auth, provider);
+  } else {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const { uid, isAnonymous } = result.user;
+        isMember(uid, isAnonymous);
+      })
+      .catch(console.error);
+  }
+}
+
+export function googleRedirectResult() {
+  if (isMobile()) {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (!result) return;
+        const { uid, isAnonymous } = result.user;
+        isMember(uid, isAnonymous);
+      })
+      .catch(console.error);
+  }
 }
 
 export function anonymouseLogin() {
