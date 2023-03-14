@@ -1,0 +1,52 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.125rem;
+  padding: 0 var(--side-padding);
+  background-color: var(--color-brand);
+}
+
+.avatar {
+  width: 1.75em;
+  height: 1.75em;
+  background-color: var(--color-gray);
+  border-radius: 50%;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-yellow);
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2.5rem;
+  transform: translate(-50%, -50%);
+}
+
+.toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 48rem;
+  height: 3.14rem;
+  background-color: var(--color-green-light);
+}
+
+@media screen and (min-width: 48rem) {
+  .toast {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
