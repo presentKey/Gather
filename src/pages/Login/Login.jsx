@@ -1,12 +1,13 @@
 import React from 'react';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi';
-import { useAuthContext } from '../../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import LoadingMain from '../../components/common/LoadingMain/LoadingMain';
+import useLogin from './hooks/useLogin';
 
 export default function Login() {
-  const { user, googleLogin, anonymouseLogin } = useAuthContext();
+  const { isLoading, user, handleGoogleLogin, handleAnonymouseLogin } =
+    useLogin();
 
   if (user === undefined) return <LoadingMain />;
   if (user) return <Navigate to="/" replace />;
@@ -20,15 +21,17 @@ export default function Login() {
       <div className={styles['btn-group']}>
         <button
           className={styles['login-btn']}
-          onClick={googleLogin}
+          onClick={handleGoogleLogin}
           type="button"
+          disabled={isLoading}
         >
           로그인
         </button>
         <button
           className={styles['guest-btn']}
-          onClick={anonymouseLogin}
+          onClick={handleAnonymouseLogin}
           type="button"
+          disabled={isLoading}
         >
           게스트
         </button>
