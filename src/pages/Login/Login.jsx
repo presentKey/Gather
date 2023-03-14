@@ -3,11 +3,12 @@ import { HiOutlineCurrencyDollar } from 'react-icons/hi';
 import { useAuthContext } from '../../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import LoadingMain from '../../components/common/LoadingMain/LoadingMain';
 
 export default function Login() {
   const { user, googleLogin, anonymouseLogin } = useAuthContext();
 
-  if (user === undefined) return <></>;
+  if (user === undefined) return <LoadingMain />;
   if (user) return <Navigate to="/" replace />;
 
   return (
