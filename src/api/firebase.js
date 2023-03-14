@@ -7,7 +7,15 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  arrayUnion,
+  writeBatch,
+} from 'firebase/firestore';
+import generateCode from '../utils/generateCode';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -60,8 +68,87 @@ async function saveMemberInDB(uid, isAnonymous) {
   const docData = {
     uid,
     isAnonymous,
+    myClasses: [],
   };
   const memberRef = doc(db, 'members', uid);
 
   await setDoc(memberRef, docData);
+}
+
+export async function createClass(user, info) {
+  const { uid, photoURL } = user;
+  const { title, bank, number } = info;
+
+  if (!title || !bank || !number) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
+  const code = generateCode();
+  const batch = writeBatch(db);
+
+  const codeRef = doc(db, 'classes', code);
+  batch.set(codeRef, {
+    title,
+    account: { bank, number },
+    members: [{ uid, photoURL }],
+    total: 0,
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayUnion(code),
+  });
+
+  await batch.commit();
+}
+
+export async function participationClass(user, info) {
+  const { uid, photoURL } = user;
+  const { code } = info;
+
+  if (!code) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
+  const docRef = doc(db, 'classes', code);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) {
+    throw new Error('코드가 잘못되었습니다.');
+  }
+
+  const batch = writeBatch(db);
+  const codeRef = doc(db, 'classes', code);
+  batch.update(codeRef, {
+    members: arrayUnion({ uid, photoURL }),
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayUnion(code),
+  });
+
+  await batch.commit();
+}
+
+export async function getClassList(uid) {
+  const docRef = doc(db, 'members', uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+
+  return null;
+}
+
+export async function getClassDetail(code) {
+  const docRef = doc(db, 'classes', code);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+
+  return null;
 }

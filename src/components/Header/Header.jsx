@@ -2,7 +2,7 @@ import React from 'react';
 import { ImExit } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../common/Avatar/Avatar';
 import styles from './Header.module.css';
 
 export default function Header() {

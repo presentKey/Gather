@@ -1,0 +1,10 @@
+.class-list {
+  margin-bottom: 3.125rem;
+}
+
+@media screen and (min-width: 48rem) {
+  .class-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

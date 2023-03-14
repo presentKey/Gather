@@ -5,12 +5,17 @@
   --color-green: #a6bb8d;
   --color-green-light: #eae7b1;
   --color-red: #da0037;
-  --color-gray: #ededed;
+  --color-gray: #d3d3d3;
+  --color-gray-light: #ededed;
   --color-black: #171717;
   --color-white: #fff;
 
   /* Size */
   --side-padding: 1rem;
+
+  /* z-index */
+  --overlay-level: 100;
+  --add-class-toast: 110;
 }
 
 * {
@@ -32,12 +37,14 @@ body {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: var(--color-gray);
+  background-color: var(--color-gray-light);
 }
 
 #root {
   width: 100%;
   max-width: 48rem;
+  height: 100vh;
+  overflow-x: hidden;
   background-color: var(--color-white);
 }
 
