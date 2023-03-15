@@ -6,6 +6,7 @@ import {
   getClassDetail,
   getClassList,
   participationClass,
+  updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -24,6 +25,13 @@ export default function useClass(code, info) {
     ({ user, info }) => participationClass(user, info),
     {
       onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+    }
+  );
+
+  const updateHeader = useMutation(
+    ({ code, info }) => updateClassHeader(code, info),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['myClass', code]),
     }
   );
 
@@ -80,6 +88,23 @@ export default function useClass(code, info) {
     );
   };
 
+  const handleUpdateHeader = (onModifyBtnClick) => {
+    setIsLoading(true);
+    updateHeader.mutate(
+      { code, info },
+      {
+        onSuccess: () => onModifyBtnClick(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
+      }
+    );
+  };
+
   return {
     isLoading,
     error,
@@ -87,5 +112,6 @@ export default function useClass(code, info) {
     classDetailQuery,
     handleCreateSubmit,
     handleParticipationSubmit,
+    handleUpdateHeader,
   };
 }

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ModificationHeader.module.css';
 import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
 import useInput from '../../hooks/useInput';
-import { updateClassHeader } from '../../api/firebase';
 import isInputLengthZero from '../../utils/isInputLengthZero';
+import useClass from '../../components/Main/hooks/useClass';
 
 export default function ModificationHeader({
   code,
@@ -14,20 +14,7 @@ export default function ModificationHeader({
 }) {
   const { bank, number } = account;
   const [info, handleChange] = useInput({ title, bank, number, total });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const handleUpdateHeader = () => {
-    setIsLoading(true);
-    updateClassHeader(code, info)
-      .then(() => {
-        onModifyBtnClick();
-      })
-      .catch(() => {
-        setError(true);
-        setTimeout(() => setError(false), 600);
-      })
-      .finally(() => setIsLoading(false));
-  };
+  const { isLoading, error, handleUpdateHeader } = useClass(code, info);
 
   return (
     <header className={styles.header}>
@@ -75,7 +62,7 @@ export default function ModificationHeader({
         className={`${styles['modify-btn']} ${error && styles['is-error']}`}
         type="button"
         disabled={isLoading}
-        onClick={handleUpdateHeader}
+        onClick={() => handleUpdateHeader(onModifyBtnClick)}
       >
         수정하기
       </button>
