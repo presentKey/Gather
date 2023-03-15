@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './DetailHeader.module.css';
+import styles from './ShowHeader.module.css';
 import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
