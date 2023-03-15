@@ -93,7 +93,12 @@ export default function useClass(code, info) {
     updateHeader.mutate(
       { code, info },
       {
-        onSuccess: () => onModifyBtnClick(),
+        onSuccess: () => {
+          const { title, bank, number, total } = info;
+          const detail = { title, account: { bank, number }, total };
+          onModifyBtnClick();
+          navigate('/detail', { state: { code, detail } });
+        },
         onError: () => {
           setError(true);
           setTimeout(() => {
