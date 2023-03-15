@@ -1,0 +1,77 @@
+.header {
+  position: relative;
+  padding: var(--side-padding);
+  margin: calc(0px - var(--side-padding)) calc(0px - var(--side-padding)) 0;
+  background: rgb(166, 187, 141);
+  background: linear-gradient(
+    160deg,
+    rgba(166, 187, 141, 1) 0%,
+    rgba(234, 231, 177, 1) 100%
+  );
+  border-bottom: 2px solid var(--color-brand);
+}
+
+.header input {
+  background-color: var(--color-white);
+  border-radius: 8px;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+}
+
+.bank-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.bank-icon {
+  padding: 0.1rem;
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+  border-radius: 50%;
+  transform: rotate(90deg);
+}
+
+.bank {
+  margin-right: 0.25rem;
+}
+
+.amount {
+  display: flex;
+  align-items: center;
+}
+
+.total {
+  font-weight: 400;
+}
+
+.money-icon {
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+  border-radius: 50%;
+}
+
+.bank-icon,
+.money-icon {
+  margin-right: 0.25rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+  border-radius: 50%;
+}
+
+.bank-icon {
+  padding: 0.1rem;
+  transform: rotate(90deg);
+}
+
+.money-icon {
+  margin-right: 0.25rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+}
