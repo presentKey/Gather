@@ -5,7 +5,7 @@ import ModificationHeader from './ModificationHeader';
 
 export default function Detail() {
   let {
-    state: { detail },
+    state: { code, detail },
   } = useLocation();
   const [isModification, setIsModification] = useState(false);
   const handleModifyBtnClick = () => setIsModification(!isModification);
@@ -20,6 +20,7 @@ export default function Detail() {
       )}
       {isModification && (
         <ModificationHeader
+          code={code}
           headerInfo={detail}
           onModifyBtnClick={handleModifyBtnClick}
         />

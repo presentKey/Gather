@@ -14,6 +14,7 @@ import {
   doc,
   setDoc,
   getDoc,
+  updateDoc,
   arrayUnion,
   writeBatch,
 } from 'firebase/firestore';
@@ -170,4 +171,29 @@ export async function getClassDetail(code) {
   }
 
   return null;
+}
+
+export async function updateClassHeader(code, info) {
+  const { title, bank, number, total } = info;
+  const amount = parseInt(total, 10);
+
+  if (
+    title.trim().length === 0 ||
+    bank.trim().length === 0 ||
+    number.trim().length === 0
+  ) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
+  if (Number.isNaN(amount)) {
+    throw new Error('숫자가 아닙니다.');
+  }
+
+  const classRef = doc(db, 'classes', code);
+
+  await updateDoc(classRef, {
+    account: { bank, number },
+    title,
+    total: amount,
+  });
 }

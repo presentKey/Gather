@@ -18,6 +18,12 @@
   border-radius: 8px;
 }
 
+.header input.is-error {
+  animation-name: error-input-border;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
 .header input:focus {
   border: 2px solid var(--color-brand);
 }
@@ -114,6 +120,52 @@
   background-color: var(--color-yellow);
 }
 
+.modify-btn.is-error {
+  animation-name: error-button-text;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
 .cancel-btn {
   background-color: var(--color-gray-light);
+}
+
+@keyframes error-button-text {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    color: var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    color: var(--color-red);
+  }
+}
+
+@keyframes error-input-border {
+  0% {
+    position: relative;
+    left: -1px;
+    border: 2px solid var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    border: 2px solid var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    border: 2px solid var(--color-red);
+  }
 }
