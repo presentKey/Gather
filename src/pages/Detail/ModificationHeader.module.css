@@ -12,8 +12,20 @@
 }
 
 .header input {
+  padding: 0.25rem;
   background-color: var(--color-white);
+  border: 2px solid transparent;
   border-radius: 8px;
+}
+
+.header input:focus {
+  border: 2px solid var(--color-brand);
+}
+
+.header input::-webkit-inner-spin-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .title {
@@ -23,10 +35,11 @@
 .bank-group {
   display: flex;
   align-items: center;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .bank-icon {
+  flex-shrink: 0;
   padding: 0.1rem;
   margin-right: 0.25rem;
   font-size: 1.5rem;
@@ -37,12 +50,18 @@
 }
 
 .bank {
+  width: 4rem;
   margin-right: 0.25rem;
+}
+
+.number {
+  width: 11rem;
 }
 
 .amount {
   display: flex;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .total {
@@ -74,4 +93,27 @@
   margin-right: 0.25rem;
   color: var(--color-white);
   background-color: var(--color-brand);
+}
+
+.modify-btn,
+.cancel-btn {
+  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  border: 2px solid var(--color-brand);
+  border-radius: 8px;
+  transition: filter 200ms ease;
+}
+
+.modify-btn:hover,
+.cancel-btn:hover {
+  filter: brightness(1.05);
+}
+
+.modify-btn {
+  margin-right: 0.5rem;
+  background-color: var(--color-yellow);
+}
+
+.cancel-btn {
+  background-color: var(--color-gray-light);
 }
