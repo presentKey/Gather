@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './DetailHeader.module.css';
-import { IoMdBook, IoMdSettings } from 'react-icons/io';
+import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
+import SettingMenu from './SettingMenu';
 
 export default function DetailHeader({
   headerInfo: { title, account, total },
@@ -18,9 +19,7 @@ export default function DetailHeader({
         <CiCoinInsert className={styles['money-icon']} />
         <strong className={styles.total}>{total.toLocaleString()}원</strong>
       </div>
-      <button className={styles['setting-btn']}>
-        <IoMdSettings className={styles['setting-icon']} />
-      </button>
+      <SettingMenu />
     </header>
   );
 }

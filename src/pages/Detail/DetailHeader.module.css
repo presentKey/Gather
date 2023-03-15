@@ -70,24 +70,3 @@
   color: var(--color-white);
   background-color: var(--color-brand);
 }
-
-.setting-btn {
-  position: absolute;
-  top: calc(1rem - 0.5rem);
-  right: calc(1rem - 0.5rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  font-size: 1.5rem;
-}
-
-.setting-icon {
-  color: var(--color-gray);
-  filter: drop-shadow(0 0 1px #000);
-  transition: transform 300ms ease;
-}
-
-.setting-btn:active .setting-icon {
-  transform: rotate(90deg);
-}
