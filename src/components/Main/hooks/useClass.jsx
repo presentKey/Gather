@@ -5,6 +5,7 @@ import {
   createClass,
   getClassDetail,
   getClassList,
+  leaveClass,
   participationClass,
   updateClassHeader,
 } from '../../../api/firebase';
@@ -32,6 +33,13 @@ export default function useClass(code, info) {
     ({ code, info }) => updateClassHeader(code, info),
     {
       onSuccess: () => queryClient.invalidateQueries(['myClass', code]),
+    }
+  );
+
+  const leave = useMutation(
+    ({ code, user, members }) => leaveClass(code, user, members),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['myClasses', code]),
     }
   );
 
@@ -110,6 +118,21 @@ export default function useClass(code, info) {
     );
   };
 
+  const handleLeaveClass = (detail, onToggleModal) => {
+    const { members } = detail;
+    setIsLoading(true);
+    leave.mutate(
+      { code, user, members },
+      {
+        onSuccess: () => navigate('/'),
+        onSettled: () => {
+          setIsLoading(false);
+          onToggleModal();
+        },
+      }
+    );
+  };
+
   return {
     isLoading,
     error,
@@ -118,5 +141,6 @@ export default function useClass(code, info) {
     handleCreateSubmit,
     handleParticipationSubmit,
     handleUpdateHeader,
+    handleLeaveClass,
   };
 }

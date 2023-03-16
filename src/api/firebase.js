@@ -16,6 +16,7 @@ import {
   getDoc,
   updateDoc,
   arrayUnion,
+  arrayRemove,
   writeBatch,
 } from 'firebase/firestore';
 import generateCode from '../utils/generateCode';
@@ -196,4 +197,27 @@ export async function updateClassHeader(code, info) {
     title,
     total: amount,
   });
+}
+
+export async function leaveClass(code, user, members) {
+  const { uid } = user;
+  const leaveMember = members.find((member) => member.uid === uid);
+
+  if (!leaveMember) {
+    throw new Error('존재하지 않는 멤버입니다.');
+  }
+
+  const batch = writeBatch(db);
+
+  const codeRef = doc(db, 'classes', code);
+  batch.update(codeRef, {
+    members: arrayRemove(leaveMember),
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayRemove(code),
+  });
+
+  await batch.commit();
 }
