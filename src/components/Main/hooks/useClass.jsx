@@ -32,14 +32,15 @@ export default function useClass(code, info) {
   const updateHeader = useMutation(
     ({ code, info }) => updateClassHeader(code, info),
     {
-      onSuccess: () => queryClient.invalidateQueries(['myClass', code]),
+      onSuccess: () =>
+        queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
   const leave = useMutation(
     ({ code, user, members }) => leaveClass(code, user, members),
     {
-      onSuccess: () => queryClient.invalidateQueries(['myClasses', code]),
+      onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
     }
   );
 
@@ -52,7 +53,7 @@ export default function useClass(code, info) {
   );
 
   const classDetailQuery = useQuery(
-    ['myClass', code],
+    ['myClass', code, user.uid],
     () => getClassDetail(code),
     {
       enabled: !!code,
