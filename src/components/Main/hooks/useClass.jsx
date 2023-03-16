@@ -58,7 +58,7 @@ export default function useClass(code, info) {
     create.mutate(
       { user, info },
       {
-        onSuccess: () => navigate('/class'),
+        onSuccess: () => navigate('/detail'),
         onError: () => {
           setError(true);
           setTimeout(() => {
@@ -76,7 +76,7 @@ export default function useClass(code, info) {
     participation.mutate(
       { user, info },
       {
-        onSuccess: () => navigate('/class'),
+        onSuccess: () => navigate('/detail'),
         onError: () => {
           setError(true);
           setTimeout(() => {
