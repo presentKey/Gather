@@ -16,6 +16,7 @@
   /* z-index */
   --overlay-level: 100;
   --add-class-toast: 110;
+  --confirm-modal-level: 120;
 }
 
 * {
