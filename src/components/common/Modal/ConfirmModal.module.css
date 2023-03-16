@@ -15,10 +15,16 @@
   transform: translate(-50%, -50%);
 }
 
-.message {
+.message-group {
   display: flex;
   flex-basis: 70%;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.message {
+  margin-bottom: 0.25rem;
 }
 
 .btn-group {

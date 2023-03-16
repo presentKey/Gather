@@ -12,7 +12,8 @@ import styles from './SettingMenu.module.css';
 
 export default function SettingMenu({ onModifyBtnClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
-  const [toggleModal, handleToggleModal] = useModal();
+  const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
+  const [toggleFriendModal, handleToggleFriendModal] = useModal();
   const {
     state: { code, detail },
   } = useLocation();
@@ -20,31 +21,56 @@ export default function SettingMenu({ onModifyBtnClick }) {
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
-      <button onClick={handleToggleMenu} className={styles['setting-btn']}>
+      <button
+        className={styles['setting-btn']}
+        type="button"
+        onClick={handleToggleMenu}
+      >
         <IoMdSettings className={styles['setting-icon']} />
       </button>
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>
           <li className={styles['menu-item']}>
-            <button type="button" onClick={onModifyBtnClick}>
-              수정
+            <button type="button" onClick={handleToggleFriendModal}>
+              친구 초대
             </button>
           </li>
           <li className={styles['menu-item']}>
-            <button type="button" onClick={handleToggleModal}>
+            <button type="button" onClick={onModifyBtnClick}>
+              모임 수정
+            </button>
+          </li>
+          <li className={styles['menu-item']}>
+            <button type="button" onClick={handleToggleLeaveModal}>
               모임 나가기
             </button>
           </li>
         </ul>
       </div>
-      {toggleModal && (
+      {toggleLeaveModal && (
         <OverlayPortal>
-          <Overlay onClose={handleToggleModal} />
+          <Overlay onClose={handleToggleLeaveModal} />
           <ModalPortal>
             <ConfirmModal
+              message={'모임에서 나가시겠습니까?'}
+              btnText={'모임 나가기'}
               detail={detail}
               onConfirm={handleLeaveClass}
-              onClose={handleToggleModal}
+              onClose={handleToggleLeaveModal}
+            />
+          </ModalPortal>
+        </OverlayPortal>
+      )}
+      {toggleFriendModal && (
+        <OverlayPortal>
+          <Overlay onClose={handleToggleFriendModal} />
+          <ModalPortal>
+            <ConfirmModal
+              message={'친구에게 코드를 공유해주세요!'}
+              code={code}
+              btnText={'코드 복사'}
+              onConfirm={handleLeaveClass}
+              onClose={handleToggleFriendModal}
             />
           </ModalPortal>
         </OverlayPortal>

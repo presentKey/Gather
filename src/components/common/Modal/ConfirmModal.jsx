@@ -1,17 +1,28 @@
 import React from 'react';
+import clipboard from '../../../utils/clipboard';
 import styles from './ConfirmModal.module.css';
 
-export default function ConfirmModal({ detail, onConfirm, onClose }) {
+export default function ConfirmModal({
+  message,
+  code,
+  btnText,
+  detail,
+  onConfirm,
+  onClose,
+}) {
   return (
     <aside className={styles.modal}>
-      <p className={styles.message}>모임에서 나가시겠습니까?</p>
+      <div className={styles['message-group']}>
+        <p className={styles.message}>{message}</p>
+        {code && <strong>{code}</strong>}
+      </div>
       <div className={styles['btn-group']}>
         <button
           className={styles['confirm-btn']}
           type="button"
-          onClick={() => onConfirm(detail, onClose)}
+          onClick={() => clipboard(code, onClose)}
         >
-          모임 나가기
+          {btnText}
         </button>
         <button
           className={styles['cancel-btn']}
