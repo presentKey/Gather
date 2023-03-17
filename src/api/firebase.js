@@ -14,7 +14,9 @@ import {
   doc,
   setDoc,
   getDoc,
+  updateDoc,
   arrayUnion,
+  arrayRemove,
   writeBatch,
 } from 'firebase/firestore';
 import generateCode from '../utils/generateCode';
@@ -170,4 +172,52 @@ export async function getClassDetail(code) {
   }
 
   return null;
+}
+
+export async function updateClassHeader(code, info) {
+  const { title, bank, number, total } = info;
+  const amount = parseInt(total, 10);
+
+  if (
+    title.trim().length === 0 ||
+    bank.trim().length === 0 ||
+    number.trim().length === 0
+  ) {
+    throw new Error('정보가 누락되었습니다.');
+  }
+
+  if (Number.isNaN(amount)) {
+    throw new Error('숫자가 아닙니다.');
+  }
+
+  const classRef = doc(db, 'classes', code);
+
+  await updateDoc(classRef, {
+    account: { bank, number },
+    title,
+    total: amount,
+  });
+}
+
+export async function leaveClass(code, user, members) {
+  const { uid } = user;
+  const leaveMember = members.find((member) => member.uid === uid);
+
+  if (!leaveMember) {
+    throw new Error('존재하지 않는 멤버입니다.');
+  }
+
+  const batch = writeBatch(db);
+
+  const codeRef = doc(db, 'classes', code);
+  batch.update(codeRef, {
+    members: arrayRemove(leaveMember),
+  });
+
+  const uidRef = doc(db, 'members', uid);
+  batch.update(uidRef, {
+    myClasses: arrayRemove(code),
+  });
+
+  await batch.commit();
 }

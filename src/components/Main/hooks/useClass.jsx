@@ -5,7 +5,9 @@ import {
   createClass,
   getClassDetail,
   getClassList,
+  leaveClass,
   participationClass,
+  updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -27,6 +29,21 @@ export default function useClass(code, info) {
     }
   );
 
+  const updateHeader = useMutation(
+    ({ code, info }) => updateClassHeader(code, info),
+    {
+      onSuccess: () =>
+        queryClient.invalidateQueries(['myClass', code, user.uid]),
+    }
+  );
+
+  const leave = useMutation(
+    ({ code, user, members }) => leaveClass(code, user, members),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+    }
+  );
+
   const classListQuery = useQuery(
     ['myClasses', user.uid],
     () => getClassList(user.uid),
@@ -36,7 +53,7 @@ export default function useClass(code, info) {
   );
 
   const classDetailQuery = useQuery(
-    ['myClass', code],
+    ['myClass', code, user.uid],
     () => getClassDetail(code),
     {
       enabled: !!code,
@@ -50,7 +67,7 @@ export default function useClass(code, info) {
     create.mutate(
       { user, info },
       {
-        onSuccess: () => navigate('/class'),
+        onSuccess: () => navigate('/detail'),
         onError: () => {
           setError(true);
           setTimeout(() => {
@@ -68,7 +85,7 @@ export default function useClass(code, info) {
     participation.mutate(
       { user, info },
       {
-        onSuccess: () => navigate('/class'),
+        onSuccess: () => navigate('/detail'),
         onError: () => {
           setError(true);
           setTimeout(() => {
@@ -80,6 +97,43 @@ export default function useClass(code, info) {
     );
   };
 
+  const handleUpdateHeader = (onModifyBtnClick) => {
+    setIsLoading(true);
+    updateHeader.mutate(
+      { code, info },
+      {
+        onSuccess: () => {
+          const { title, bank, number, total } = info;
+          const detail = { title, account: { bank, number }, total };
+          onModifyBtnClick();
+          navigate('/detail', { state: { code, detail } });
+        },
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
+      }
+    );
+  };
+
+  const handleLeaveClass = (detail, onToggleModal) => {
+    const { members } = detail;
+    setIsLoading(true);
+    leave.mutate(
+      { code, user, members },
+      {
+        onSuccess: () => navigate('/'),
+        onSettled: () => {
+          setIsLoading(false);
+          onToggleModal();
+        },
+      }
+    );
+  };
+
   return {
     isLoading,
     error,
@@ -87,5 +141,7 @@ export default function useClass(code, info) {
     classDetailQuery,
     handleCreateSubmit,
     handleParticipationSubmit,
+    handleUpdateHeader,
+    handleLeaveClass,
   };
 }

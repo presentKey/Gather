@@ -17,7 +17,11 @@ export default function ClassCard({ code }) {
   return (
     <>
       {myClass && (
-        <Link to="/class" className={styles.card}>
+        <Link
+          to="/detail"
+          state={{ code, detail: myClass }}
+          className={styles.card}
+        >
           <li className={styles['card-list']}>
             <h2 className={styles.title}>{myClass.title}</h2>
             <dl>

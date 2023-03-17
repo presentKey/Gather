@@ -1,0 +1,174 @@
+.header {
+  position: relative;
+  padding: var(--side-padding);
+  margin: calc(0px - var(--side-padding)) calc(0px - var(--side-padding)) 0;
+  background: rgb(166, 187, 141);
+  background: linear-gradient(
+    160deg,
+    rgba(166, 187, 141, 1) 0%,
+    rgba(234, 231, 177, 1) 100%
+  );
+  border-bottom: 2px solid var(--color-brand);
+}
+
+.header input {
+  padding: 0.25rem;
+  background-color: var(--color-white);
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.header input.is-error {
+  animation-name: error-input-border;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
+.header input:focus {
+  border: 2px solid var(--color-brand);
+}
+
+.header input::-webkit-inner-spin-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+}
+
+.bank-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.bank-icon {
+  flex-shrink: 0;
+  padding: 0.1rem;
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  border-radius: 50%;
+  transform: rotate(90deg);
+}
+
+.bank {
+  width: 4rem;
+  margin-right: 0.25rem;
+}
+
+.number {
+  width: 11rem;
+}
+
+.amount {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.total {
+  font-weight: 400;
+}
+
+.money-icon {
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+.bank-icon,
+.money-icon {
+  margin-right: 0.25rem;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  filter: drop-shadow(0 0 2px #3c6255);
+  border-radius: 50%;
+}
+
+.bank-icon {
+  padding: 0.1rem;
+  transform: rotate(90deg);
+}
+
+.money-icon {
+  margin-right: 0.25rem;
+}
+
+.modify-btn,
+.cancel-btn {
+  padding: 0.25rem 0.5rem;
+  font-weight: 700;
+  border: 2px solid var(--color-brand);
+  border-radius: 8px;
+  transition: filter 200ms ease;
+}
+
+.modify-btn:hover,
+.cancel-btn:hover {
+  filter: brightness(1.05);
+}
+
+.modify-btn {
+  margin-right: 0.5rem;
+  background-color: var(--color-yellow);
+}
+
+.modify-btn.is-error {
+  animation-name: error-button-text;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
+.cancel-btn {
+  background-color: var(--color-gray-light);
+}
+
+@media screen and (min-width: 48rem) {
+  .modify-btn,
+  .cancel-btn {
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes error-button-text {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    color: var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    color: var(--color-red);
+  }
+}
+
+@keyframes error-input-border {
+  0% {
+    position: relative;
+    left: -1px;
+    border: 2px solid var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    border: 2px solid var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    border: 2px solid var(--color-red);
+  }
+}
