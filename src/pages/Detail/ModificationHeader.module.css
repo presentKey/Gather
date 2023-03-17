@@ -50,7 +50,6 @@
   margin-right: 0.25rem;
   font-size: 1.5rem;
   color: var(--color-white);
-  background-color: var(--color-brand);
   border-radius: 50%;
   transform: rotate(90deg);
 }
@@ -77,16 +76,15 @@
 .money-icon {
   margin-right: 0.25rem;
   font-size: 1.5rem;
-  color: var(--color-white);
-  background-color: var(--color-brand);
   border-radius: 50%;
 }
 
 .bank-icon,
 .money-icon {
   margin-right: 0.25rem;
-  color: var(--color-white);
-  background-color: var(--color-brand);
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  filter: drop-shadow(0 0 2px #3c6255);
   border-radius: 50%;
 }
 
@@ -97,8 +95,6 @@
 
 .money-icon {
   margin-right: 0.25rem;
-  color: var(--color-white);
-  background-color: var(--color-brand);
 }
 
 .modify-btn,
@@ -128,6 +124,13 @@
 
 .cancel-btn {
   background-color: var(--color-gray-light);
+}
+
+@media screen and (min-width: 48rem) {
+  .modify-btn,
+  .cancel-btn {
+    font-size: 0.8rem;
+  }
 }
 
 @keyframes error-button-text {

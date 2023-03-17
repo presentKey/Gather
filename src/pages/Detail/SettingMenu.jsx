@@ -30,18 +30,14 @@ export default function SettingMenu({ onModifyBtnClick }) {
       </button>
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>
-          <li className={styles['menu-item']}>
-            <button type="button" onClick={handleToggleFriendModal}>
-              친구 초대
-            </button>
+          <li className={styles['menu-item']} onClick={handleToggleFriendModal}>
+            <button type="button">친구 초대</button>
           </li>
-          <li className={styles['menu-item']}>
-            <button type="button" onClick={onModifyBtnClick}>
-              모임 수정
-            </button>
+          <li className={styles['menu-item']} onClick={onModifyBtnClick}>
+            <button type="button">모임 수정</button>
           </li>
-          <li className={styles['menu-item']}>
-            <button type="button" onClick={handleToggleLeaveModal}>
+          <li className={styles['menu-item']} onClick={handleToggleLeaveModal}>
+            <button className={styles['is-leave']} type="button">
               모임 나가기
             </button>
           </li>

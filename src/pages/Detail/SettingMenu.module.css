@@ -13,8 +13,8 @@
 }
 
 .setting-icon {
-  color: var(--color-gray);
-  filter: drop-shadow(0 0 1px #000);
+  color: var(--color-white);
+  filter: drop-shadow(0 0 3px #000);
   transition: transform 300ms ease;
 }
 
@@ -26,11 +26,11 @@
   position: absolute;
   top: 2.1rem;
   right: 0.6rem;
-  width: 7.5rem;
+  width: 7.5em;
   overflow: hidden;
   visibility: hidden;
   border: 1px solid var(--color-black);
-  border-radius: 4px;
+  border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   opacity: 0;
   transition: visibility 200ms ease, opacity 200ms ease, transform 200ms ease;
@@ -55,11 +55,21 @@
 
 .menu-item button {
   width: 100%;
-  padding: 0.7rem 0.25rem;
+  padding: 0.7rem 0.5rem;
   font-weight: 700;
   text-align: left;
 }
 
 .menu-item:last-child {
   border-bottom: 0;
+}
+
+.menu-item .is-leave {
+  color: var(--color-red);
+}
+
+@media screen and (min-width: 48rem) {
+  .setting-menu-group {
+    font-size: 0.8rem;
+  }
 }
