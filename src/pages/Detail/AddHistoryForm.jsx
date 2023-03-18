@@ -1,20 +1,17 @@
 import React from 'react';
-import { deposit, depositOrWithdraw } from '../../api/firebase';
-import { useAuthContext } from '../../context/AuthContext';
 import useInput from '../../hooks/useInput';
 import styles from './AddHistoryForm.module.css';
+import useHistory from './hooks/useHistory';
 
 export default function AddHistoryForm({ code, onClose }) {
   const [info, handleChange] = useInput({ type: 'deposit' });
-  const { user } = useAuthContext();
-
-  const handleSumbit = (e) => {
-    e.preventDefault();
-    depositOrWithdraw(code, user, info);
-  };
+  const { handleAddHistorySumbit } = useHistory();
 
   return (
-    <form className={styles.form} onSubmit={handleSumbit}>
+    <form
+      className={styles.form}
+      onSubmit={(e) => handleAddHistorySumbit(e, code, info)}
+    >
       <div className={styles['radio-group']}>
         <input
           type="radio"
