@@ -19,6 +19,7 @@ import {
   arrayRemove,
   writeBatch,
 } from 'firebase/firestore';
+import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import isMobile from '../utils/isMobile';
 
@@ -112,6 +113,7 @@ export async function createClass(user, info) {
     title,
     account: { bank, number },
     members: [{ uid, photoURL }],
+    history: [],
     total: 0,
   });
 
@@ -220,4 +222,32 @@ export async function leaveClass(code, user, members) {
   });
 
   await batch.commit();
+}
+
+export async function deposit(code, user, info) {
+  const { uid } = user;
+  const { type, price, date } = info;
+  const amount = parseInt(price, 10);
+
+  if (type !== 'deposit') {
+    throw new Error('타입이 일치하지 않습니다.');
+  }
+
+  if (!checkDateRegExp(date)) {
+    throw new Error('날짜 형식이 맞지 않습니다.');
+  }
+
+  if (Number.isNaN(amount)) {
+    throw new Error('숫자가 아닙니다.');
+  }
+
+  const classRef = doc(db, 'classes', code);
+  await updateDoc(classRef, {
+    history: arrayUnion({
+      uid,
+      date,
+      price: amount,
+      type,
+    }),
+  });
 }

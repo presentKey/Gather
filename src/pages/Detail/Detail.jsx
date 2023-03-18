@@ -41,7 +41,9 @@ export default function Detail() {
         >
           <HiOutlinePlusCircle />
         </button>
-        {openAddForm && <AddHistoryForm onClose={handleToggleAddForm} />}
+        {openAddForm && (
+          <AddHistoryForm code={code} onClose={handleToggleAddForm} />
+        )}
       </section>
     </>
   );
