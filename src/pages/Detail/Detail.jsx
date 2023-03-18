@@ -18,7 +18,7 @@ export default function Detail() {
   const handleModifyBtnClick = () => setIsModification(!isModification);
   const {
     historyQuery: { data: histories },
-  } = useHistory(state.code);
+  } = useHistory(state?.code);
 
   if (!state) return <Navigate to="/" replace />;
 
