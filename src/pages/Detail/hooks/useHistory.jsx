@@ -1,8 +1,8 @@
-import { depositOrWithdraw } from '../../../api/firebase';
+import { depositOrWithdraw, getHistory } from '../../../api/firebase';
 import { useAuthContext } from '../../../context/AuthContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function useHistory() {
+export default function useHistory(code) {
   const { user } = useAuthContext();
   const queryClient = useQueryClient();
 
@@ -14,15 +14,24 @@ export default function useHistory() {
     }
   );
 
-  const handleAddHistorySumbit = (e, code, info) => {
+  const historyQuery = useQuery(
+    ['history', code, user.uid],
+    () => getHistory(code),
+    {
+      enabled: !!code,
+      staleTime: 1000 * 60 * 60,
+    }
+  );
+
+  const handleAddHistorySumbit = (e, info, onAddBtnClick) => {
     e.preventDefault();
     add.mutate(
       { code, user, info },
       {
-        onSuccess: () => {},
+        onSuccess: () => onAddBtnClick(),
       }
     );
   };
 
-  return { handleAddHistorySumbit };
+  return { historyQuery, handleAddHistorySumbit };
 }

@@ -5,12 +5,12 @@ import useHistory from './hooks/useHistory';
 
 export default function AddHistoryForm({ code, onClose }) {
   const [info, handleChange] = useInput({ type: 'deposit' });
-  const { handleAddHistorySumbit } = useHistory();
+  const { handleAddHistorySumbit } = useHistory(code);
 
   return (
     <form
       className={styles.form}
-      onSubmit={(e) => handleAddHistorySumbit(e, code, info)}
+      onSubmit={(e) => handleAddHistorySumbit(e, info, onClose)}
     >
       <div className={styles['radio-group']}>
         <input

@@ -247,3 +247,14 @@ export async function depositOrWithdraw(code, user, info) {
     }),
   });
 }
+
+export async function getHistory(code) {
+  const docRef = doc(db, 'classes', code);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data().history;
+  }
+
+  return null;
+}
