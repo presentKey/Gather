@@ -1,5 +1,5 @@
 import React from 'react';
-import { deposit } from '../../api/firebase';
+import { deposit, depositOrWithdraw } from '../../api/firebase';
 import { useAuthContext } from '../../context/AuthContext';
 import useInput from '../../hooks/useInput';
 import styles from './AddHistoryForm.module.css';
@@ -7,12 +7,10 @@ import styles from './AddHistoryForm.module.css';
 export default function AddHistoryForm({ code, onClose }) {
   const [info, handleChange] = useInput({ type: 'deposit' });
   const { user } = useAuthContext();
-  const handleDeposit = () => {
-    deposit(code, user, info);
-  };
 
   const handleSumbit = (e) => {
     e.preventDefault();
+    depositOrWithdraw(code, user, info);
   };
 
   return (
@@ -60,11 +58,7 @@ export default function AddHistoryForm({ code, onClose }) {
         />
       </div>
       <div className={styles['btn-group']}>
-        <button
-          className={styles['register-btn']}
-          button="submit"
-          onClick={handleDeposit}
-        >
+        <button className={styles['register-btn']} button="submit">
           등록
         </button>
         <button

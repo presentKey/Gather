@@ -224,14 +224,10 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function deposit(code, user, info) {
+export async function depositOrWithdraw(code, user, info) {
   const { uid } = user;
   const { type, price, date } = info;
   const amount = parseInt(price, 10);
-
-  if (type !== 'deposit') {
-    throw new Error('타입이 일치하지 않습니다.');
-  }
 
   if (!checkDateRegExp(date)) {
     throw new Error('날짜 형식이 맞지 않습니다.');
