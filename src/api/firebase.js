@@ -18,6 +18,7 @@ import {
   arrayUnion,
   arrayRemove,
   writeBatch,
+  increment,
 } from 'firebase/firestore';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
@@ -227,7 +228,7 @@ export async function leaveClass(code, user, members) {
 export async function depositOrWithdraw(code, user, info) {
   const { uid } = user;
   const { type, price, date } = info;
-  const amount = parseInt(price, 10);
+  let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
     throw new Error('날짜 형식이 맞지 않습니다.');
@@ -235,6 +236,10 @@ export async function depositOrWithdraw(code, user, info) {
 
   if (Number.isNaN(amount)) {
     throw new Error('숫자가 아닙니다.');
+  }
+
+  if (type === 'withdraw' && amount >= 0) {
+    amount = amount * -1;
   }
 
   const classRef = doc(db, 'classes', code);
@@ -245,6 +250,7 @@ export async function depositOrWithdraw(code, user, info) {
       price: amount,
       type,
     }),
+    total: increment(amount),
   });
 }
 
