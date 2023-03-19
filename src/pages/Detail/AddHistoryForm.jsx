@@ -1,16 +1,16 @@
 import React from 'react';
+import useClass from '../../components/Main/hooks/useClass';
 import useInput from '../../hooks/useInput';
 import styles from './AddHistoryForm.module.css';
-import useHistory from './hooks/useHistory';
 
 export default function AddHistoryForm({ code, onClose }) {
   const [info, handleChange] = useInput({ type: 'deposit' });
-  const { handleAddHistorySumbit } = useHistory(code);
+  const { handleAddHistorySumbit } = useClass(code, info);
 
   return (
     <form
       className={styles.form}
-      onSubmit={(e) => handleAddHistorySumbit(e, info, onClose)}
+      onSubmit={(e) => handleAddHistorySumbit(e, onClose)}
     >
       <div className={styles['radio-group']}>
         <input
