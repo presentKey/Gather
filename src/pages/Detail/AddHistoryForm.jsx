@@ -1,6 +1,7 @@
 import React from 'react';
 import useClass from '../../components/Main/hooks/useClass';
 import useInput from '../../hooks/useInput';
+import getTodayDate from '../../utils/getTodayDate';
 import styles from './AddHistoryForm.module.css';
 
 export default function AddHistoryForm({ code, onClose }) {
@@ -49,7 +50,7 @@ export default function AddHistoryForm({ code, onClose }) {
           type="date"
           id="date"
           name="date"
-          value={info.date ?? ''}
+          value={info.date ?? getTodayDate()}
           onChange={handleChange}
           required
         />
