@@ -13,7 +13,7 @@ import useClass from '../../components/Main/hooks/useClass';
 export default function History({ code, histories, history, members }) {
   const { id, date, price, message, type, uid } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { handleDeleteHistory } = useClass(code);
+  const { isLoading, error, handleDeleteHistory } = useClass(code);
 
   return (
     <li className={styles['history-list']}>
@@ -47,6 +47,8 @@ export default function History({ code, histories, history, members }) {
             <ConfirmModal
               message={'해당 내역을 삭제하시겠습니까?'}
               btnText={'내역 삭제'}
+              isLoading={isLoading}
+              error={error}
               onConfirm={() =>
                 handleDeleteHistory(id, histories, setToggleHistoryModal)
               }

@@ -31,7 +31,7 @@ label {
 }
 
 .radio-group {
-  padding: 0.5rem 0;
+  padding: 0.5rem 1.5rem;
   margin-bottom: 0.5rem;
   border-bottom: 2px solid var(--color-brand);
 }
@@ -60,6 +60,7 @@ label {
 .text-input {
   display: flex;
   align-items: center;
+  padding: 0 1rem;
   margin: 0.25rem 0;
 }
 
@@ -74,12 +75,16 @@ label {
 
 .text-input input {
   width: 100%;
+  max-width: 25rem;
   padding: 0.25rem 0.5rem;
+}
+
+.date-group {
+  margin-bottom: 1rem;
 }
 
 .date-group input {
   position: relative;
-  margin-bottom: 0.5rem;
 }
 
 .date-group input[type='date']::-webkit-calendar-picker-indicator {
@@ -118,6 +123,32 @@ label {
   background-color: var(--color-yellow);
 }
 
+.register-btn.is-error {
+  animation-name: error-button-text;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
 .cancel-btn {
   background-color: var(--color-gray-light);
+}
+
+@keyframes error-button-text {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    color: var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    color: var(--color-red);
+  }
 }

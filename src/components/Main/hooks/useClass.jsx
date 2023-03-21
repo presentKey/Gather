@@ -149,19 +149,35 @@ export default function useClass(code, info) {
 
   const handleAddHistorySumbit = (e, onAddBtnClick) => {
     e.preventDefault();
+    setIsLoading(true);
     addHistory.mutate(
       { code, user, info },
       {
         onSuccess: () => onAddBtnClick(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
       }
     );
   };
 
   const handleDeleteHistory = (id, histories, onToggleModal) => {
+    setIsLoading(true);
     removeHistory.mutate(
       { code, user, id, histories },
       {
         onSuccess: () => onToggleModal(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
       }
     );
   };

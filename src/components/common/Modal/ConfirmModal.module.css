@@ -47,6 +47,32 @@
   background-color: var(--color-yellow);
 }
 
+.confirm-btn.is-error {
+  animation-name: error-button-text;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
 .cancel-btn {
   background-color: var(--color-gray-light);
+}
+
+@keyframes error-button-text {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    color: var(--color-red);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    color: var(--color-red);
+  }
 }

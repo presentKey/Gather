@@ -6,6 +6,8 @@ export default function ConfirmModal({
   message,
   code,
   btnText,
+  isLoading,
+  error,
   detail,
   onConfirm,
   onClose,
@@ -18,9 +20,10 @@ export default function ConfirmModal({
       </div>
       <div className={styles['btn-group']}>
         <button
-          className={styles['confirm-btn']}
+          className={`${styles['confirm-btn']} ${error && styles['is-error']}`}
           type="button"
           onClick={onConfirm}
+          disabled={isLoading}
         >
           {btnText}
         </button>

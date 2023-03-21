@@ -10,7 +10,7 @@ export default function AddHistoryForm({ code, onClose }) {
     message: '',
     date: getTodayDate(),
   });
-  const { handleAddHistorySumbit } = useClass(code, info);
+  const { isLoading, error, handleAddHistorySumbit } = useClass(code, info);
 
   return (
     <form
@@ -72,7 +72,11 @@ export default function AddHistoryForm({ code, onClose }) {
         />
       </div>
       <div className={styles['btn-group']}>
-        <button className={styles['register-btn']} button="submit">
+        <button
+          className={`${styles['register-btn']} ${error && styles['is-error']}`}
+          button="submit"
+          disabled={isLoading}
+        >
           등록
         </button>
         <button
