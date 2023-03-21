@@ -57,8 +57,29 @@ label {
   accent-color: var(--color-red);
 }
 
+.text-input {
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0;
+}
+
+.text-input label {
+  width: 5rem;
+  padding: 0.3rem 0;
+  margin-right: 0.5rem;
+  text-align: center;
+  background-color: var(--color-green-light);
+  border-radius: 16px;
+}
+
+.text-input input {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+}
+
 .date-group input {
   position: relative;
+  margin-bottom: 0.5rem;
 }
 
 .date-group input[type='date']::-webkit-calendar-picker-indicator {
@@ -72,33 +93,6 @@ label {
   color: transparent;
   cursor: pointer;
   background: transparent;
-}
-
-.price-group,
-.date-group {
-  display: flex;
-  align-items: center;
-  margin: 0.25rem 0;
-}
-
-.price-group label,
-.date-group label {
-  width: 5rem;
-  padding: 0.3rem 0;
-  margin-right: 0.5rem;
-  text-align: center;
-  background-color: var(--color-green-light);
-  border-radius: 16px;
-}
-
-.price-group input,
-.date-group input {
-  width: 100%;
-  padding: 0.25rem 0.5rem;
-}
-
-.date-group {
-  margin-bottom: 0.5rem;
 }
 
 .btn-group {

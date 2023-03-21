@@ -5,7 +5,11 @@ import getTodayDate from '../../utils/getTodayDate';
 import styles from './AddHistoryForm.module.css';
 
 export default function AddHistoryForm({ code, onClose }) {
-  const [info, handleChange] = useInput({ type: 'deposit' });
+  const [info, handleChange] = useInput({
+    type: 'deposit',
+    message: '',
+    date: getTodayDate(),
+  });
   const { handleAddHistorySumbit } = useClass(code, info);
 
   return (
@@ -33,7 +37,7 @@ export default function AddHistoryForm({ code, onClose }) {
         />
         <label htmlFor="withdraw">출금</label>
       </div>
-      <div className={styles['price-group']}>
+      <div className={`${styles['text-input']} ${styles['price-group']}`}>
         <label htmlFor="price">금액</label>
         <input
           type="number"
@@ -44,7 +48,19 @@ export default function AddHistoryForm({ code, onClose }) {
           required
         />
       </div>
-      <div className={styles['date-group']}>
+      <div className={`${styles['text-input']} ${styles['message-group']}`}>
+        <label htmlFor="message">메시지</label>
+        <input
+          type="text"
+          id="message"
+          name="message"
+          value={info.message ?? ''}
+          onChange={handleChange}
+          placeholder={'[옵션] 최대 20글자 입력 가능'}
+          maxLength="20"
+        />
+      </div>
+      <div className={`${styles['text-input']} ${styles['date-group']}`}>
         <label htmlFor="date">날짜</label>
         <input
           type="date"

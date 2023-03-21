@@ -30,6 +30,15 @@
   font-size: 0.8rem;
 }
 
+.message {
+  max-width: 7.5rem;
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .right {
   display: flex;
   flex-direction: column;
@@ -52,4 +61,10 @@
   right: 2px;
   padding: 0.5rem;
   border-radius: 50%;
+}
+
+@media screen and (min-width: 48rem) {
+  .message {
+    max-width: 19rem;
+  }
 }

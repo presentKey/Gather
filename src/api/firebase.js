@@ -228,7 +228,7 @@ export async function leaveClass(code, user, members) {
 
 export async function depositOrWithdraw(code, user, info) {
   const { uid } = user;
-  const { type, price, date } = info;
+  const { type, price, message, date } = info;
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
@@ -237,6 +237,10 @@ export async function depositOrWithdraw(code, user, info) {
 
   if (Number.isNaN(amount)) {
     throw new Error('숫자가 아닙니다.');
+  }
+
+  if (message.length > 20) {
+    throw new Error('메시지 길이가 적절하지 않습니다.');
   }
 
   if (type === 'withdraw' && amount >= 0) {
@@ -248,8 +252,9 @@ export async function depositOrWithdraw(code, user, info) {
     history: arrayUnion({
       id: uuidv4(),
       uid,
-      date,
       price: amount,
+      message,
+      date,
       type,
     }),
     total: increment(amount),

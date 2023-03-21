@@ -11,7 +11,7 @@ import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import useClass from '../../components/Main/hooks/useClass';
 
 export default function History({ code, histories, history, members }) {
-  const { id, date, price, type, uid } = history;
+  const { id, date, price, message, type, uid } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
   const { handleDeleteHistory } = useClass(code);
 
@@ -25,6 +25,7 @@ export default function History({ code, histories, history, members }) {
             )
         )}
         <span className={styles.date}>{date}</span>
+        <p className={styles.message}>{message}</p>
       </div>
       <div className={styles.right}>
         <b className={`${styles.type} ${type === 'deposit' && styles.deposit}`}>
