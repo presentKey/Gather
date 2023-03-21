@@ -23,6 +23,10 @@ export default function Detail() {
   if (!state) return <Navigate to="/" replace />;
   if (isLoading) return <p>detail 로딩</p>;
 
+  const sortedHistory = detail.history.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
   const { code } = state;
 
   return (
@@ -53,7 +57,7 @@ export default function Detail() {
         )}
 
         <ul>
-          {detail.history.map((history) => (
+          {sortedHistory.map((history) => (
             <History
               key={uuidv4()}
               history={history}
