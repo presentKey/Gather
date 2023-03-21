@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
@@ -8,24 +8,25 @@ import styles from './Detail.module.css';
 import AddHistoryForm from './AddHistoryForm';
 import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
+import useClassDetail from './hooks/useClassDetail';
 
 export default function Detail() {
   const { state } = useLocation();
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const [openAddForm, setOpenAddForm] = useState(false);
-  const handleToggleAddForm = () => setOpenAddForm((prev) => !prev);
-  const [isModification, setIsModification] = useState(false);
-  const handleModifyBtnClick = () => setIsModification(!isModification);
+  const {
+    openAddForm,
+    isModification,
+    handleToggleAddForm,
+    handleModifyBtnClick,
+    sortHistory,
+  } = useClassDetail();
 
   if (!state) return <Navigate to="/" replace />;
   if (isLoading) return <p>detail 로딩</p>;
 
-  const sortedHistories = detail.history.sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
-
+  const histories = sortHistory(detail.history);
   const { code } = state;
 
   return (
@@ -56,11 +57,11 @@ export default function Detail() {
         )}
 
         <ul>
-          {sortedHistories.map((history) => (
+          {histories.map((history) => (
             <History
               key={history.id}
               code={code}
-              histories={sortedHistories}
+              histories={histories}
               history={history}
               members={detail.members}
             />
