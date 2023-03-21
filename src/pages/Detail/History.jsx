@@ -13,7 +13,7 @@ import useClass from '../../components/Main/hooks/useClass';
 export default function History({ code, histories, history, members }) {
   const { id, date, price, message, type, uid } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { isLoading, error, handleDeleteHistory } = useClass(code);
+  const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
   return (
     <li className={styles['history-list']}>
@@ -33,13 +33,15 @@ export default function History({ code, histories, history, members }) {
         </b>
         <strong className={styles.price}>{price.toLocaleString()}원</strong>
       </div>
-      <button
-        className={styles['set-btn']}
-        type="button"
-        onClick={setToggleHistoryModal}
-      >
-        <BsThreeDotsVertical className={styles['set-icon']} />
-      </button>
+      {user.uid === uid && (
+        <button
+          className={styles['set-btn']}
+          type="button"
+          onClick={setToggleHistoryModal}
+        >
+          <BsThreeDotsVertical className={styles['set-icon']} />
+        </button>
+      )}
       {toggleHistoryModal && (
         <OverlayPortal>
           <Overlay onClose={setToggleHistoryModal} />

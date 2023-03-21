@@ -183,6 +183,7 @@ export default function useClass(code, info) {
   };
 
   return {
+    user,
     isLoading,
     error,
     classListQuery,
