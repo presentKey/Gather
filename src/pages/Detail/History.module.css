@@ -1,0 +1,70 @@
+.history-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 1.5rem 1.5rem;
+  margin: 0 -1rem;
+  border-bottom: 1px solid var(--color-black);
+}
+
+.history-list:first-child {
+  border-top: 1px solid var(--color-black);
+}
+
+.history-list:nth-child(even) {
+  background-color: rgba(237, 237, 237, 0.6);
+}
+
+.history-list:hover {
+  background-color: rgba(234, 231, 177, 0.6);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  margin: 0 0.5rem;
+  font-size: 0.8rem;
+}
+
+.message {
+  max-width: 7.5rem;
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.type {
+  font-size: 0.7rem;
+  color: var(--color-red);
+}
+
+.type.deposit {
+  color: var(--color-blue);
+}
+
+.set-btn {
+  position: absolute;
+  top: 8px;
+  right: 2px;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 48rem) {
+  .message {
+    max-width: 19rem;
+  }
+}

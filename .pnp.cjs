@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint", "npm:15.2.0"],\
             ["stylelint-config-recess-order", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.0.0"],\
             ["stylelint-config-standard", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:30.0.1"],\
+            ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -10512,6 +10513,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint", "npm:15.2.0"],\
             ["stylelint-config-recess-order", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.0.0"],\
             ["stylelint-config-standard", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:30.0.1"],\
+            ["uuid", "npm:9.0.0"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -18795,6 +18797,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
           "packageDependencies": [\
             ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:9.0.0", {\
+          "packageLocation": "./.yarn/cache/uuid-npm-9.0.0-46c41e3e43-8dd2c83c43.zip/node_modules/uuid/",\
+          "packageDependencies": [\
+            ["uuid", "npm:9.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

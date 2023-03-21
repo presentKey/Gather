@@ -18,7 +18,10 @@ import {
   arrayUnion,
   arrayRemove,
   writeBatch,
+  increment,
 } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
+import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import isMobile from '../utils/isMobile';
 
@@ -112,6 +115,7 @@ export async function createClass(user, info) {
     title,
     account: { bank, number },
     members: [{ uid, photoURL }],
+    history: [],
     total: 0,
   });
 
@@ -220,4 +224,55 @@ export async function leaveClass(code, user, members) {
   });
 
   await batch.commit();
+}
+
+export async function depositOrWithdraw(code, user, info) {
+  const { uid } = user;
+  const { type, price, message, date } = info;
+  let amount = parseInt(price, 10);
+
+  if (!checkDateRegExp(date)) {
+    throw new Error('날짜 형식이 맞지 않습니다.');
+  }
+
+  if (Number.isNaN(amount)) {
+    throw new Error('숫자가 아닙니다.');
+  }
+
+  if (message.length > 20) {
+    throw new Error('메시지 길이가 적절하지 않습니다.');
+  }
+
+  if (type === 'withdraw' && amount >= 0) {
+    amount = amount * -1;
+  }
+
+  const classRef = doc(db, 'classes', code);
+  await updateDoc(classRef, {
+    history: arrayUnion({
+      id: uuidv4(),
+      uid,
+      price: amount,
+      message,
+      date,
+      type,
+    }),
+    total: increment(amount),
+  });
+}
+
+export async function deleteHistory(code, user, id, histories) {
+  const removeHistory = histories.find(
+    (history) => history.uid === user.uid && history.id === id
+  );
+
+  if (!removeHistory) {
+    throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
+  }
+
+  const codeRef = doc(db, 'classes', code);
+  await updateDoc(codeRef, {
+    history: arrayRemove(removeHistory),
+    total: increment(removeHistory.price * -1),
+  });
 }

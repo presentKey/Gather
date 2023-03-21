@@ -3,6 +3,8 @@ import { useAuthContext } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
   createClass,
+  deleteHistory,
+  depositOrWithdraw,
   getClassDetail,
   getClassList,
   leaveClass,
@@ -41,6 +43,22 @@ export default function useClass(code, info) {
     ({ code, user, members }) => leaveClass(code, user, members),
     {
       onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+    }
+  );
+
+  const addHistory = useMutation(
+    ({ code, user, info }) => depositOrWithdraw(code, user, info),
+    {
+      onSuccess: () =>
+        queryClient.invalidateQueries(['myClass', code, user.uid]),
+    }
+  );
+
+  const removeHistory = useMutation(
+    ({ code, user, id, histories }) => deleteHistory(code, user, id, histories),
+    {
+      onSuccess: () =>
+        queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
@@ -102,12 +120,7 @@ export default function useClass(code, info) {
     updateHeader.mutate(
       { code, info },
       {
-        onSuccess: () => {
-          const { title, bank, number, total } = info;
-          const detail = { title, account: { bank, number }, total };
-          onModifyBtnClick();
-          navigate('/detail', { state: { code, detail } });
-        },
+        onSuccess: () => onModifyBtnClick(),
         onError: () => {
           setError(true);
           setTimeout(() => {
@@ -134,7 +147,43 @@ export default function useClass(code, info) {
     );
   };
 
+  const handleAddHistorySumbit = (e, onAddBtnClick) => {
+    e.preventDefault();
+    setIsLoading(true);
+    addHistory.mutate(
+      { code, user, info },
+      {
+        onSuccess: () => onAddBtnClick(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
+      }
+    );
+  };
+
+  const handleDeleteHistory = (id, histories, onToggleModal) => {
+    setIsLoading(true);
+    removeHistory.mutate(
+      { code, user, id, histories },
+      {
+        onSuccess: () => onToggleModal(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 600);
+        },
+        onSettled: () => setIsLoading(false),
+      }
+    );
+  };
+
   return {
+    user,
     isLoading,
     error,
     classListQuery,
@@ -143,5 +192,7 @@ export default function useClass(code, info) {
     handleParticipationSubmit,
     handleUpdateHeader,
     handleLeaveClass,
+    handleAddHistorySumbit,
+    handleDeleteHistory,
   };
 }
