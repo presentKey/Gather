@@ -1,0 +1,51 @@
+.header {
+  height: 8.4rem;
+  padding: var(--side-padding);
+  margin: calc(0px - var(--side-padding)) calc(0px - var(--side-padding)) 0;
+  background: rgb(166, 187, 141);
+  background: linear-gradient(
+    160deg,
+    rgba(166, 187, 141, 1) 0%,
+    rgba(234, 231, 177, 1) 100%
+  );
+  border-bottom: 2px solid var(--color-brand);
+}
+
+.title,
+.bank,
+.total {
+  padding: 0.2rem 0.5rem;
+  background-color: var(--color-gray);
+  border-radius: 16px;
+}
+
+.title {
+  width: 15rem;
+  height: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.bank,
+.total {
+  width: 16.25rem;
+  height: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.total {
+  width: 10rem;
+}
+
+.button {
+  height: 2.75rem;
+  margin: 1.25rem 0;
+  background-color: var(--color-gray);
+  border-radius: 16px;
+}
+
+.item {
+  height: 6.8rem;
+  margin: 0 calc(0px - var(--side-padding));
+  margin-bottom: 0.5rem;
+  background-color: var(--color-gray);
+}

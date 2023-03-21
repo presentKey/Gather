@@ -9,6 +9,7 @@ import AddHistoryForm from './AddHistoryForm';
 import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
+import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -24,7 +25,7 @@ export default function Detail() {
   } = useClassDetail();
 
   if (!state) return <Navigate to="/" replace />;
-  if (isLoading) return <p>detail 로딩</p>;
+  if (isLoading) return <LoadingDetail></LoadingDetail>;
 
   const histories = sortHistory(detail.history);
   const { code } = state;
