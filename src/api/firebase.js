@@ -20,6 +20,7 @@ import {
   writeBatch,
   increment,
 } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import isMobile from '../utils/isMobile';
@@ -245,6 +246,7 @@ export async function depositOrWithdraw(code, user, info) {
   const classRef = doc(db, 'classes', code);
   await updateDoc(classRef, {
     history: arrayUnion({
+      id: uuidv4(),
       uid,
       date,
       price: amount,
@@ -254,13 +256,18 @@ export async function depositOrWithdraw(code, user, info) {
   });
 }
 
-export async function getHistory(code) {
-  const docRef = doc(db, 'classes', code);
-  const docSnap = await getDoc(docRef);
+export async function deleteHistory(code, user, id, histories) {
+  const removeHistory = histories.find(
+    (history) => history.uid === user.uid && history.id === id
+  );
 
-  if (docSnap.exists()) {
-    return docSnap.data().history;
+  if (!removeHistory) {
+    throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
   }
 
-  return null;
+  const codeRef = doc(db, 'classes', code);
+  await updateDoc(codeRef, {
+    history: arrayRemove(removeHistory),
+    total: increment(removeHistory.price * -1),
+  });
 }

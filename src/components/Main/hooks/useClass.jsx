@@ -3,6 +3,7 @@ import { useAuthContext } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
   createClass,
+  deleteHistory,
   depositOrWithdraw,
   getClassDetail,
   getClassList,
@@ -47,6 +48,14 @@ export default function useClass(code, info) {
 
   const addHistory = useMutation(
     ({ code, user, info }) => depositOrWithdraw(code, user, info),
+    {
+      onSuccess: () =>
+        queryClient.invalidateQueries(['myClass', code, user.uid]),
+    }
+  );
+
+  const removeHistory = useMutation(
+    ({ code, user, id, histories }) => deleteHistory(code, user, id, histories),
     {
       onSuccess: () =>
         queryClient.invalidateQueries(['myClass', code, user.uid]),
@@ -148,6 +157,15 @@ export default function useClass(code, info) {
     );
   };
 
+  const handleDeleteHistory = (id, histories, onToggleModal) => {
+    removeHistory.mutate(
+      { code, user, id, histories },
+      {
+        onSuccess: () => onToggleModal(),
+      }
+    );
+  };
+
   return {
     isLoading,
     error,
@@ -158,5 +176,6 @@ export default function useClass(code, info) {
     handleUpdateHeader,
     handleLeaveClass,
     handleAddHistorySumbit,
+    handleDeleteHistory,
   };
 }

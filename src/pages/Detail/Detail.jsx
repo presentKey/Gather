@@ -7,7 +7,6 @@ import { HiOutlinePlusCircle } from 'react-icons/hi';
 import styles from './Detail.module.css';
 import AddHistoryForm from './AddHistoryForm';
 import History from './History';
-import { v4 as uuidv4 } from 'uuid';
 import useClass from '../../components/Main/hooks/useClass';
 
 export default function Detail() {
@@ -23,7 +22,7 @@ export default function Detail() {
   if (!state) return <Navigate to="/" replace />;
   if (isLoading) return <p>detail 로딩</p>;
 
-  const sortedHistory = detail.history.sort(
+  const sortedHistories = detail.history.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
@@ -57,9 +56,11 @@ export default function Detail() {
         )}
 
         <ul>
-          {sortedHistory.map((history) => (
+          {sortedHistories.map((history) => (
             <History
-              key={uuidv4()}
+              key={history.id}
+              code={code}
+              histories={sortedHistories}
               history={history}
               members={detail.members}
             />

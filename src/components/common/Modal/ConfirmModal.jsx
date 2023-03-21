@@ -20,7 +20,7 @@ export default function ConfirmModal({
         <button
           className={styles['confirm-btn']}
           type="button"
-          onClick={() => clipboard(code, onClose)}
+          onClick={onConfirm}
         >
           {btnText}
         </button>
