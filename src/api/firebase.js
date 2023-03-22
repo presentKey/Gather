@@ -27,6 +27,7 @@ import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
+import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -308,9 +309,14 @@ export async function deleteHistory(code, user, id) {
     }
 
     if (removeHistory.type === 'classModify') {
+      const historyRange = setRangeOfDeletableHistory(histories, removeHistory);
+
+      transaction.update(classRef, {
+        history: historyRange,
+      });
       transaction.update(classRef, {
         history: arrayRemove(removeHistory),
-        total: calcTotalPrice(histories, id),
+        total: calcTotalPrice(historyRange, id),
       });
     } else {
       transaction.update(classRef, {
