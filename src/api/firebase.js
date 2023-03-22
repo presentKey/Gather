@@ -23,6 +23,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
+import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
 
 const firebaseConfig = {
@@ -178,7 +179,7 @@ export async function getClassDetail(code) {
   return null;
 }
 
-export async function updateClassHeader(code, info) {
+export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total } = info;
   const amount = parseInt(total, 10);
 
@@ -200,6 +201,13 @@ export async function updateClassHeader(code, info) {
     account: { bank, number },
     title,
     total: amount,
+    history: arrayUnion({
+      id: uuidv4(),
+      uid,
+      price: amount,
+      date: getTodayDate(),
+      type: 'classModify',
+    }),
   });
 }
 

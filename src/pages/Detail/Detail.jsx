@@ -10,6 +10,7 @@ import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
+import ModifyHistory from './ModifyHistory';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -58,15 +59,30 @@ export default function Detail() {
         )}
 
         <ul>
-          {histories.map((history) => (
-            <History
-              key={history.id}
-              code={code}
-              histories={histories}
-              history={history}
-              members={detail.members}
-            />
-          ))}
+          {histories.map((history) => {
+            switch (history.type) {
+              case 'classModify':
+                return (
+                  <ModifyHistory
+                    key={history.id}
+                    code={code}
+                    histories={histories}
+                    history={history}
+                    members={detail.members}
+                  />
+                );
+              default:
+                return (
+                  <History
+                    key={history.id}
+                    code={code}
+                    histories={histories}
+                    history={history}
+                    members={detail.members}
+                  />
+                );
+            }
+          })}
         </ul>
       </section>
     </>

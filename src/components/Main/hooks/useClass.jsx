@@ -32,7 +32,7 @@ export default function useClass(code, info) {
   );
 
   const updateHeader = useMutation(
-    ({ code, info }) => updateClassHeader(code, info),
+    ({ user, code, info }) => updateClassHeader(user.uid, code, info),
     {
       onSuccess: () =>
         queryClient.invalidateQueries(['myClass', code, user.uid]),
@@ -118,7 +118,7 @@ export default function useClass(code, info) {
   const handleUpdateHeader = (onModifyBtnClick) => {
     setIsLoading(true);
     updateHeader.mutate(
-      { code, info },
+      { user, code, info },
       {
         onSuccess: () => onModifyBtnClick(),
         onError: () => {
