@@ -16,7 +16,7 @@ export default function ModifyHistory({ code, histories, history, members }) {
   const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
   return (
-    <li>
+    <li className={styles['history-list']}>
       <div className={styles.left}>
         {members.map(
           (member) =>
@@ -25,7 +25,7 @@ export default function ModifyHistory({ code, histories, history, members }) {
             )
         )}
         <span className={styles.date}>{date}</span>
-        <p>
+        <p className={styles.message}>
           모임의 돈이 <strong>{price.toLocaleString()}</strong>원으로
           변경되었습니다.
         </p>
