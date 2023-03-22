@@ -16,7 +16,9 @@ export default function History({ code, histories, history, members }) {
   const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
   return (
-    <li className={styles['history-list']}>
+    <li
+      className={`${styles['history-list']} ${!deletable && styles.disabled}`}
+    >
       <div className={styles.left}>
         {members.map(
           (member) =>
