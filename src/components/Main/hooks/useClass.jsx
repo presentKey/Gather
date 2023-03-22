@@ -47,7 +47,8 @@ export default function useClass(code, info) {
   );
 
   const addHistory = useMutation(
-    ({ code, user, info }) => depositOrWithdraw(code, user, info),
+    ({ code, user, info, minDate }) =>
+      depositOrWithdraw(code, user, info, minDate),
     {
       onSuccess: () =>
         queryClient.invalidateQueries(['myClass', code, user.uid]),
@@ -146,11 +147,11 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleAddHistorySumbit = (e, onAddBtnClick) => {
+  const handleAddHistorySumbit = (e, onAddBtnClick, minDate) => {
     e.preventDefault();
     setIsLoading(true);
     addHistory.mutate(
-      { code, user, info },
+      { code, user, info, minDate },
       {
         onSuccess: () => onAddBtnClick(),
         onError: () => {

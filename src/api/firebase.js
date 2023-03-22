@@ -253,13 +253,19 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function depositOrWithdraw(code, user, info) {
+export async function depositOrWithdraw(code, user, info, minDate) {
   const { uid } = user;
   const { type, price, message, date } = info;
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
     throw new Error('날짜 형식이 맞지 않습니다.');
+  }
+
+  if (minDate && minDate > date) {
+    throw new Error(
+      '모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.'
+    );
   }
 
   if (Number.isNaN(amount)) {
