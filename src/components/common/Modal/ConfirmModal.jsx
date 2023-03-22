@@ -1,5 +1,4 @@
 import React from 'react';
-import clipboard from '../../../utils/clipboard';
 import styles from './ConfirmModal.module.css';
 
 export default function ConfirmModal({
@@ -8,7 +7,6 @@ export default function ConfirmModal({
   btnText,
   isLoading,
   error,
-  detail,
   onConfirm,
   onClose,
 }) {

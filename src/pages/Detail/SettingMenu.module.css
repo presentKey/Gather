@@ -26,6 +26,7 @@
   position: absolute;
   top: 2.1rem;
   right: 0.6rem;
+  z-index: var(--class-header-menu-level);
   width: 7.5em;
   overflow: hidden;
   visibility: hidden;
@@ -54,10 +55,16 @@
 }
 
 .menu-item button {
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 0.7rem 0.5rem;
   font-weight: 700;
   text-align: left;
+}
+
+.menu-item button svg {
+  margin-right: 0.25rem;
 }
 
 .menu-item:last-child {
@@ -70,6 +77,6 @@
 
 @media screen and (min-width: 48rem) {
   .setting-menu-group {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }

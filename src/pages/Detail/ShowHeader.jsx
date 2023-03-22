@@ -5,7 +5,7 @@ import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
 
 export default function ShowHeader({
-  headerInfo: { title, account, total },
+  headerInfo: { title, account, total, members },
   onModifyBtnClick,
 }) {
   return (
@@ -20,7 +20,7 @@ export default function ShowHeader({
         <CiCoinInsert className={styles['money-icon']} />
         <strong className={styles.total}>{total.toLocaleString()}원</strong>
       </div>
-      <SettingMenu onModifyBtnClick={onModifyBtnClick} />
+      <SettingMenu members={members} onModifyBtnClick={onModifyBtnClick} />
     </header>
   );
 }

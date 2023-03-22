@@ -1,5 +1,8 @@
 import React from 'react';
 import { IoMdSettings } from 'react-icons/io';
+import { BsPersonFillAdd } from 'react-icons/bs';
+import { HiPencilAlt } from 'react-icons/hi';
+import { ImExit } from 'react-icons/im';
 import { useLocation } from 'react-router-dom';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
@@ -7,15 +10,16 @@ import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useClass from '../../components/Main/hooks/useClass';
 import useModal from '../../hooks/useModal';
+import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
 
-export default function SettingMenu({ onModifyBtnClick }) {
+export default function SettingMenu({ members, onModifyBtnClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
   const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
   const [toggleFriendModal, handleToggleFriendModal] = useModal();
   const {
-    state: { code, detail },
+    state: { code },
   } = useLocation();
   const { handleLeaveClass } = useClass(code);
 
@@ -31,13 +35,20 @@ export default function SettingMenu({ onModifyBtnClick }) {
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>
           <li className={styles['menu-item']} onClick={handleToggleFriendModal}>
-            <button type="button">친구 초대</button>
+            <button type="button">
+              <BsPersonFillAdd />
+              친구 초대
+            </button>
           </li>
           <li className={styles['menu-item']} onClick={onModifyBtnClick}>
-            <button type="button">모임 수정</button>
+            <button type="button">
+              <HiPencilAlt />
+              모임 수정
+            </button>
           </li>
           <li className={styles['menu-item']} onClick={handleToggleLeaveModal}>
             <button className={styles['is-leave']} type="button">
+              <ImExit />
               모임 나가기
             </button>
           </li>
@@ -50,8 +61,9 @@ export default function SettingMenu({ onModifyBtnClick }) {
             <ConfirmModal
               message={'모임에서 나가시겠습니까?'}
               btnText={'모임 나가기'}
-              detail={detail}
-              onConfirm={handleLeaveClass}
+              onConfirm={() =>
+                handleLeaveClass(members, handleToggleLeaveModal)
+              }
               onClose={handleToggleLeaveModal}
             />
           </ModalPortal>
@@ -65,7 +77,10 @@ export default function SettingMenu({ onModifyBtnClick }) {
               message={'친구에게 코드를 공유해주세요!'}
               code={code}
               btnText={'코드 복사'}
-              onConfirm={handleLeaveClass}
+              onConfirm={() => {
+                clipboard(code);
+                handleToggleFriendModal();
+              }}
               onClose={handleToggleFriendModal}
             />
           </ModalPortal>
