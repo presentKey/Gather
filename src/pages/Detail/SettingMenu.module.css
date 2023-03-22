@@ -55,10 +55,16 @@
 }
 
 .menu-item button {
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 0.7rem 0.5rem;
   font-weight: 700;
   text-align: left;
+}
+
+.menu-item button svg {
+  margin-right: 0.25rem;
 }
 
 .menu-item:last-child {
