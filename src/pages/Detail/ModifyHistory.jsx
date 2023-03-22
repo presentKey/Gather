@@ -26,7 +26,7 @@ export default function ModifyHistory({ code, histories, history, members }) {
         )}
         <span className={styles.date}>{date}</span>
         <p className={styles.message}>
-          모임의 돈이 <strong>{price.toLocaleString()}</strong>원으로
+          모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로
           변경되었습니다.
         </p>
       </div>

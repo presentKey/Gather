@@ -9,6 +9,14 @@
   border-bottom: 1px solid var(--color-black);
 }
 
+.history-list:first-child {
+  border-top: 1px solid var(--color-black);
+}
+
+.history-list:hover {
+  filter: brightness(1.05);
+}
+
 .left {
   display: flex;
   align-items: center;
@@ -17,11 +25,15 @@
 .date,
 .message {
   font-size: 0.8rem;
-  color: var(--color-blue);
 }
 
 .date {
+  flex-shrink: 0;
   margin: 0 0.5rem;
+}
+
+.message {
+  color: var(--color-blue);
 }
 
 .set-btn {
