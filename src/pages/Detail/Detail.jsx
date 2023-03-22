@@ -22,13 +22,13 @@ export default function Detail() {
     isModification,
     handleToggleAddForm,
     handleModifyBtnClick,
-    sortHistory,
+    sortedHistory,
   } = useClassDetail();
 
   if (!state) return <Navigate to="/" replace />;
   if (isLoading) return <LoadingDetail></LoadingDetail>;
 
-  const histories = sortHistory(detail.history);
+  const histories = sortedHistory(detail.history);
   const { code } = state;
 
   return (
