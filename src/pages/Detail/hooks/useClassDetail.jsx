@@ -6,7 +6,9 @@ export default function useClassDetail() {
   const handleToggleAddForm = () => setOpenAddForm((prev) => !prev);
   const handleModifyBtnClick = () => setIsModification(!isModification);
   const sortHistory = (histories) =>
-    histories.sort((a, b) => new Date(b.date) - new Date(a.date));
+    histories.sort(
+      (a, b) => new Date(b.date) - new Date(a.date) || b.timestamp - a.timestamp
+    );
 
   return {
     openAddForm,
