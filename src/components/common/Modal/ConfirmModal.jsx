@@ -8,7 +8,6 @@ export default function ConfirmModal({
   btnText,
   isLoading,
   error,
-  detail,
   onConfirm,
   onClose,
 }) {

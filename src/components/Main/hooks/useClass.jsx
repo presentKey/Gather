@@ -132,8 +132,7 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleLeaveClass = (detail, onToggleModal) => {
-    const { members } = detail;
+  const handleLeaveClass = (members, onToggleModal) => {
     setIsLoading(true);
     leave.mutate(
       { code, user, members },

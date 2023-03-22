@@ -10,12 +10,12 @@ import useModal from '../../hooks/useModal';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
 
-export default function SettingMenu({ onModifyBtnClick }) {
+export default function SettingMenu({ members, onModifyBtnClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
   const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
   const [toggleFriendModal, handleToggleFriendModal] = useModal();
   const {
-    state: { code, detail },
+    state: { code },
   } = useLocation();
   const { handleLeaveClass } = useClass(code);
 
@@ -50,8 +50,9 @@ export default function SettingMenu({ onModifyBtnClick }) {
             <ConfirmModal
               message={'모임에서 나가시겠습니까?'}
               btnText={'모임 나가기'}
-              detail={detail}
-              onConfirm={handleLeaveClass}
+              onConfirm={() =>
+                handleLeaveClass(members, handleToggleLeaveModal)
+              }
               onClose={handleToggleLeaveModal}
             />
           </ModalPortal>
