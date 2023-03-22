@@ -19,9 +19,10 @@ import {
   arrayRemove,
   writeBatch,
   increment,
+  runTransaction,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-import calcPrevPrice from '../utils/calcPrevPrice';
+import calcTotalPrice from '../utils/calcTotalPrice';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import getTodayDate from '../utils/getTodayDate';
@@ -198,17 +199,32 @@ export async function updateClassHeader(uid, code, info) {
 
   const classRef = doc(db, 'classes', code);
 
-  await updateDoc(classRef, {
-    account: { bank, number },
-    title,
-    total: amount,
-    history: arrayUnion({
-      id: uuidv4(),
-      uid,
-      price: amount,
-      date: getTodayDate(),
-      type: 'classModify',
-    }),
+  await runTransaction(db, async (transaction) => {
+    const classDoc = await transaction.get(classRef);
+    if (!classDoc.exists()) {
+      throw new Error('모임이 존재하지 않습니다.');
+    }
+
+    const histories = classDoc.data().history;
+    const undeletableHistories = histories.map((history) => ({
+      ...history,
+      deletable: false,
+    }));
+
+    transaction.update(classRef, { history: undeletableHistories });
+    transaction.update(classRef, {
+      account: { bank, number },
+      title,
+      total: amount,
+      history: arrayUnion({
+        id: uuidv4(),
+        uid,
+        price: amount,
+        date: getTodayDate(),
+        type: 'classModify',
+        deletable: true,
+      }),
+    });
   });
 }
 
@@ -265,31 +281,40 @@ export async function depositOrWithdraw(code, user, info) {
       message,
       date,
       type,
+      deletable: true,
     }),
     total: increment(amount),
   });
 }
 
-export async function deleteHistory(code, user, id, histories) {
-  const removeHistory = histories.find(
-    (history) => history.uid === user.uid && history.id === id
-  );
+export async function deleteHistory(code, user, id) {
+  const classRef = doc(db, 'classes', code);
 
-  if (!removeHistory) {
-    throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
-  }
+  await runTransaction(db, async (transaction) => {
+    const classDoc = await transaction.get(classRef);
+    if (!classDoc.exists()) {
+      throw new Error('모임이 존재하지 않습니다.');
+    }
 
-  const codeRef = doc(db, 'classes', code);
+    const histories = classDoc.data().history;
+    const removeHistory = histories.find(
+      (history) => history.uid === user.uid && history.id === id
+    );
 
-  if (removeHistory.type === 'classModify') {
-    await updateDoc(codeRef, {
-      history: arrayRemove(removeHistory),
-      total: calcPrevPrice(histories),
-    });
-  } else {
-    await updateDoc(codeRef, {
-      history: arrayRemove(removeHistory),
-      total: increment(removeHistory.price * -1),
-    });
-  }
+    if (!removeHistory) {
+      throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
+    }
+
+    if (removeHistory.type === 'classModify') {
+      transaction.update(classRef, {
+        history: arrayRemove(removeHistory),
+        total: calcTotalPrice(histories, id),
+      });
+    } else {
+      transaction.update(classRef, {
+        history: arrayRemove(removeHistory),
+        total: increment(removeHistory.price * -1),
+      });
+    }
+  });
 }

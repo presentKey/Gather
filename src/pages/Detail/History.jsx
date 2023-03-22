@@ -11,7 +11,7 @@ import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import useClass from '../../components/Main/hooks/useClass';
 
 export default function History({ code, histories, history, members }) {
-  const { id, date, price, message, type, uid } = history;
+  const { id, date, price, message, type, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
   const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
@@ -33,7 +33,7 @@ export default function History({ code, histories, history, members }) {
         </b>
         <strong className={styles.price}>{price.toLocaleString()}원</strong>
       </div>
-      {user.uid === uid && (
+      {deletable && user.uid === uid && (
         <button
           className={styles['set-btn']}
           type="button"

@@ -11,7 +11,7 @@ import ModalPortal from '../../components/common/Modal/ModalProtal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 
 export default function ModifyHistory({ code, histories, history, members }) {
-  const { id, date, price, message, type, uid } = history;
+  const { id, date, price, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
   const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
@@ -30,7 +30,7 @@ export default function ModifyHistory({ code, histories, history, members }) {
           변경되었습니다.
         </p>
       </div>
-      {user.uid === uid && (
+      {deletable && user.uid === uid && (
         <button
           className={styles['set-btn']}
           type="button"
