@@ -7,6 +7,7 @@ import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useClass from '../../components/Main/hooks/useClass';
 import useModal from '../../hooks/useModal';
+import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
 
@@ -66,7 +67,10 @@ export default function SettingMenu({ members, onModifyBtnClick }) {
               message={'친구에게 코드를 공유해주세요!'}
               code={code}
               btnText={'코드 복사'}
-              onConfirm={handleLeaveClass}
+              onConfirm={() => {
+                clipboard(code);
+                handleToggleFriendModal();
+              }}
               onClose={handleToggleFriendModal}
             />
           </ModalPortal>
