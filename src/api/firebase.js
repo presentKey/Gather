@@ -21,6 +21,7 @@ import {
   increment,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import calcPrevPrice from '../utils/calcPrevPrice';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
 import getTodayDate from '../utils/getTodayDate';
@@ -279,8 +280,16 @@ export async function deleteHistory(code, user, id, histories) {
   }
 
   const codeRef = doc(db, 'classes', code);
-  await updateDoc(codeRef, {
-    history: arrayRemove(removeHistory),
-    total: increment(removeHistory.price * -1),
-  });
+
+  if (removeHistory.type === 'classModify') {
+    await updateDoc(codeRef, {
+      history: arrayRemove(removeHistory),
+      total: calcPrevPrice(histories),
+    });
+  } else {
+    await updateDoc(codeRef, {
+      history: arrayRemove(removeHistory),
+      total: increment(removeHistory.price * -1),
+    });
+  }
 }
