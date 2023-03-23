@@ -19,11 +19,15 @@ import {
   arrayRemove,
   writeBatch,
   increment,
+  runTransaction,
 } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
+import calcTotalPrice from '../utils/calcTotalPrice';
 import checkDateRegExp from '../utils/checkDateRegExp';
 import generateCode from '../utils/generateCode';
+import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
+import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -178,7 +182,7 @@ export async function getClassDetail(code) {
   return null;
 }
 
-export async function updateClassHeader(code, info) {
+export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total } = info;
   const amount = parseInt(total, 10);
 
@@ -196,10 +200,41 @@ export async function updateClassHeader(code, info) {
 
   const classRef = doc(db, 'classes', code);
 
-  await updateDoc(classRef, {
-    account: { bank, number },
-    title,
-    total: amount,
+  await runTransaction(db, async (transaction) => {
+    const classDoc = await transaction.get(classRef);
+    if (!classDoc.exists()) {
+      throw new Error('모임이 존재하지 않습니다.');
+    }
+
+    const { history: histories, total: prevTotal } = classDoc.data();
+
+    if (prevTotal === amount) {
+      transaction.update(classRef, {
+        account: { bank, number },
+        title,
+      });
+    } else {
+      const undeletableHistories = histories.map((history) => ({
+        ...history,
+        deletable: false,
+      }));
+
+      transaction.update(classRef, { history: undeletableHistories });
+      transaction.update(classRef, {
+        account: { bank, number },
+        title,
+        total: amount,
+        history: arrayUnion({
+          id: uuidv4(),
+          uid,
+          price: amount,
+          date: getTodayDate(),
+          timestamp: new Date(),
+          type: 'classModify',
+          deletable: true,
+        }),
+      });
+    }
   });
 }
 
@@ -226,13 +261,19 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function depositOrWithdraw(code, user, info) {
+export async function depositOrWithdraw(code, user, info, minDate) {
   const { uid } = user;
   const { type, price, message, date } = info;
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
     throw new Error('날짜 형식이 맞지 않습니다.');
+  }
+
+  if (minDate && minDate > date) {
+    throw new Error(
+      '모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.'
+    );
   }
 
   if (Number.isNaN(amount)) {
@@ -255,24 +296,47 @@ export async function depositOrWithdraw(code, user, info) {
       price: amount,
       message,
       date,
+      timestamp: new Date(),
       type,
+      deletable: true,
     }),
     total: increment(amount),
   });
 }
 
-export async function deleteHistory(code, user, id, histories) {
-  const removeHistory = histories.find(
-    (history) => history.uid === user.uid && history.id === id
-  );
+export async function deleteHistory(code, user, id) {
+  const classRef = doc(db, 'classes', code);
 
-  if (!removeHistory) {
-    throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
-  }
+  await runTransaction(db, async (transaction) => {
+    const classDoc = await transaction.get(classRef);
+    if (!classDoc.exists()) {
+      throw new Error('모임이 존재하지 않습니다.');
+    }
 
-  const codeRef = doc(db, 'classes', code);
-  await updateDoc(codeRef, {
-    history: arrayRemove(removeHistory),
-    total: increment(removeHistory.price * -1),
+    const histories = classDoc.data().history;
+    const removeHistory = histories.find(
+      (history) => history.uid === user.uid && history.id === id
+    );
+
+    if (!removeHistory) {
+      throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
+    }
+
+    if (removeHistory.type === 'classModify') {
+      const historyRange = setRangeOfDeletableHistory(histories, removeHistory);
+
+      transaction.update(classRef, {
+        history: historyRange,
+      });
+      transaction.update(classRef, {
+        history: arrayRemove(removeHistory),
+        total: calcTotalPrice(historyRange, id),
+      });
+    } else {
+      transaction.update(classRef, {
+        history: arrayRemove(removeHistory),
+        total: increment(removeHistory.price * -1),
+      });
+    }
   });
 }

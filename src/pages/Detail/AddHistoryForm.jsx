@@ -4,18 +4,23 @@ import useInput from '../../hooks/useInput';
 import getTodayDate from '../../utils/getTodayDate';
 import styles from './AddHistoryForm.module.css';
 
-export default function AddHistoryForm({ code, onClose }) {
+export default function AddHistoryForm({ code, histories, onClose }) {
   const [info, handleChange] = useInput({
     type: 'deposit',
     message: '',
     date: getTodayDate(),
   });
   const { isLoading, error, handleAddHistorySumbit } = useClass(code, info);
+  const getModifyHistory = histories.find(
+    (history) => history.type === 'classModify'
+  );
 
   return (
     <form
       className={styles.form}
-      onSubmit={(e) => handleAddHistorySumbit(e, onClose)}
+      onSubmit={(e) =>
+        handleAddHistorySumbit(e, onClose, getModifyHistory?.date)
+      }
     >
       <div className={styles['radio-group']}>
         <input
@@ -66,6 +71,7 @@ export default function AddHistoryForm({ code, onClose }) {
           type="date"
           id="date"
           name="date"
+          min={getModifyHistory?.date}
           value={info.date ?? getTodayDate()}
           onChange={handleChange}
           required

@@ -1,24 +1,22 @@
 import React from 'react';
 import Avatar from '../../components/common/Avatar/Avatar';
+import styles from './ModifyHistory.module.css';
 import { v4 as uuidv4 } from 'uuid';
+import useClass from '../../components/Main/hooks/useClass';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import styles from './History.module.css';
 import useModal from '../../hooks/useModal';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
-import useClass from '../../components/Main/hooks/useClass';
 
-export default function History({ code, histories, history, members }) {
-  const { id, date, price, message, type, uid, deletable } = history;
+export default function ModifyHistory({ code, histories, history, members }) {
+  const { id, date, price, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
   const { user, isLoading, error, handleDeleteHistory } = useClass(code);
 
   return (
-    <li
-      className={`${styles['history-list']} ${!deletable && styles.disabled}`}
-    >
+    <li className={styles['history-list']}>
       <div className={styles.left}>
         {members.map(
           (member) =>
@@ -27,13 +25,10 @@ export default function History({ code, histories, history, members }) {
             )
         )}
         <span className={styles.date}>{date}</span>
-        <p className={styles.message}>{message}</p>
-      </div>
-      <div className={styles.right}>
-        <b className={`${styles.type} ${type === 'deposit' && styles.deposit}`}>
-          {type === 'deposit' ? '입금' : '출금'}
-        </b>
-        <strong className={styles.price}>{price.toLocaleString()}원</strong>
+        <p className={styles.message}>
+          모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로
+          변경되었습니다.
+        </p>
       </div>
       {deletable && user.uid === uid && (
         <button
