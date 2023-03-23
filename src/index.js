@@ -5,7 +5,7 @@ import './styles/normalize.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import NotFound from './pages/NotFound';
+import NotFound from './pages/NotFound/NotFound';
 import Main from './components/Main/Main';
 import Login from './pages/Login/Login';
 import { AuthContextProvider } from './context/AuthContext';
