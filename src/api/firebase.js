@@ -206,27 +206,35 @@ export async function updateClassHeader(uid, code, info) {
       throw new Error('모임이 존재하지 않습니다.');
     }
 
-    const histories = classDoc.data().history;
-    const undeletableHistories = histories.map((history) => ({
-      ...history,
-      deletable: false,
-    }));
+    const { history: histories, total: prevTotal } = classDoc.data();
 
-    transaction.update(classRef, { history: undeletableHistories });
-    transaction.update(classRef, {
-      account: { bank, number },
-      title,
-      total: amount,
-      history: arrayUnion({
-        id: uuidv4(),
-        uid,
-        price: amount,
-        date: getTodayDate(),
-        timestamp: new Date(),
-        type: 'classModify',
-        deletable: true,
-      }),
-    });
+    if (prevTotal === amount) {
+      transaction.update(classRef, {
+        account: { bank, number },
+        title,
+      });
+    } else {
+      const undeletableHistories = histories.map((history) => ({
+        ...history,
+        deletable: false,
+      }));
+
+      transaction.update(classRef, { history: undeletableHistories });
+      transaction.update(classRef, {
+        account: { bank, number },
+        title,
+        total: amount,
+        history: arrayUnion({
+          id: uuidv4(),
+          uid,
+          price: amount,
+          date: getTodayDate(),
+          timestamp: new Date(),
+          type: 'classModify',
+          deletable: true,
+        }),
+      });
+    }
   });
 }
 
