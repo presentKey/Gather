@@ -1,5 +1,4 @@
 import React from 'react';
-import { ImExit } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 import Avatar from '../common/Avatar/Avatar';
@@ -15,7 +14,7 @@ export default function Header() {
         Gather
       </Link>
       <button className={styles.button} type="button" onClick={logout}>
-        <ImExit className={styles.logout} />
+        로그아웃
       </button>
     </header>
   );
