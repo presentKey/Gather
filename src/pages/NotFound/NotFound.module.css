@@ -1,0 +1,28 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--color-gray);
+}
+
+.icon {
+  font-size: 10rem;
+}
+
+.message {
+  margin-bottom: 0.5rem;
+}
+
+.btn {
+  padding: 1rem 1.5rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+  border-radius: 50px;
+  transition: filter 200ms ease;
+}
+
+.btn:hover {
+  filter: brightness(1.3);
+}
