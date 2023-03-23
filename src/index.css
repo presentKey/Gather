@@ -29,12 +29,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media screen and (min-width: 48rem) {
-  html {
-    font-size: 22px;
-  }
-}
-
 body {
   display: flex;
   justify-content: center;
@@ -49,6 +43,16 @@ body {
   height: 100vh;
   overflow-x: hidden;
   background-color: var(--color-white);
+}
+
+@media screen and (min-width: 48rem) {
+  html {
+    font-size: 22px;
+  }
+
+  #root {
+    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+  }
 }
 
 h1 {
