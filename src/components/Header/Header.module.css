@@ -23,7 +23,8 @@
   position: relative;
   right: -0.25rem;
   padding: 0.25rem;
-  color: var(--color-gray);
+  font-size: 0.8rem;
+  color: var(--color-white);
 }
 
 .button:hover {
