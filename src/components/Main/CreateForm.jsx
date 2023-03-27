@@ -32,7 +32,7 @@ export default function CreateForm() {
         </div>
         <div className={styles['input-box']}>
           <input
-            type="text"
+            type="number"
             name="number"
             value={info.number ?? ''}
             onChange={handleChange}
