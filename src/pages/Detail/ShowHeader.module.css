@@ -24,6 +24,7 @@
 .number,
 .total {
   padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
   background-color: var(--color-green-light);
   border-radius: 16px;
 }
