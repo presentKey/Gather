@@ -26,8 +26,10 @@ export default function History({ code, histories, history, members }) {
               <Avatar key={uuidv4()} image={member.photoURL} />
             )
         )}
-        <span className={styles.date}>{date}</span>
-        <p className={styles.message}>{message}</p>
+        <div className={styles['text-wrap']}>
+          <span className={styles.date}>{date}</span>
+          <p className={styles.message}>{message}</p>
+        </div>
       </div>
       <div className={styles.right}>
         <b className={`${styles.type} ${type === 'deposit' && styles.deposit}`}>

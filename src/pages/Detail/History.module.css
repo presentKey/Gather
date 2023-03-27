@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem 1.5rem 1.5rem;
+  padding: 1.5rem 2rem 1.5rem 1rem;
   margin: 0 -1rem;
   border-bottom: 1px solid var(--color-black);
 }
@@ -29,15 +29,21 @@
   align-items: center;
 }
 
-.date {
+.text-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 0.5rem;
-  font-size: 0.8rem;
+}
+
+.date {
+  font-size: 0.7rem;
 }
 
 .message {
-  max-width: 7.5rem;
+  max-width: 8rem;
   overflow: hidden;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -59,6 +65,13 @@
   color: var(--color-blue);
 }
 
+.price {
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .set-btn {
   position: absolute;
   top: 8px;
@@ -70,5 +83,9 @@
 @media screen and (min-width: 48rem) {
   .message {
     max-width: 19rem;
+  }
+
+  .price {
+    max-width: 15rem;
   }
 }
