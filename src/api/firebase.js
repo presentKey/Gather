@@ -106,9 +106,14 @@ async function saveMemberInDB(uid, isAnonymous) {
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number } = info;
+  let accountNumber = parseInt(number, 10);
 
   if (!title || !bank || !number) {
     throw new Error('정보가 누락되었습니다.');
+  }
+
+  if (Number.isNaN(accountNumber)) {
+    throw new Error('숫자가 아닙니다.');
   }
 
   const code = generateCode();
@@ -117,7 +122,7 @@ export async function createClass(user, info) {
   const codeRef = doc(db, 'classes', code);
   batch.set(codeRef, {
     title,
-    account: { bank, number },
+    account: { bank, number: accountNumber },
     members: [{ uid, photoURL }],
     history: [],
     total: 0,
@@ -185,6 +190,7 @@ export async function getClassDetail(code) {
 export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total } = info;
   const amount = parseInt(total, 10);
+  let accountNumber = parseInt(number, 10);
 
   if (
     title.trim().length === 0 ||
@@ -195,6 +201,10 @@ export async function updateClassHeader(uid, code, info) {
   }
 
   if (Number.isNaN(amount)) {
+    throw new Error('숫자가 아닙니다.');
+  }
+
+  if (Number.isNaN(accountNumber)) {
     throw new Error('숫자가 아닙니다.');
   }
 
@@ -210,7 +220,7 @@ export async function updateClassHeader(uid, code, info) {
 
     if (prevTotal === amount) {
       transaction.update(classRef, {
-        account: { bank, number },
+        account: { bank, number: accountNumber },
         title,
       });
     } else {
@@ -221,7 +231,7 @@ export async function updateClassHeader(uid, code, info) {
 
       transaction.update(classRef, { history: undeletableHistories });
       transaction.update(classRef, {
-        account: { bank, number },
+        account: { bank, number: accountNumber },
         title,
         total: amount,
         history: arrayUnion({

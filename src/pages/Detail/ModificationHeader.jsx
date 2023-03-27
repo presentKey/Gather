@@ -38,6 +38,7 @@ export default function ModificationHeader({
         />
         <input
           name="number"
+          type="number"
           className={`${styles.number} ${
             isInputLengthZero(info.number) && styles['is-error']
           }`}
