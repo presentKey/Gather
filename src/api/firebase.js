@@ -192,11 +192,7 @@ export async function updateClassHeader(uid, code, info) {
   const amount = parseInt(total, 10);
   let accountNumber = parseInt(number, 10);
 
-  if (
-    title.trim().length === 0 ||
-    bank.trim().length === 0 ||
-    number.trim().length === 0
-  ) {
+  if (title.trim().length === 0 || bank.trim().length === 0) {
     throw new Error('정보가 누락되었습니다.');
   }
 
