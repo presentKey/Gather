@@ -6,8 +6,13 @@ import LoadingMain from '../../components/common/LoadingMain/LoadingMain';
 import useLogin from './hooks/useLogin';
 
 export default function Login() {
-  const { isLoading, user, handleGoogleLogin, handleAnonymouseLogin } =
-    useLogin();
+  const {
+    isLoading,
+    user,
+    handleGoogleLogin,
+    handleAnonymouseLogin,
+    isWebView,
+  } = useLogin();
 
   if (user === undefined) return <LoadingMain />;
   if (user) return <Navigate to="/" replace />;
@@ -19,11 +24,18 @@ export default function Login() {
         <h1 className={styles.title}>Gather</h1>
       </div>
       <div className={styles['btn-group']}>
+        {isWebView() && (
+          <p className={styles.webView}>
+            접속하신 브라우저는 구글 로그인을 지원하지 않습니다.
+            <br />
+            Chrome, 삼성 인터넷 등 다른 브라우저를 이용해주세요.
+          </p>
+        )}
         <button
           className={styles['login-btn']}
           onClick={handleGoogleLogin}
           type="button"
-          disabled={isLoading}
+          disabled={isLoading || isWebView()}
         >
           로그인
         </button>
