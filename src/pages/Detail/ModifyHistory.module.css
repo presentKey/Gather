@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem 1.5rem 1.5rem;
+  padding: 1.5rem 2rem 1.5rem 1rem;
   margin: 0 -1rem;
   background-color: var(--color-yellow);
   border-bottom: 1px solid var(--color-black);
@@ -22,6 +22,13 @@
   align-items: center;
 }
 
+.text-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 0.5rem;
+}
+
 .date,
 .message {
   font-size: 0.8rem;
@@ -29,7 +36,6 @@
 
 .date {
   flex-shrink: 0;
-  margin: 0 0.5rem;
 }
 
 .message {
