@@ -5,6 +5,8 @@ export default function useLogin() {
   const [isLoading, setIsLoding] = useState(false);
   const { user, googleLogin, anonymouseLogin } = useAuthContext();
 
+  const isWebView = () => /inapp|KAKAOTALK/i.test(navigator.userAgent);
+
   const handleGoogleLogin = () => {
     setIsLoding(true);
     googleLogin();
@@ -17,5 +19,11 @@ export default function useLogin() {
     setTimeout(() => setIsLoding(false), 7000);
   };
 
-  return { isLoading, user, handleGoogleLogin, handleAnonymouseLogin };
+  return {
+    isLoading,
+    user,
+    handleGoogleLogin,
+    handleAnonymouseLogin,
+    isWebView,
+  };
 }

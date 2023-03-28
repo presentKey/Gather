@@ -6,7 +6,12 @@
   width: 100%;
   max-width: 48rem;
   padding: 0.5rem;
-  background-color: var(--color-green-light);
+  background: rgb(234, 231, 177);
+  background: linear-gradient(
+    180deg,
+    rgba(234, 231, 177, 1) 0%,
+    rgba(166, 187, 141, 1) 100%
+  );
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0,

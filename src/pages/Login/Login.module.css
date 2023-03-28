@@ -37,6 +37,12 @@
   font-size: 1.25rem;
 }
 
+.webView {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--color-yellow);
+}
+
 .login-btn,
 .guest-btn {
   width: 100%;
