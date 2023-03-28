@@ -24,11 +24,13 @@ export default function ModifyHistory({ code, histories, history, members }) {
               <Avatar key={uuidv4()} image={member.photoURL} />
             )
         )}
-        <span className={styles.date}>{date}</span>
-        <p className={styles.message}>
-          모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로
-          변경되었습니다.
-        </p>
+        <div className={styles['text-wrap']}>
+          <span className={styles.date}>{date}</span>
+          <p className={styles.message}>
+            모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로
+            변경되었습니다.
+          </p>
+        </div>
       </div>
       {deletable && user.uid === uid && (
         <button
