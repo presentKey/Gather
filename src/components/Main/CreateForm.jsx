@@ -10,10 +10,20 @@ export default function CreateForm() {
   return (
     <>
       <form onSubmit={handleCreateSubmit} className={styles.form}>
+        <div className={styles['set-group']}>
+          <input
+            className={styles['set-anonymouse']}
+            type='checkbox'
+            name='setAnonymouse'
+            id='setAnonymouse'
+            onChange={handleChange}
+          />
+          <label htmlFor='setAnonymouse'>모임 구성원으로 게스트 유저 허락</label>
+        </div>
         <div className={styles['input-box']}>
           <input
-            type="text"
-            name="title"
+            type='text'
+            name='title'
             value={info.title ?? ''}
             onChange={handleChange}
             required
@@ -21,29 +31,20 @@ export default function CreateForm() {
           <span>모임 이름</span>
         </div>
         <div className={styles['input-box']}>
-          <input
-            type="text"
-            name="bank"
-            value={info.bank ?? ''}
-            onChange={handleChange}
-            required
-          />
+          <input type='text' name='bank' value={info.bank ?? ''} onChange={handleChange} required />
           <span>은행</span>
         </div>
         <div className={styles['input-box']}>
           <input
-            type="number"
-            name="number"
+            type='number'
+            name='number'
             value={info.number ?? ''}
             onChange={handleChange}
             required
           />
           <span>계좌번호</span>
         </div>
-        <button
-          className={`${error && styles['is-error']}`}
-          disabled={isLoading}
-        >
+        <button className={`${error && styles['is-error']}`} disabled={isLoading}>
           모임 생성!
         </button>
       </form>

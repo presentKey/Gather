@@ -105,7 +105,7 @@ async function saveMemberInDB(uid, isAnonymous) {
 
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
-  const { title, bank, number } = info;
+  const { title, bank, number, setAnonymouse } = info;
   let accountNumber = parseInt(number, 10);
 
   if (!title || !bank || !number) {
@@ -126,6 +126,9 @@ export async function createClass(user, info) {
     members: [{ uid, photoURL }],
     history: [],
     total: 0,
+    set: {
+      setAnonymouse: setAnonymouse || false,
+    },
   });
 
   const uidRef = doc(db, 'members', uid);
@@ -277,9 +280,7 @@ export async function depositOrWithdraw(code, user, info, minDate) {
   }
 
   if (minDate && minDate > date) {
-    throw new Error(
-      '모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.'
-    );
+    throw new Error('모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.');
   }
 
   if (Number.isNaN(amount)) {
