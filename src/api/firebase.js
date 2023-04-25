@@ -154,6 +154,10 @@ export async function participationClass(user, info) {
     throw new Error('코드가 잘못되었습니다.');
   }
 
+  if (!docSnap.data().setAnonymouse) {
+    throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
+  }
+
   const batch = writeBatch(db);
   const codeRef = doc(db, 'classes', code);
   batch.update(codeRef, {
