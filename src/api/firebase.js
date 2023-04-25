@@ -105,7 +105,7 @@ async function saveMemberInDB(uid, isAnonymous) {
 
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
-  const { title, bank, number, setAnonymouse } = info;
+  const { title, bank, number, allowAnonymouse } = info;
   let accountNumber = parseInt(number, 10);
 
   if (!title || !bank || !number) {
@@ -126,9 +126,7 @@ export async function createClass(user, info) {
     members: [{ uid, photoURL }],
     history: [],
     total: 0,
-    set: {
-      setAnonymouse: setAnonymouse || false,
-    },
+    allowAnonymouse: allowAnonymouse || false,
   });
 
   const uidRef = doc(db, 'members', uid);
@@ -154,7 +152,7 @@ export async function participationClass(user, info) {
     throw new Error('코드가 잘못되었습니다.');
   }
 
-  if (!docSnap.data().setAnonymouse) {
+  if (!docSnap.data().allowAnonymouse) {
     throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
   }
 
@@ -195,7 +193,7 @@ export async function getClassDetail(code) {
 }
 
 export async function updateClassHeader(uid, code, info) {
-  const { title, bank, number, total, setAnonymouse } = info;
+  const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
   let accountNumber = parseInt(number, 10);
 
@@ -225,7 +223,7 @@ export async function updateClassHeader(uid, code, info) {
       transaction.update(classRef, {
         account: { bank, number: accountNumber },
         title,
-        setAnonymouse,
+        allowAnonymouse,
       });
     } else {
       const undeletableHistories = histories.map((history) => ({
@@ -238,7 +236,7 @@ export async function updateClassHeader(uid, code, info) {
         account: { bank, number: accountNumber },
         title,
         total: amount,
-        setAnonymouse,
+        allowAnonymouse,
         history: arrayUnion({
           id: uuidv4(),
           uid,

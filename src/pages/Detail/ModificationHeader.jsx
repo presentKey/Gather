@@ -9,11 +9,11 @@ import useClass from '../../components/Main/hooks/useClass';
 
 export default function ModificationHeader({
   code,
-  headerInfo: { title, account, total, setAnonymouse },
+  headerInfo: { title, account, total, allowAnonymouse },
   onModifyBtnClick,
 }) {
   const { bank, number } = account;
-  const [info, handleChange] = useInput({ title, bank, number, total, setAnonymouse });
+  const [info, handleChange] = useInput({ title, bank, number, total, allowAnonymouse });
   const { isLoading, error, handleUpdateHeader } = useClass(code, info);
 
   return (
@@ -54,12 +54,12 @@ export default function ModificationHeader({
         <input
           className={styles['set-anonymouse']}
           type='checkbox'
-          name='setAnonymouse'
-          id='setAnonymouse'
-          checked={info.setAnonymouse}
+          name='allowAnonymouse'
+          id='allowAnonymouse'
+          checked={info.allowAnonymouse}
           onChange={handleChange}
         />
-        <label htmlFor='setAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
+        <label htmlFor='allowAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
       </div>
       <SettingMenu onModifyBtnClick={onModifyBtnClick} />
       <button
