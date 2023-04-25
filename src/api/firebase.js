@@ -191,7 +191,7 @@ export async function getClassDetail(code) {
 }
 
 export async function updateClassHeader(uid, code, info) {
-  const { title, bank, number, total } = info;
+  const { title, bank, number, total, setAnonymouse } = info;
   const amount = parseInt(total, 10);
   let accountNumber = parseInt(number, 10);
 
@@ -221,6 +221,7 @@ export async function updateClassHeader(uid, code, info) {
       transaction.update(classRef, {
         account: { bank, number: accountNumber },
         title,
+        setAnonymouse,
       });
     } else {
       const undeletableHistories = histories.map((history) => ({
@@ -233,6 +234,7 @@ export async function updateClassHeader(uid, code, info) {
         account: { bank, number: accountNumber },
         title,
         total: amount,
+        setAnonymouse,
         history: arrayUnion({
           id: uuidv4(),
           uid,

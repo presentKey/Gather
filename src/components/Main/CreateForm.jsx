@@ -18,7 +18,7 @@ export default function CreateForm() {
             id='setAnonymouse'
             onChange={handleChange}
           />
-          <label htmlFor='setAnonymouse'>모임 구성원으로 게스트 유저 허락</label>
+          <label htmlFor='setAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
         </div>
         <div className={styles['input-box']}>
           <input
