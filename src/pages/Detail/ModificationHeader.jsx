@@ -9,39 +9,33 @@ import useClass from '../../components/Main/hooks/useClass';
 
 export default function ModificationHeader({
   code,
-  headerInfo: { title, account, total },
+  headerInfo: { title, account, total, allowAnonymouse },
   onModifyBtnClick,
 }) {
   const { bank, number } = account;
-  const [info, handleChange] = useInput({ title, bank, number, total });
+  const [info, handleChange] = useInput({ title, bank, number, total, allowAnonymouse });
   const { isLoading, error, handleUpdateHeader } = useClass(code, info);
 
   return (
     <header className={styles.header}>
       <input
-        name="title"
-        className={`${styles.title} ${
-          isInputLengthZero(info.title) && styles['is-error']
-        }`}
+        name='title'
+        className={`${styles.title} ${isInputLengthZero(info.title) && styles['is-error']}`}
         value={info.title ?? ''}
         onChange={handleChange}
       />
       <div className={styles['bank-group']}>
         <IoMdBook className={styles['bank-icon']} />
         <input
-          name="bank"
-          className={`${styles.bank} ${
-            isInputLengthZero(info.bank) && styles['is-error']
-          }`}
+          name='bank'
+          className={`${styles.bank} ${isInputLengthZero(info.bank) && styles['is-error']}`}
           value={info.bank ?? ''}
           onChange={handleChange}
         />
         <input
-          name="number"
-          type="number"
-          className={`${styles.number} ${
-            isInputLengthZero(info.number) && styles['is-error']
-          }`}
+          name='number'
+          type='number'
+          className={`${styles.number} ${isInputLengthZero(info.number) && styles['is-error']}`}
           value={info.number ?? ''}
           onChange={handleChange}
         />
@@ -49,29 +43,34 @@ export default function ModificationHeader({
       <div className={styles.amount}>
         <CiCoinInsert className={styles['money-icon']} />
         <input
-          name="total"
-          type="number"
-          className={`${styles.total} ${
-            isInputLengthZero(info.total) && styles['is-error']
-          }`}
+          name='total'
+          type='number'
+          className={`${styles.total} ${isInputLengthZero(info.total) && styles['is-error']}`}
           value={info.total ?? ''}
           onChange={handleChange}
         />
       </div>
+      <div className={styles['set-group']}>
+        <input
+          className={styles['set-anonymouse']}
+          type='checkbox'
+          name='allowAnonymouse'
+          id='allowAnonymouse'
+          checked={info.allowAnonymouse}
+          onChange={handleChange}
+        />
+        <label htmlFor='allowAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
+      </div>
       <SettingMenu onModifyBtnClick={onModifyBtnClick} />
       <button
         className={`${styles['modify-btn']} ${error && styles['is-error']}`}
-        type="button"
+        type='button'
         disabled={isLoading}
         onClick={() => handleUpdateHeader(onModifyBtnClick)}
       >
         수정하기
       </button>
-      <button
-        className={styles['cancel-btn']}
-        type="button"
-        onClick={onModifyBtnClick}
-      >
+      <button className={styles['cancel-btn']} type='button' onClick={onModifyBtnClick}>
         취소
       </button>
     </header>

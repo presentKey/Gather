@@ -105,7 +105,7 @@ async function saveMemberInDB(uid, isAnonymous) {
 
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
-  const { title, bank, number } = info;
+  const { title, bank, number, allowAnonymouse } = info;
   let accountNumber = parseInt(number, 10);
 
   if (!title || !bank || !number) {
@@ -126,6 +126,7 @@ export async function createClass(user, info) {
     members: [{ uid, photoURL }],
     history: [],
     total: 0,
+    allowAnonymouse: allowAnonymouse || false,
   });
 
   const uidRef = doc(db, 'members', uid);
@@ -149,6 +150,10 @@ export async function participationClass(user, info) {
 
   if (!docSnap.exists()) {
     throw new Error('코드가 잘못되었습니다.');
+  }
+
+  if (!docSnap.data().allowAnonymouse) {
+    throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
   }
 
   const batch = writeBatch(db);
@@ -188,7 +193,7 @@ export async function getClassDetail(code) {
 }
 
 export async function updateClassHeader(uid, code, info) {
-  const { title, bank, number, total } = info;
+  const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
   let accountNumber = parseInt(number, 10);
 
@@ -218,6 +223,7 @@ export async function updateClassHeader(uid, code, info) {
       transaction.update(classRef, {
         account: { bank, number: accountNumber },
         title,
+        allowAnonymouse,
       });
     } else {
       const undeletableHistories = histories.map((history) => ({
@@ -230,6 +236,7 @@ export async function updateClassHeader(uid, code, info) {
         account: { bank, number: accountNumber },
         title,
         total: amount,
+        allowAnonymouse,
         history: arrayUnion({
           id: uuidv4(),
           uid,
@@ -277,9 +284,7 @@ export async function depositOrWithdraw(code, user, info, minDate) {
   }
 
   if (minDate && minDate > date) {
-    throw new Error(
-      '모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.'
-    );
+    throw new Error('모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.');
   }
 
   if (Number.isNaN(amount)) {
