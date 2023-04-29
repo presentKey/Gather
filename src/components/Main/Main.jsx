@@ -8,6 +8,7 @@ import Form from '../common/BottomSheet/Form/Form';
 import useInput from '../../hooks/useInput';
 import ParticipationFormContent from '../common/BottomSheet/Form/ParticipationFormContent';
 import CreateFormContent from '../common/BottomSheet/Form/CreateFormContent';
+import { CREATE, PARTICIPATION } from '../../constants/formButtonText';
 
 const TYPE_1 = 'create';
 const TYPE_2 = 'participation';
@@ -45,7 +46,7 @@ export default function Main() {
         setHeaderHeight={setHeaderHeight}
       >
         <Form
-          text={'모임 생성!'}
+          text={CREATE}
           setHeight={setHeight}
           headerHeight={headerHeight}
           content={content}
@@ -56,7 +57,7 @@ export default function Main() {
           <CreateFormContent info={info} onChange={handleChange} />
         </Form>
         <Form
-          text={'모임 참여!'}
+          text={PARTICIPATION}
           setHeight={setHeight}
           headerHeight={headerHeight}
           content={content}

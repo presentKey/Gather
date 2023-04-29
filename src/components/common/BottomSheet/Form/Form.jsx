@@ -13,7 +13,7 @@ export default function Form({
   nonTarget,
   info,
 }) {
-  const { isLoading, error, handleCreateSubmit } = useClass(null, info);
+  const { isLoading, error, handleSubmit } = useClass(null, info);
   const formRef = useRef(null);
 
   const handleResize = useCallback(
@@ -27,10 +27,10 @@ export default function Form({
     if (content[target]) {
       setHeight(formRef.current?.offsetHeight);
       window.addEventListener('resize', handleResize);
-    } else if (!content[target]) {
-      if (content[nonTarget]) return;
-      setHeight(0);
+      return;
     }
+    if (content[nonTarget]) return;
+    setHeight(0);
 
     return () => window.removeEventListener('resize', handleResize);
   }, [content[target]]);
@@ -41,7 +41,7 @@ export default function Form({
         className={`${styles.form} ${content[target] && styles['is-open']}`}
         style={{ top: headerHeight }}
         ref={formRef}
-        onSubmit={handleCreateSubmit}
+        onSubmit={(e) => handleSubmit(e, text)}
       >
         {children}
         <button className={`${styles.button} ${error && styles['is-error']}`} disabled={isLoading}>
