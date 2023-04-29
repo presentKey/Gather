@@ -14,5 +14,7 @@ export default function useInput(initialValue = {}) {
     setInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  return [info, handleChange];
+  const clearInput = () => setInfo(initialValue);
+
+  return [info, handleChange, clearInput];
 }

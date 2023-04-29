@@ -16,6 +16,7 @@ export default function Form({
   info,
   lastModified,
   onClose,
+  clear,
 }) {
   const { isLoading, error, handleSubmit } = useClass(code, info);
   const formRef = useRef(null);
@@ -45,7 +46,10 @@ export default function Form({
         className={`${styles.form} ${content[target] && styles['is-open']}`}
         style={{ top: headerHeight }}
         ref={formRef}
-        onSubmit={(e) => handleSubmit(e, text, onClose, lastModified?.date, target)}
+        onSubmit={(e) => {
+          handleSubmit(e, text, onClose, lastModified?.date, target);
+          clear && clear();
+        }}
       >
         {children}
 

@@ -35,7 +35,7 @@ export default function Detail() {
   } = useClass(state?.code);
   const { isModification, handleModifyBtnClick, sortedHistory } = useClassDetail();
   const [content, handleContent, handleClose] = useToggleContent(initialState);
-  const [info, handleChange] = useInput({ message: '', date: today });
+  const [info, handleChange, clearInput] = useInput({ message: '', date: today });
   const [headerHeight, setHeaderHeight] = useState(0);
   const [height, setHeight] = useState(0);
 
@@ -105,6 +105,7 @@ export default function Detail() {
             info={info}
             lastModified={lastModified}
             onClose={handleClose}
+            clear={clearInput}
           >
             <MoneyFormContent
               info={info}
@@ -124,6 +125,7 @@ export default function Detail() {
             info={info}
             lastModified={lastModified}
             onClose={handleClose}
+            clear={clearInput}
           >
             <MoneyFormContent
               info={info}
