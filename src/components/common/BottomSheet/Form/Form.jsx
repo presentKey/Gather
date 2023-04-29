@@ -22,14 +22,14 @@ export default function Form({
   const formRef = useRef(null);
 
   const handleResize = useCallback(
-    throttle(() => {
-      setHeight(formRef.current?.offsetHeight);
-    }, 700),
+    throttle(() => setHeight(formRef.current?.offsetHeight), 700),
     []
   );
 
   useEffect(() => {
-    if (content[target]) {
+    if (!content[target] && !content[nonTarget]) {
+      window.removeEventListener('resize', handleResize);
+    } else if (content[target]) {
       setHeight(formRef.current?.offsetHeight);
       window.addEventListener('resize', handleResize);
       return;
