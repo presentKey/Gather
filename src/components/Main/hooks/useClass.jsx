@@ -24,61 +24,43 @@ export default function useClass(code, info) {
     onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
   });
 
-  const participation = useMutation(
-    ({ user, info }) => participationClass(user, info),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
-    }
-  );
+  const participation = useMutation(({ user, info }) => participationClass(user, info), {
+    onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+  });
 
   const updateHeader = useMutation(
     ({ user, code, info }) => updateClassHeader(user.uid, code, info),
     {
-      onSuccess: () =>
-        queryClient.invalidateQueries(['myClass', code, user.uid]),
+      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
-  const leave = useMutation(
-    ({ code, user, members }) => leaveClass(code, user, members),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
-    }
-  );
+  const leave = useMutation(({ code, user, members }) => leaveClass(code, user, members), {
+    onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+  });
 
   const addHistory = useMutation(
-    ({ code, user, info, minDate }) =>
-      depositOrWithdraw(code, user, info, minDate),
+    ({ code, user, info, minDate }) => depositOrWithdraw(code, user, info, minDate),
     {
-      onSuccess: () =>
-        queryClient.invalidateQueries(['myClass', code, user.uid]),
+      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
   const removeHistory = useMutation(
     ({ code, user, id, histories }) => deleteHistory(code, user, id, histories),
     {
-      onSuccess: () =>
-        queryClient.invalidateQueries(['myClass', code, user.uid]),
+      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
-  const classListQuery = useQuery(
-    ['myClasses', user.uid],
-    () => getClassList(user.uid),
-    {
-      staleTime: 1000 * 60 * 60,
-    }
-  );
+  const classListQuery = useQuery(['myClasses', user.uid], () => getClassList(user.uid), {
+    staleTime: 1000 * 60 * 60,
+  });
 
-  const classDetailQuery = useQuery(
-    ['myClass', code, user.uid],
-    () => getClassDetail(code),
-    {
-      enabled: !!code,
-      staleTime: 1000 * 60 * 60,
-    }
-  );
+  const classDetailQuery = useQuery(['myClass', code, user.uid], () => getClassDetail(code), {
+    enabled: !!code,
+    staleTime: 1000 * 60 * 60,
+  });
 
   const handleCreateSubmit = (e) => {
     e.preventDefault();
