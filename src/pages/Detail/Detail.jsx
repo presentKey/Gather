@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
@@ -11,22 +11,30 @@ import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import ModifyHistory from './ModifyHistory';
+import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
+import useToggleContent from '../../components/Main/hooks/useToggleContent';
+import CreateForm from '../../components/Main/CreateForm';
+import ParticipationForm from '../../components/Main/ParticipationForm';
+
+const initialState = { create: false, participation: false };
+const buttonInfo = [
+  { type: 'button', text: '모임 만들기', 'data-type': 'create' },
+  { type: 'button', text: '모임 참여하기', 'data-type': 'participation' },
+];
 
 export default function Detail() {
   const { state } = useLocation();
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const {
-    openAddForm,
-    isModification,
-    handleToggleAddForm,
-    handleModifyBtnClick,
-    sortedHistory,
-  } = useClassDetail();
+  const { openAddForm, isModification, handleToggleAddForm, handleModifyBtnClick, sortedHistory } =
+    useClassDetail();
+  const [content, handleContent, handleClose] = useToggleContent(initialState);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [height, setHeight] = useState(0);
 
-  if (!state) return <Navigate to="/" replace />;
-  if (isLoading) return <LoadingDetail></LoadingDetail>;
+  if (!state) return <Navigate to='/' replace />;
+  if (isLoading) return <LoadingDetail />;
 
   const histories = sortedHistory(detail.history);
   const { code } = state;
@@ -34,10 +42,7 @@ export default function Detail() {
   return (
     <>
       {!isModification && (
-        <ShowHeader
-          headerInfo={detail}
-          onModifyBtnClick={handleModifyBtnClick}
-        />
+        <ShowHeader headerInfo={detail} onModifyBtnClick={handleModifyBtnClick} />
       )}
       {isModification && (
         <ModificationHeader
@@ -47,19 +52,11 @@ export default function Detail() {
         />
       )}
       <section className={styles.detail}>
-        <button
-          className={styles['plus-btn']}
-          type="button"
-          onClick={handleToggleAddForm}
-        >
+        <button className={styles['plus-btn']} type='button' onClick={handleToggleAddForm}>
           <HiOutlinePlusCircle />
         </button>
         {openAddForm && (
-          <AddHistoryForm
-            code={code}
-            histories={histories}
-            onClose={handleToggleAddForm}
-          />
+          <AddHistoryForm code={code} histories={histories} onClose={handleToggleAddForm} />
         )}
 
         <ul>
@@ -88,6 +85,17 @@ export default function Detail() {
             }
           })}
         </ul>
+        <BottomSheet
+          content={content}
+          handleContent={handleContent}
+          onClose={handleClose}
+          buttonInfo={buttonInfo}
+          height={height}
+          setHeaderHeight={setHeaderHeight}
+        >
+          <CreateForm setHeight={setHeight} headerHeight={headerHeight} content={content} />
+          <ParticipationForm setHeight={setHeight} headerHeight={headerHeight} content={content} />
+        </BottomSheet>
       </section>
     </>
   );
