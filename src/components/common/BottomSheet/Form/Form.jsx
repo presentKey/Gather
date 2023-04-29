@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef } from 'react';
 import useClass from '../../../Main/hooks/useClass';
 import { throttle } from 'lodash';
 import styles from './Form.module.css';
+import { DEPOSIT, WITHDRAW } from '../../../../constants/formButtonText';
 
 export default function Form({
+  code,
   text,
   children,
   setHeight,
@@ -12,8 +14,10 @@ export default function Form({
   target,
   nonTarget,
   info,
+  lastModified,
+  onClose,
 }) {
-  const { isLoading, error, handleSubmit } = useClass(null, info);
+  const { isLoading, error, handleSubmit } = useClass(code, info);
   const formRef = useRef(null);
 
   const handleResize = useCallback(
@@ -41,13 +45,24 @@ export default function Form({
         className={`${styles.form} ${content[target] && styles['is-open']}`}
         style={{ top: headerHeight }}
         ref={formRef}
-        onSubmit={(e) => handleSubmit(e, text)}
+        onSubmit={(e) => handleSubmit(e, text, onClose, lastModified?.date, target)}
       >
         {children}
-        <button className={`${styles.button} ${error && styles['is-error']}`} disabled={isLoading}>
+
+        <button
+          className={`${styles.button} ${styles[getButtonColor(text)]} ${
+            error && styles['is-error']
+          }`}
+          disabled={isLoading}
+        >
           {text}
         </button>
       </form>
     </>
   );
+}
+
+function getButtonColor(text) {
+  if (text === DEPOSIT) return 'red';
+  if (text === WITHDRAW) return 'blue';
 }

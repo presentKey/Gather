@@ -1,6 +1,4 @@
 import { AiFillPlusCircle } from 'react-icons/ai';
-import Overlay from '../Overlay/Overlay';
-import OverlayPortal from '../Overlay/OverlayPortal';
 import styles from './BottomSheet.module.css';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -10,7 +8,6 @@ export default function BottomSheet({
   children,
   content,
   handleContent,
-  onClose,
   buttonInfo,
   height,
   setHeaderHeight,
@@ -44,11 +41,6 @@ export default function BottomSheet({
         <AiFillPlusCircle className={styles.plus} />
         <ButtonGroup content={content} handleContent={handleContent} buttonInfo={buttonInfo} />
         {children}
-        {(content.create || content.participation) && (
-          <OverlayPortal>
-            <Overlay onClose={onClose} />
-          </OverlayPortal>
-        )}
       </aside>
     </>
   );

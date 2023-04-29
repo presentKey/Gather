@@ -12,7 +12,7 @@ import {
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CREATE, PARTICIPATION } from '../../../constants/formButtonText';
+import { CREATE, DEPOSIT, PARTICIPATION, WITHDRAW } from '../../../constants/formButtonText';
 
 export default function useClass(code, info) {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ export default function useClass(code, info) {
   });
 
   const addHistory = useMutation(
-    ({ code, user, info, minDate }) => depositOrWithdraw(code, user, info, minDate),
+    ({ code, user, info, minDate, type }) => depositOrWithdraw(code, user, info, minDate, type),
     {
       onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
@@ -95,7 +95,7 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleSubmit = (e, text) => {
+  const handleSubmit = (e, text, onClick, minDate, type) => {
     e.preventDefault();
     switch (text) {
       case CREATE:
@@ -103,6 +103,10 @@ export default function useClass(code, info) {
         break;
       case PARTICIPATION:
         handleParticipationSubmit(e);
+        break;
+      case DEPOSIT:
+      case WITHDRAW:
+        handleAddHistorySumbit(e, onClick, minDate, type);
         break;
       default:
         throw new Error(`${text}에 실패했습니다.`);
@@ -135,11 +139,11 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleAddHistorySumbit = (e, onAddBtnClick, minDate) => {
+  const handleAddHistorySumbit = (e, onAddBtnClick, minDate, type) => {
     e.preventDefault();
     setIsLoading(true);
     addHistory.mutate(
-      { code, user, info, minDate },
+      { code, user, info, minDate, type },
       {
         onSuccess: () => onAddBtnClick(),
         onError: ERROR,

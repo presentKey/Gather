@@ -274,9 +274,9 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function depositOrWithdraw(code, user, info, minDate) {
+export async function depositOrWithdraw(code, user, info, minDate, type) {
   const { uid } = user;
-  const { type, price, message, date } = info;
+  const { price, message, date } = info;
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
