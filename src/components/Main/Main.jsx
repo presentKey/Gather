@@ -9,6 +9,8 @@ import useInput from '../../hooks/useInput';
 import ParticipationFormContent from '../common/BottomSheet/Form/ParticipationFormContent';
 import CreateFormContent from '../common/BottomSheet/Form/CreateFormContent';
 import { CREATE, PARTICIPATION } from '../../constants/formButtonText';
+import OverlayPortal from '../common/Overlay/OverlayPortal';
+import Overlay from '../common/Overlay/Overlay';
 
 const TYPE_1 = 'create';
 const TYPE_2 = 'participation';
@@ -40,7 +42,6 @@ export default function Main() {
       <BottomSheet
         content={content}
         handleContent={handleContent}
-        onClose={handleClose}
         buttonInfo={buttonInfo}
         height={height}
         setHeaderHeight={setHeaderHeight}
@@ -67,6 +68,11 @@ export default function Main() {
         >
           <ParticipationFormContent info={info} onChange={handleChange} />
         </Form>
+        {(content[TYPE_1] || content[TYPE_2]) && (
+          <OverlayPortal>
+            <Overlay onClose={handleClose} />
+          </OverlayPortal>
+        )}
       </BottomSheet>
     </>
   );
