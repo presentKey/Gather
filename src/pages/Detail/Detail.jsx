@@ -3,9 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
 import { Navigate } from 'react-router-dom';
-import { HiOutlinePlusCircle } from 'react-icons/hi';
 import styles from './Detail.module.css';
-import AddHistoryForm from './AddHistoryForm';
 import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
@@ -35,8 +33,7 @@ export default function Detail() {
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const { openAddForm, isModification, handleToggleAddForm, handleModifyBtnClick, sortedHistory } =
-    useClassDetail();
+  const { isModification, handleModifyBtnClick, sortedHistory } = useClassDetail();
   const [content, handleContent, handleClose] = useToggleContent(initialState);
   const [info, handleChange] = useInput({ message: '', date: today });
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -63,13 +60,6 @@ export default function Detail() {
         />
       )}
       <section className={styles.detail}>
-        <button className={styles['plus-btn']} type='button' onClick={handleToggleAddForm}>
-          <HiOutlinePlusCircle />
-        </button>
-        {openAddForm && (
-          <AddHistoryForm code={code} histories={histories} onClose={handleToggleAddForm} />
-        )}
-
         <ul>
           {histories.map((history) => {
             switch (history.type) {
