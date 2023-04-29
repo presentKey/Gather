@@ -35,7 +35,7 @@ export default function BottomSheet({
   return (
     <>
       <aside
-        className={styles.toast}
+        className={styles.sheet}
         style={{
           transform: `translate3d(${screenWidth >= 768 ? '-50%' : '0'}, -${height}px, 0)`,
         }}

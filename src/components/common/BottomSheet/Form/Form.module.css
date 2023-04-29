@@ -14,7 +14,7 @@
   visibility: visible;
 }
 
-.form button {
+.button {
   width: 100%;
   padding: 0.625rem;
   color: var(--color-white);
@@ -22,13 +22,13 @@
   border-radius: 4px;
 }
 
-.form button.is-error {
+.button.is-error {
   animation-name: error-button-text;
   animation-duration: 200ms;
   animation-iteration-count: infinite;
 }
 
-.form button:hover {
+.button:hover {
   filter: brightness(1.2);
 }
 
@@ -38,11 +38,6 @@
     flex-direction: column;
     justify-content: center;
     padding: 1.5rem 12rem;
-  }
-
-  .input-box,
-  .form button {
-    max-width: 25rem;
   }
 }
 
@@ -65,23 +60,3 @@
     color: var(--color-red);
   }
 }
-
-/* @keyframes error-input-border {
-  0% {
-    position: relative;
-    left: -1px;
-    border: 2px solid var(--color-red);
-  }
-
-  50% {
-    position: relative;
-    left: 0;
-    border: 2px solid var(--color-red);
-  }
-
-  100% {
-    position: relative;
-    left: 1px;
-    border: 2px solid var(--color-red);
-  }
-} */

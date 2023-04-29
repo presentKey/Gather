@@ -44,7 +44,7 @@ export default function Form({
         onSubmit={handleCreateSubmit}
       >
         {children}
-        <button className={`${error && styles['is-error']}`} disabled={isLoading}>
+        <button className={`${styles.button} ${error && styles['is-error']}`} disabled={isLoading}>
           {text}
         </button>
       </form>

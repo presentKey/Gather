@@ -41,12 +41,6 @@
   transform: translate(0.625rem, -7px);
 }
 
-/* .input-box input.is-error {
-  animation-name: error-input-border;
-  animation-duration: 200ms;
-  animation-iteration-count: infinite;
-} */
-
 .input-box span {
   position: absolute;
   left: 0;
