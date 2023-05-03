@@ -19,7 +19,7 @@
   /* z-index */
   --class-header-menu-level: 90;
   --overlay-level: 100;
-  --add-class-toast-level: 110;
+  --bottom-sheet-level: 110;
   --confirm-modal-level: 130;
 }
 

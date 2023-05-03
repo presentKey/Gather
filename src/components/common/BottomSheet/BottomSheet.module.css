@@ -2,24 +2,25 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: var(--add-class-toast-level);
+
+  z-index: var(--bottom-sheet-level);
   width: 100%;
   max-width: 48rem;
   padding: 0.5rem;
-  background: rgb(234, 231, 177);
-  background: linear-gradient(180deg, rgba(234, 231, 177, 1) 0%, rgba(166, 187, 141, 1) 100%);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  background: var(--color-brand);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
-  transition: transform 200ms ease;
 }
 
-.plus {
+.icon {
   position: absolute;
-  top: -0.5rem;
+  top: -0.75rem;
   left: 50%;
   font-size: 1.5rem;
-  color: var(--color-black);
+  color: var(--color-brand);
+  background-color: var(--color-yellow);
+  border-radius: 50%;
   transform: translateX(-50%);
 }
 
