@@ -25,6 +25,7 @@ export default function Main() {
         </BottomSheet.Header>
         <BottomSheet.Form>
           <BottomSheet.Input />
+          <BottomSheet.Input />
           <BottomSheet.Button />
         </BottomSheet.Form>
       </BottomSheet>
