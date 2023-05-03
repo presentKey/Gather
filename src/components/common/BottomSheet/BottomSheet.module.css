@@ -2,11 +2,10 @@
   position: fixed;
   bottom: 0;
   left: 0;
-
   z-index: var(--bottom-sheet-level);
   width: 100%;
   max-width: 48rem;
-  padding: 0.5rem;
+  padding: 0.8rem;
   background: var(--color-brand);
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
