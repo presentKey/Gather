@@ -1,9 +1,5 @@
-.container {
+.body {
   display: flex;
-}
-
-.form {
-  flex-grow: 1;
 }
 
 .icon {
@@ -11,10 +7,6 @@
 }
 
 @media screen and (min-width: 48rem) {
-  .form {
-    flex-basis: 65%;
-  }
-
   .icon {
     display: flex;
     flex-basis: 35%;

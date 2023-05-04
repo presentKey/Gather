@@ -1,7 +1,7 @@
 import styles from './BottomSheet.module.css';
 import Button from '../Button/Button';
 import Input from '../input/Input';
-import Form from './Form/Form';
+import Body from './Body/Body';
 import Header from './Header/Header';
 import { BsPlusCircle } from 'react-icons/bs';
 
@@ -15,6 +15,6 @@ export default function BottomSheet({ children }) {
 }
 
 BottomSheet.Header = Header;
-BottomSheet.Form = Form;
+BottomSheet.Body = Body;
 BottomSheet.Button = Button;
 BottomSheet.Input = Input;
