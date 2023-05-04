@@ -4,13 +4,16 @@ import Input from '../input/Input';
 import Body from './Body/Body';
 import Header from './Header/Header';
 import { BsPlusCircle } from 'react-icons/bs';
+import { BottomSheetProvider } from '../../../context/BottomSheetContext';
 
-export default function BottomSheet({ children }) {
+export default function BottomSheet({ children, types }) {
   return (
-    <aside className={styles.sheet}>
-      <BsPlusCircle className={styles.icon} />
-      {children}
-    </aside>
+    <BottomSheetProvider types={types}>
+      <aside className={styles.sheet}>
+        <BsPlusCircle className={styles.icon} />
+        {children}
+      </aside>
+    </BottomSheetProvider>
   );
 }
 

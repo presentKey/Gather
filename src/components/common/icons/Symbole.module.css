@@ -5,6 +5,7 @@
   filter: drop-shadow(0 0 4px #f2d974);
 }
 
-.large {
-  font-size: 9rem;
+.responsive {
+  width: auto;
+  height: 100%;
 }

@@ -3,6 +3,10 @@ import ClassCard from './ClassCard';
 import styles from './Main.module.css';
 import useClass from './hooks/useClass';
 import BottomSheet from '../common/BottomSheet/BottomSheet';
+import Body from '../common/BottomSheet/Body/Body';
+
+const CREATE = 'create';
+const ATTEND = 'attend';
 
 export default function Main() {
   const {
@@ -18,16 +22,15 @@ export default function Main() {
           ))}
         </ul>
       )}
-      <BottomSheet>
+      <BottomSheet types={[CREATE, ATTEND]}>
         <BottomSheet.Header>
-          <BottomSheet.Button />
-          <BottomSheet.Button />
+          <BottomSheet.Button text={'모임 만들기'} type={CREATE} />
+          <BottomSheet.Button text={'모임 참여하기'} type={ATTEND} />
         </BottomSheet.Header>
-        <BottomSheet.Form>
-          <BottomSheet.Input />
-          <BottomSheet.Input />
-          <BottomSheet.Button />
-        </BottomSheet.Form>
+        <BottomSheet.Body>
+          <Body.ClassCreateForm type={CREATE} />
+          <Body.ClassAttendForm type={ATTEND} />
+        </BottomSheet.Body>
       </BottomSheet>
     </>
   );

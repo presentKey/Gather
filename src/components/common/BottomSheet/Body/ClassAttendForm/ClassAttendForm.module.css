@@ -1,0 +1,9 @@
+.form {
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 48rem) {
+  .form {
+    flex-basis: 65%;
+  }
+}
