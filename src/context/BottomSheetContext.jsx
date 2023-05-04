@@ -2,13 +2,11 @@ import { createContext, useContext, useState } from 'react';
 
 const BottomSheetContext = createContext();
 
-export function BottomSheetProvider({ children, types }) {
+export function BottomSheetProvider({ children }) {
   const [toggle, setToggle] = useState(null);
-  const handleToggle = (target) => setToggle(target);
 
-  console.log(`toggle ${toggle}`);
   return (
-    <BottomSheetContext.Provider value={{ toggle, handleToggle }}>
+    <BottomSheetContext.Provider value={{ toggle, setToggle }}>
       {children}
     </BottomSheetContext.Provider>
   );
