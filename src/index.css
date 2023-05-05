@@ -32,28 +32,20 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
   background-color: var(--color-gray-light);
 }
 
 #root {
-  width: 100%;
   max-width: 48rem;
-  height: 100vh;
-  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0 auto;
   background-color: var(--color-white);
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
 }
 
 @media screen and (min-width: 48rem) {
   html {
     font-size: 22px;
-  }
-
-  #root {
-    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
   }
 }
 
