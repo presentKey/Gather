@@ -1,15 +1,34 @@
 import styles from './BottomSheet.module.css';
 import Button from '../Button/Button';
-import Input from '../input/Input';
 import Body from './Body/Body';
 import Header from './Header/Header';
 import { BsPlusCircle } from 'react-icons/bs';
+import Form from './Body/Form/Form';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { throttle } from 'lodash';
+import { heightState } from '../../../recoil/atoms/bottomSheetHeightState';
+import { useRecoilState } from 'recoil';
 import { BottomSheetProvider } from '../../../context/BottomSheetContext';
 
-export default function BottomSheet({ children, types }) {
+export default function BottomSheet({ children }) {
+  const [height] = useRecoilState(heightState);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const resizeThrottle = useRef(throttle(() => setScreenWidth(window.innerWidth), 700));
+  const style = useMemo(
+    () => ({
+      transform: `translate3d(${screenWidth >= 768 ? '-50%' : '0'}, -${height}px, 0)`,
+      bottom: `-${height}px`,
+    }),
+    [height, screenWidth]
+  );
+  useEffect(() => {
+    window.addEventListener('resize', resizeThrottle.current);
+    return () => window.removeEventListener('resize', resizeThrottle.current);
+  }, []);
+
   return (
-    <BottomSheetProvider types={types}>
-      <aside className={styles.sheet}>
+    <BottomSheetProvider>
+      <aside className={styles.sheet} style={style}>
         <BsPlusCircle className={styles.icon} />
         {children}
       </aside>
@@ -19,5 +38,5 @@ export default function BottomSheet({ children, types }) {
 
 BottomSheet.Header = Header;
 BottomSheet.Body = Body;
+BottomSheet.Form = Form;
 BottomSheet.Button = Button;
-BottomSheet.Input = Input;
