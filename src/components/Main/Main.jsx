@@ -4,14 +4,11 @@ import styles from './Main.module.css';
 import useClass from './hooks/useClass';
 import BottomSheet from '../common/BottomSheet/BottomSheet';
 import Body from '../common/BottomSheet/Body/Body';
-
-const CREATE = 'create';
-const ATTEND = 'attend';
+import { ATTEND, CREATE } from '../../constants/bottomSheetDistinct';
 
 export default function Main() {
   const {
     classListQuery: { data: classes },
-    handleSubmit,
   } = useClass();
 
   return (
@@ -30,8 +27,8 @@ export default function Main() {
           <BottomSheet.Button text='모임 참여하기' type='button' distinct={ATTEND} />
         </BottomSheet.Header>
         <BottomSheet.Body>
-          <Body.ClassCreate distinct={CREATE} onSubmit={handleSubmit} />
-          <Body.ClassAttend distinct={ATTEND} onSubmit={handleSubmit} />
+          <Body.ClassCreate distinct={CREATE} />
+          <Body.ClassAttend distinct={ATTEND} />
         </BottomSheet.Body>
       </BottomSheet>
     </>

@@ -12,7 +12,7 @@ import {
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CREATE, DEPOSIT, PARTICIPATION, WITHDRAW } from '../../../constants/formButtonText';
+import { CREATE, ATTEND, DEPOSIT, WITHDRAW } from '../../../constants/bottomSheetDistinct';
 
 export default function useClass(code, info) {
   const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +69,7 @@ export default function useClass(code, info) {
     staleTime: 1000 * 60 * 60,
   });
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
+  const handleCreateSubmit = (info) => {
     setIsLoading(true);
     create.mutate(
       { user, info },
@@ -82,8 +81,7 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleParticipationSubmit = (e) => {
-    e.preventDefault();
+  const handleParticipationSubmit = (info) => {
     setIsLoading(true);
     participation.mutate(
       { user, info },
@@ -95,23 +93,39 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleSubmit = (e, text, onClick, minDate, type) => {
+  const handleSubmit = (e, info, distinct, onClick, minDate, type) => {
     e.preventDefault();
-    switch (text) {
+    switch (distinct) {
       case CREATE:
-        handleCreateSubmit(e);
-        break;
-      case PARTICIPATION:
-        handleParticipationSubmit(e);
-        break;
+        return handleCreateSubmit(info);
+      case ATTEND:
+        return handleParticipationSubmit(info);
       case DEPOSIT:
       case WITHDRAW:
         handleAddHistorySumbit(e, onClick, minDate, type);
         break;
       default:
-        throw new Error(`${text}에 실패했습니다.`);
+        throw new Error(`${distinct}에 실패했습니다.`);
     }
   };
+
+  // const handleSubmit = (e, text, onClick, minDate, type) => {
+  //   e.preventDefault();
+  //   // switch (text) {
+  //   //   case CREATE:
+  //   //     handleCreateSubmit(e);
+  //   //     break;
+  //   //   case PARTICIPATION:
+  //   //     handleParticipationSubmit(e);
+  //   //     break;
+  //   //   case DEPOSIT:
+  //   //   case WITHDRAW:
+  //   //     handleAddHistorySumbit(e, onClick, minDate, type);
+  //   //     break;
+  //   //   default:
+  //   //     throw new Error(`${text}에 실패했습니다.`);
+  //   // }
+  // };
 
   const handleUpdateHeader = (onModifyBtnClick) => {
     setIsLoading(true);
