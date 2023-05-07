@@ -8,3 +8,22 @@
 .button.is-active {
   background-color: var(--color-yellow);
 }
+
+.button.is-error {
+  animation-name: error-button;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
+@keyframes error-button {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  100% {
+    left: 1px;
+    color: var(--color-red);
+  }
+}
