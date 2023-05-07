@@ -17,7 +17,8 @@
   --side-padding: 1rem;
 
   /* z-index */
-  --class-header-menu-level: 90;
+  --class-header-menu-level: 80;
+  --global-header-level: 90;
   --overlay-level: 100;
   --bottom-sheet-level: 110;
   --confirm-modal-level: 130;
@@ -41,12 +42,6 @@ body {
   margin: 0 auto;
   background-color: var(--color-white);
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
-}
-
-@media screen and (min-width: 48rem) {
-  html {
-    font-size: 22px;
-  }
 }
 
 h1 {

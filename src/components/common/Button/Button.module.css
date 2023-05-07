@@ -17,10 +17,12 @@
 }
 
 .red {
+  color: var(--color-white);
   background-color: var(--color-red);
 }
 
 .blue {
+  color: var(--color-white);
   background-color: var(--color-blue);
 }
 
