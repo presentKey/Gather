@@ -7,11 +7,11 @@ import Form from './Body/Form/Form';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import { heightState } from '../../../recoil/atoms/bottomSheetHeightState';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { BottomSheetProvider } from '../../../context/BottomSheetContext';
 
 export default function BottomSheet({ children }) {
-  const [height] = useRecoilState(heightState);
+  const height = useRecoilValue(heightState);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const resizeThrottle = useRef(throttle(() => setScreenWidth(window.innerWidth), 700));
   const style = useMemo(

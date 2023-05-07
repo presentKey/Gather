@@ -6,12 +6,12 @@ import Overlay from '../../Overlay/Overlay';
 import { useEffect, useRef } from 'react';
 import ClassCreate from './ClassCreate/ClassCreate';
 import ClassAttend from './ClassAttend/ClassAttend';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { heightState } from '../../../../recoil/atoms/bottomSheetHeightState';
 
 export default function Body({ children }) {
-  const { toggle, setToggle } = useBottomSheet();
-  const [, setHeight] = useRecoilState(heightState);
+  const { toggle, handleToggle } = useBottomSheet();
+  const setHeight = useSetRecoilState(heightState);
   const bodyRef = useRef();
   useEffect(() => (toggle ? setHeight(bodyRef.current?.offsetHeight) : setHeight(0)), [toggle]);
 
@@ -24,7 +24,7 @@ export default function Body({ children }) {
       </div>
       {toggle && (
         <OverlayPortal>
-          <Overlay onClose={() => setToggle(!toggle)} />
+          <Overlay onClose={() => handleToggle(!toggle)} />
         </OverlayPortal>
       )}
     </div>

@@ -3,7 +3,7 @@ import ClassCard from './ClassCard';
 import styles from './Main.module.css';
 import useClass from './hooks/useClass';
 import BottomSheet from '../common/BottomSheet/BottomSheet';
-import Form from '../common/BottomSheet/Body/Form/Form';
+import Body from '../common/BottomSheet/Body/Body';
 
 const CREATE = 'create';
 const ATTEND = 'attend';
@@ -11,6 +11,7 @@ const ATTEND = 'attend';
 export default function Main() {
   const {
     classListQuery: { data: classes },
+    handleSubmit,
   } = useClass();
 
   return (
@@ -25,14 +26,12 @@ export default function Main() {
 
       <BottomSheet>
         <BottomSheet.Header>
-          <BottomSheet.Button text={'모임 만들기'} type={CREATE} />
-          <BottomSheet.Button text={'모임 참여하기'} type={ATTEND} />
+          <BottomSheet.Button text='모임 만들기' type='button' distinct={CREATE} />
+          <BottomSheet.Button text='모임 참여하기' type='button' distinct={ATTEND} />
         </BottomSheet.Header>
         <BottomSheet.Body>
-          <BottomSheet.Form>
-            <Form.ClassCreate type={CREATE} />
-            <Form.ClassAttend type={ATTEND} />
-          </BottomSheet.Form>
+          <Body.ClassCreate distinct={CREATE} onSubmit={handleSubmit} />
+          <Body.ClassAttend distinct={ATTEND} onSubmit={handleSubmit} />
         </BottomSheet.Body>
       </BottomSheet>
     </>
