@@ -10,6 +10,8 @@ import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import ModifyHistory from './ModifyHistory';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
+import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
+import Body from '../../components/common/BottomSheet/Body/Body';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -63,15 +65,28 @@ export default function Detail() {
             }
           })}
         </ul>
+
         <BottomSheet>
           <BottomSheet.Header>
-            <BottomSheet.Button />
-            <BottomSheet.Button />
+            <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
+            <BottomSheet.Button text='출금' type='button' tag={WITHDRAW} />
           </BottomSheet.Header>
-          <BottomSheet.Form>
-            <BottomSheet.Input />
-            <BottomSheet.Button />
-          </BottomSheet.Form>
+          <BottomSheet.Body>
+            <Body.Transfer
+              code={code}
+              histories={histories}
+              text='입금'
+              tag={DEPOSIT}
+              color='red'
+            />
+            <Body.Transfer
+              code={code}
+              histories={histories}
+              text='출금'
+              tag={WITHDRAW}
+              color='blue'
+            />
+          </BottomSheet.Body>
         </BottomSheet>
       </section>
     </>

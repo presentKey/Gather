@@ -8,6 +8,7 @@ import ClassCreate from './ClassCreate/ClassCreate';
 import ClassAttend from './ClassAttend/ClassAttend';
 import { useSetRecoilState } from 'recoil';
 import { heightState } from '../../../../recoil/atoms/bottomSheetHeightState';
+import Transfer from './Transfer/Transfer';
 
 export default function Body({ children }) {
   const { toggle, handleToggle } = useBottomSheet();
@@ -33,3 +34,4 @@ export default function Body({ children }) {
 
 Body.ClassCreate = ClassCreate;
 Body.ClassAttend = ClassAttend;
+Body.Transfer = Transfer;

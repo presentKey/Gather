@@ -5,9 +5,10 @@ const BottomSheetContext = createContext();
 export function BottomSheetProvider({ children }) {
   const [toggle, setToggle] = useState(null);
   const handleToggle = (distinct) => setToggle(distinct);
+  const closeSheet = () => setToggle(null);
 
   return (
-    <BottomSheetContext.Provider value={{ toggle, handleToggle }}>
+    <BottomSheetContext.Provider value={{ toggle, handleToggle, closeSheet }}>
       {children}
     </BottomSheetContext.Provider>
   );
