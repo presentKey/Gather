@@ -6,15 +6,17 @@ import Overlay from '../../Overlay/Overlay';
 import { useEffect, useRef } from 'react';
 import ClassCreate from './ClassCreate/ClassCreate';
 import ClassAttend from './ClassAttend/ClassAttend';
-import { useSetRecoilState } from 'recoil';
-import { heightState } from '../../../../recoil/atoms/bottomSheetHeightState';
 import Transfer from './Transfer/Transfer';
+import useSheetHeight from '../../../../recoil/BottomSheet/useSheetHeight';
 
 export default function Body({ children }) {
   const { toggle, handleToggle } = useBottomSheet();
-  const setHeight = useSetRecoilState(heightState);
+  const { setSheetHeight } = useSheetHeight();
   const bodyRef = useRef();
-  useEffect(() => (toggle ? setHeight(bodyRef.current?.offsetHeight) : setHeight(0)), [toggle]);
+  useEffect(
+    () => (toggle ? setSheetHeight(bodyRef.current?.offsetHeight) : setSheetHeight(0)),
+    [toggle]
+  );
 
   if (!toggle) return;
   return (

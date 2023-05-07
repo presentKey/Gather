@@ -6,12 +6,11 @@ import { BsPlusCircle } from 'react-icons/bs';
 import Form from './Body/Form/Form';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
-import { heightState } from '../../../recoil/atoms/bottomSheetHeightState';
-import { useRecoilValue } from 'recoil';
 import { BottomSheetProvider } from '../../../context/BottomSheetContext';
+import useSheetHeight from '../../../recoil/BottomSheet/useSheetHeight';
 
 export default function BottomSheet({ children }) {
-  const height = useRecoilValue(heightState);
+  const { height } = useSheetHeight();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const resizeThrottle = useRef(throttle(() => setScreenWidth(window.innerWidth), 700));
   const style = useMemo(
