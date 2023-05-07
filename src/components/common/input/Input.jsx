@@ -1,6 +1,6 @@
 import styles from './Input.module.css';
 
-export default function Input({ type, name, text, value, onChange }) {
+export default function Input({ type, name, text, value, onChange, ...rest }) {
   return (
     <div className={styles.container}>
       <input
@@ -10,7 +10,7 @@ export default function Input({ type, name, text, value, onChange }) {
         name={name}
         value={value[name] ?? ''}
         onChange={onChange}
-        required
+        {...rest}
       />
       <label className={styles.label} htmlFor={name}>
         {text}

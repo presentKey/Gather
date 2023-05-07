@@ -20,9 +20,23 @@ export default function ClassCreate({ tag }) {
         text='모임 구성원으로 게스트 유저 허용'
         onChange={handleChange}
       />
-      <Input type='text' name='title' text='모임 이름' value={info} onChange={handleChange} />
-      <Input type='text' name='bank' text='은행' value={info} onChange={handleChange} />
-      <Input type='number' name='number' text='계좌번호' value={info} onChange={handleChange} />
+      <Input
+        type='text'
+        name='title'
+        text='모임 이름'
+        value={info}
+        onChange={handleChange}
+        required
+      />
+      <Input type='text' name='bank' text='은행' value={info} onChange={handleChange} required />
+      <Input
+        type='number'
+        name='number'
+        text='계좌번호'
+        value={info}
+        onChange={handleChange}
+        required
+      />
       <Button text='모임 생성!' type='submit' color='yellow' isLoading={isLoading} error={error} />
     </form>
   );
