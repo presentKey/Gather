@@ -10,6 +10,7 @@ export default function Input({ type, name, text, value, onChange, ...rest }) {
         name={name}
         value={value[name] ?? ''}
         onChange={onChange}
+        onWheel={(e) => e.target.blur()}
         {...rest}
       />
       <label className={styles.label} htmlFor={name}>
