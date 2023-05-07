@@ -12,7 +12,7 @@ import {
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CREATE, ATTEND, DEPOSIT, WITHDRAW } from '../../../constants/bottomSheetDistinct';
+import { CREATE, ATTEND, DEPOSIT, WITHDRAW } from '../../../constants/bottomSheetTag';
 
 export default function useClass(code, info) {
   const [isLoading, setIsLoading] = useState(false);
@@ -93,39 +93,20 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleSubmit = (e, info, distinct, onClick, minDate, type) => {
+  const handleSubmit = (e, info, tag, onClick, minDate, type) => {
     e.preventDefault();
-    switch (distinct) {
+    switch (tag) {
       case CREATE:
         return handleCreateSubmit(info);
       case ATTEND:
         return handleParticipationSubmit(info);
       case DEPOSIT:
       case WITHDRAW:
-        handleAddHistorySumbit(e, onClick, minDate, type);
-        break;
+        return handleAddHistorySumbit(e, onClick, minDate, type);
       default:
-        throw new Error(`${distinct}에 실패했습니다.`);
+        throw new Error(`${tag}에 실패했습니다.`);
     }
   };
-
-  // const handleSubmit = (e, text, onClick, minDate, type) => {
-  //   e.preventDefault();
-  //   // switch (text) {
-  //   //   case CREATE:
-  //   //     handleCreateSubmit(e);
-  //   //     break;
-  //   //   case PARTICIPATION:
-  //   //     handleParticipationSubmit(e);
-  //   //     break;
-  //   //   case DEPOSIT:
-  //   //   case WITHDRAW:
-  //   //     handleAddHistorySumbit(e, onClick, minDate, type);
-  //   //     break;
-  //   //   default:
-  //   //     throw new Error(`${text}에 실패했습니다.`);
-  //   // }
-  // };
 
   const handleUpdateHeader = (onModifyBtnClick) => {
     setIsLoading(true);

@@ -1,17 +1,17 @@
 import { useBottomSheet } from '../../../context/BottomSheetContext';
 import styles from './Button.module.css';
 
-export default function Button({ text, type, distinct, color = 'white', isLoading, error }) {
+export default function Button({ text, type, tag, color = 'white', isLoading, error }) {
   const { toggle, handleToggle } = useBottomSheet();
   const handleClick = () => {
     if (type !== 'button') return;
-    toggle === distinct ? handleToggle(null) : handleToggle(distinct);
+    toggle === tag ? handleToggle(null) : handleToggle(tag);
   };
 
   return (
     <button
       className={`${styles.button} ${styles[getColor(color)]} 
-      ${toggle === distinct && styles['is-active']} ${error && styles['is-error']}`}
+      ${toggle === tag && styles['is-active']} ${error && styles['is-error']}`}
       type={type}
       onClick={handleClick}
       disabled={isLoading}

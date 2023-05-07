@@ -6,14 +6,14 @@ import useInput from '../../../../../hooks/useInput';
 import useClass from '../../../../Main/hooks/useClass';
 import CheckBox from '../../../Input/CheckBox';
 
-export default function ClassCreate({ distinct }) {
+export default function ClassCreate({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
   const { isLoading, error, handleSubmit } = useClass();
 
-  if (toggle !== distinct) return;
+  if (toggle !== tag) return;
   return (
-    <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, distinct)}>
+    <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, tag)}>
       <CheckBox
         type='checkbox'
         name='allowAnonymouse'
