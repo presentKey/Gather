@@ -23,7 +23,7 @@ export default function ClassCreate({ distinct }) {
       <Input type='text' name='title' text='모임 이름' value={info} onChange={handleChange} />
       <Input type='text' name='bank' text='은행' value={info} onChange={handleChange} />
       <Input type='number' name='number' text='계좌번호' value={info} onChange={handleChange} />
-      <Button text='모임 생성!' type='submit' isLoading={isLoading} error={error} />
+      <Button text='모임 생성!' type='submit' color='yellow' isLoading={isLoading} error={error} />
     </form>
   );
 }

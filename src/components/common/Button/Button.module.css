@@ -1,6 +1,7 @@
 .button {
   width: 100%;
   padding: 0.5rem;
+  font-weight: 600;
   background-color: var(--color-white);
   border-radius: 0.75rem;
 }
@@ -13,6 +14,18 @@
   animation-name: error-button;
   animation-duration: 200ms;
   animation-iteration-count: infinite;
+}
+
+.red {
+  background-color: var(--color-red);
+}
+
+.blue {
+  background-color: var(--color-blue);
+}
+
+.yellow {
+  background-color: var(--color-yellow);
 }
 
 @keyframes error-button {
