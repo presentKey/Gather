@@ -1,11 +1,11 @@
 import styles from '../BottomSheetForm.module.css';
 import Button from '../../../Button/Button';
-import Input from '../../../input/Input';
+import Input from '../../../Input/Input';
 import { useBottomSheet } from '../../../../../context/BottomSheetContext';
 import useInput from '../../../../../hooks/useInput';
 import useClass from '../../../../Main/hooks/useClass';
 
-export default function ClassAttend({ distinct, onSubmit }) {
+export default function ClassAttend({ distinct }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
   const { isLoading, error, handleSubmit } = useClass();
@@ -13,6 +13,7 @@ export default function ClassAttend({ distinct, onSubmit }) {
   if (toggle !== distinct) return;
   return (
     <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, distinct)}>
+      <p className={styles.message}>모임 구성원에게 코드 공유를 요청하세요!</p>
       <Input type='text' name='code' text='모임 코드' value={info} onChange={handleChange} />
       <Button text='모임 참여!' type='submit' isLoading={isLoading} error={error} />
     </form>
