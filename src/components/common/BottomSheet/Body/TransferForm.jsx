@@ -1,10 +1,10 @@
-import styles from '../BottomSheetForm.module.css';
-import { useBottomSheet } from '../../../../../context/BottomSheetContext';
-import useInput from '../../../../../hooks/useInput';
-import useClass from '../../../../Main/hooks/useClass';
-import Input from '../../../Input/Input';
-import Button from '../../../Button/Button';
-import getTodayDate from '../../../../../utils/getTodayDate';
+import styles from './BottomSheetForm.module.css';
+import { useBottomSheet } from '../../../../context/BottomSheetContext';
+import useInput from '../../../../hooks/useInput';
+import useClass from '../../../Main/hooks/useClass';
+import Input from '../../Input/Input';
+import Button from '../../Button/Button';
+import getTodayDate from '../../../../utils/getTodayDate';
 
 export default function TransferForm({ code, histories, text, tag, color }) {
   const { toggle, closeSheet } = useBottomSheet();

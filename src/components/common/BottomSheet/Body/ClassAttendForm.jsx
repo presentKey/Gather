@@ -1,9 +1,9 @@
-import styles from '../BottomSheetForm.module.css';
-import Button from '../../../Button/Button';
-import Input from '../../../Input/Input';
-import { useBottomSheet } from '../../../../../context/BottomSheetContext';
-import useInput from '../../../../../hooks/useInput';
-import useClass from '../../../../Main/hooks/useClass';
+import styles from './BottomSheetForm.module.css';
+import Button from '../../Button/Button';
+import Input from '../../Input/Input';
+import { useBottomSheet } from '../../../../context/BottomSheetContext';
+import useInput from '../../../../hooks/useInput';
+import useClass from '../../../Main/hooks/useClass';
 
 export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();

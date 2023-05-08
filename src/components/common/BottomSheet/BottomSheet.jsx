@@ -3,7 +3,6 @@ import Button from '../Button/Button';
 import Body from './Body/Body';
 import Header from './Header/Header';
 import { BsPlusCircle } from 'react-icons/bs';
-import Form from './Body/Form/Form';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { throttle } from 'lodash';
 import { BottomSheetProvider } from '../../../context/BottomSheetContext';
@@ -37,5 +36,4 @@ export default function BottomSheet({ children }) {
 
 BottomSheet.Header = Header;
 BottomSheet.Body = Body;
-BottomSheet.Form = Form;
 BottomSheet.Button = Button;
