@@ -72,14 +72,14 @@ export default function Detail() {
             <BottomSheet.Button text='출금' type='button' tag={WITHDRAW} />
           </BottomSheet.Header>
           <BottomSheet.Body>
-            <Body.Transfer
+            <Body.TransferForm
               code={code}
               histories={histories}
               text='입금'
               tag={DEPOSIT}
               color='red'
             />
-            <Body.Transfer
+            <Body.TransferForm
               code={code}
               histories={histories}
               text='출금'

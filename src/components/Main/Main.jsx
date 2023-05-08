@@ -27,8 +27,8 @@ export default function Main() {
           <BottomSheet.Button text='모임 참여하기' type='button' tag={ATTEND} />
         </BottomSheet.Header>
         <BottomSheet.Body>
-          <Body.ClassCreate tag={CREATE} />
-          <Body.ClassAttend tag={ATTEND} />
+          <Body.ClassCreateForm tag={CREATE} />
+          <Body.ClassAttendForm tag={ATTEND} />
         </BottomSheet.Body>
       </BottomSheet>
     </>

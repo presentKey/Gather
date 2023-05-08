@@ -4,9 +4,9 @@ import { useBottomSheet } from '../../../../context/BottomSheetContext';
 import OverlayPortal from '../../Overlay/OverlayPortal';
 import Overlay from '../../Overlay/Overlay';
 import { useEffect, useRef } from 'react';
-import ClassCreate from './ClassCreate/ClassCreate';
-import ClassAttend from './ClassAttend/ClassAttend';
-import Transfer from './Transfer/Transfer';
+import ClassCreateForm from './ClassCreateForm/ClassCreateForm';
+import ClassAttendForm from './ClassAttendForm/ClassAttendForm';
+import TransferForm from './TransferForm/TransferForm';
 import useSheetHeight from '../../../../recoil/BottomSheet/useSheetHeight';
 
 export default function Body({ children }) {
@@ -34,6 +34,6 @@ export default function Body({ children }) {
   );
 }
 
-Body.ClassCreate = ClassCreate;
-Body.ClassAttend = ClassAttend;
-Body.Transfer = Transfer;
+Body.ClassCreateForm = ClassCreateForm;
+Body.ClassAttendForm = ClassAttendForm;
+Body.TransferForm = TransferForm;

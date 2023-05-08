@@ -1,10 +1,10 @@
 import styles from './Form.module.css';
-import ClassCreate from '../ClassCreate/ClassCreate';
-import ClassAttend from '../ClassAttend/ClassAttend';
+import ClassCreateForm from '../ClassCreateForm/ClassCreateForm';
+import ClassAttendForm from '../ClassAttendForm/ClassAttendForm';
 
-export default function Form({ children }) {
-  return <form className={styles.form}>{children}</form>;
+export default function Form({ component }) {
+  return <form className={styles.form}>{component}</form>;
 }
 
-Form.ClassCreate = ClassCreate;
-Form.ClassAttend = ClassAttend;
+Form.ClassCreate = ClassCreateForm;
+Form.ClassAttend = ClassAttendForm;

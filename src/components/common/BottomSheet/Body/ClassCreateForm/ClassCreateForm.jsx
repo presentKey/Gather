@@ -6,7 +6,7 @@ import useInput from '../../../../../hooks/useInput';
 import useClass from '../../../../Main/hooks/useClass';
 import CheckBox from '../../../Input/CheckBox';
 
-export default function ClassCreate({ tag }) {
+export default function ClassCreateForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
   const { isLoading, error, handleSubmit } = useClass();

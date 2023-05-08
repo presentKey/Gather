@@ -5,7 +5,7 @@ import { useBottomSheet } from '../../../../../context/BottomSheetContext';
 import useInput from '../../../../../hooks/useInput';
 import useClass from '../../../../Main/hooks/useClass';
 
-export default function ClassAttend({ tag }) {
+export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
   const { isLoading, error, handleSubmit } = useClass();

@@ -6,7 +6,7 @@ import Input from '../../../Input/Input';
 import Button from '../../../Button/Button';
 import getTodayDate from '../../../../../utils/getTodayDate';
 
-export default function Transfer({ code, histories, text, tag, color }) {
+export default function TransferForm({ code, histories, text, tag, color }) {
   const { toggle, closeSheet } = useBottomSheet();
   const [info, handleChange] = useInput({ date: getTodayDate() });
   const { isLoading, error, handleSubmit } = useClass();
