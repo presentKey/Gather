@@ -28,6 +28,7 @@ import generateCode from '../utils/generateCode';
 import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
 import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
+import { WITHDRAW } from '../constants/bottomSheetTag';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -276,7 +277,8 @@ export async function leaveClass(code, user, members) {
 
 export async function depositOrWithdraw(code, user, info, minDate, type) {
   const { uid } = user;
-  const { price, message, date } = info;
+  const { price, message: msg, date } = info;
+  const message = msg ?? '';
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) {
@@ -291,11 +293,11 @@ export async function depositOrWithdraw(code, user, info, minDate, type) {
     throw new Error('숫자가 아닙니다.');
   }
 
-  if (message.length > 20) {
+  if (message?.length > 20) {
     throw new Error('메시지 길이가 적절하지 않습니다.');
   }
 
-  if (type === 'withdraw' && amount >= 0) {
+  if (type === WITHDRAW && amount >= 0) {
     amount = amount * -1;
   }
 
@@ -313,6 +315,8 @@ export async function depositOrWithdraw(code, user, info, minDate, type) {
     }),
     total: increment(amount),
   });
+
+  return code;
 }
 
 export async function deleteHistory(code, user, id) {

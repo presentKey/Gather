@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
@@ -10,23 +10,8 @@ import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import ModifyHistory from './ModifyHistory';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
-import useToggleContent from '../../components/Main/hooks/useToggleContent';
-import { DEPOSIT, WITHDRAW } from '../../constants/formButtonText';
-import Form from '../../components/common/BottomSheet/Form/Form';
-import useInput from '../../hooks/useInput';
-import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
-import Overlay from '../../components/common/Overlay/Overlay';
-import MoneyFormContent from '../../components/common/BottomSheet/Form/moneyFormContent';
-import getTodayDate from '../../utils/getTodayDate';
-
-const TYPE_1 = 'deposit';
-const TYPE_2 = 'withdraw';
-const initialState = { [TYPE_1]: false, [TYPE_2]: false };
-const buttonInfo = [
-  { type: 'button', text: '입금', 'data-type': TYPE_1, color: 'red' },
-  { type: 'button', text: '출금', 'data-type': TYPE_2, color: 'blue' },
-];
-const today = getTodayDate();
+import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
+import Body from '../../components/common/BottomSheet/Body/Body';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -34,17 +19,11 @@ export default function Detail() {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
   const { isModification, handleModifyBtnClick, sortedHistory } = useClassDetail();
-  const [content, handleContent, handleClose] = useToggleContent(initialState);
-  const [info, handleChange, clearInput] = useInput({ message: '', date: today });
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [height, setHeight] = useState(0);
 
   if (!state) return <Navigate to='/' replace />;
   if (isLoading) return <LoadingDetail />;
 
   const histories = sortedHistory(detail.history);
-  const lastModified = histories.find((history) => history.type === 'classModify');
-
   const { code } = state;
 
   return (
@@ -86,59 +65,28 @@ export default function Detail() {
             }
           })}
         </ul>
-        <BottomSheet
-          content={content}
-          handleContent={handleContent}
-          onClose={handleClose}
-          buttonInfo={buttonInfo}
-          height={height}
-          setHeaderHeight={setHeaderHeight}
-        >
-          <Form
-            code={code}
-            text={DEPOSIT}
-            setHeight={setHeight}
-            headerHeight={headerHeight}
-            content={content}
-            target={TYPE_1}
-            nonTarget={TYPE_2}
-            info={info}
-            lastModified={lastModified}
-            onClose={handleClose}
-            clear={clearInput}
-          >
-            <MoneyFormContent
-              info={info}
-              onChange={handleChange}
-              lastModified={lastModified}
-              today={today}
+
+        <BottomSheet>
+          <BottomSheet.Header>
+            <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
+            <BottomSheet.Button text='출금' type='button' tag={WITHDRAW} />
+          </BottomSheet.Header>
+          <BottomSheet.Body>
+            <Body.TransferForm
+              code={code}
+              histories={histories}
+              text='입금'
+              tag={DEPOSIT}
+              color='red'
             />
-          </Form>
-          <Form
-            code={code}
-            text={WITHDRAW}
-            setHeight={setHeight}
-            headerHeight={headerHeight}
-            content={content}
-            target={TYPE_2}
-            nonTarget={TYPE_1}
-            info={info}
-            lastModified={lastModified}
-            onClose={handleClose}
-            clear={clearInput}
-          >
-            <MoneyFormContent
-              info={info}
-              onChange={handleChange}
-              lastModified={lastModified}
-              today={today}
+            <Body.TransferForm
+              code={code}
+              histories={histories}
+              text='출금'
+              tag={WITHDRAW}
+              color='blue'
             />
-          </Form>
-          {(content[TYPE_1] || content[TYPE_2]) && (
-            <OverlayPortal>
-              <Overlay onClose={handleClose} />
-            </OverlayPortal>
-          )}
+          </BottomSheet.Body>
         </BottomSheet>
       </section>
     </>

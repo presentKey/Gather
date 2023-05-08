@@ -1,0 +1,15 @@
+.form {
+  flex-grow: 1;
+}
+
+.message {
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+@media screen and (min-width: 48rem) {
+  .form {
+    flex-basis: 65%;
+  }
+}

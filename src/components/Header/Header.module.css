@@ -1,5 +1,8 @@
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: var(--global-header-level);
   display: flex;
   align-items: center;
   justify-content: space-between;

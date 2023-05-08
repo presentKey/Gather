@@ -12,7 +12,7 @@ import {
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CREATE, DEPOSIT, PARTICIPATION, WITHDRAW } from '../../../constants/formButtonText';
+import { CREATE, ATTEND, DEPOSIT, WITHDRAW } from '../../../constants/bottomSheetTag';
 
 export default function useClass(code, info) {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,9 +47,9 @@ export default function useClass(code, info) {
   });
 
   const addHistory = useMutation(
-    ({ code, user, info, minDate, type }) => depositOrWithdraw(code, user, info, minDate, type),
+    ({ code, user, info, minDate, tag }) => depositOrWithdraw(code, user, info, minDate, tag),
     {
-      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
+      onSuccess: (code) => queryClient.invalidateQueries(['myClass', code, user.uid]),
     }
   );
 
@@ -69,8 +69,7 @@ export default function useClass(code, info) {
     staleTime: 1000 * 60 * 60,
   });
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
+  const handleCreateSubmit = (info) => {
     setIsLoading(true);
     create.mutate(
       { user, info },
@@ -82,8 +81,7 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleParticipationSubmit = (e) => {
-    e.preventDefault();
+  const handleParticipationSubmit = (info) => {
     setIsLoading(true);
     participation.mutate(
       { user, info },
@@ -95,21 +93,18 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleSubmit = (e, text, onClick, minDate, type) => {
+  const handleSubmit = (e, info, tag, code, minDate, onCloseSheet) => {
     e.preventDefault();
-    switch (text) {
+    switch (tag) {
       case CREATE:
-        handleCreateSubmit(e);
-        break;
-      case PARTICIPATION:
-        handleParticipationSubmit(e);
-        break;
+        return handleCreateSubmit(info);
+      case ATTEND:
+        return handleParticipationSubmit(info);
       case DEPOSIT:
       case WITHDRAW:
-        handleAddHistorySumbit(e, onClick, minDate, type);
-        break;
+        return handleAddHistorySumbit(info, tag, code, minDate, onCloseSheet);
       default:
-        throw new Error(`${text}에 실패했습니다.`);
+        throw new Error(`${tag}에 실패했습니다.`);
     }
   };
 
@@ -139,13 +134,12 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleAddHistorySumbit = (e, onAddBtnClick, minDate, type) => {
-    e.preventDefault();
+  const handleAddHistorySumbit = (info, tag, code, minDate, onCloseSheet) => {
     setIsLoading(true);
     addHistory.mutate(
-      { code, user, info, minDate, type },
+      { code, user, info, minDate, tag },
       {
-        onSuccess: () => onAddBtnClick(),
+        onSuccess: onCloseSheet,
         onError: ERROR,
         onSettled: () => setIsLoading(false),
       }

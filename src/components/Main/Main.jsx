@@ -1,33 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ClassCard from './ClassCard';
 import styles from './Main.module.css';
 import useClass from './hooks/useClass';
 import BottomSheet from '../common/BottomSheet/BottomSheet';
-import useToggleContent from './hooks/useToggleContent';
-import Form from '../common/BottomSheet/Form/Form';
-import useInput from '../../hooks/useInput';
-import ParticipationFormContent from '../common/BottomSheet/Form/ParticipationFormContent';
-import CreateFormContent from '../common/BottomSheet/Form/CreateFormContent';
-import { CREATE, PARTICIPATION } from '../../constants/formButtonText';
-import OverlayPortal from '../common/Overlay/OverlayPortal';
-import Overlay from '../common/Overlay/Overlay';
-
-const TYPE_1 = 'create';
-const TYPE_2 = 'participation';
-const initialState = { [TYPE_1]: false, [TYPE_2]: false };
-const buttonInfo = [
-  { type: 'button', text: '모임 만들기', 'data-type': TYPE_1 },
-  { type: 'button', text: '모임 참여하기', 'data-type': TYPE_2 },
-];
+import Body from '../common/BottomSheet/Body/Body';
+import { ATTEND, CREATE } from '../../constants/bottomSheetTag';
 
 export default function Main() {
   const {
     classListQuery: { data: classes },
   } = useClass();
-  const [content, handleContent, handleClose] = useToggleContent(initialState);
-  const [info, handleChange] = useInput();
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [height, setHeight] = useState(0);
 
   return (
     <>
@@ -39,40 +21,15 @@ export default function Main() {
         </ul>
       )}
 
-      <BottomSheet
-        content={content}
-        handleContent={handleContent}
-        buttonInfo={buttonInfo}
-        height={height}
-        setHeaderHeight={setHeaderHeight}
-      >
-        <Form
-          text={CREATE}
-          setHeight={setHeight}
-          headerHeight={headerHeight}
-          content={content}
-          target={TYPE_1}
-          nonTarget={TYPE_2}
-          info={info}
-        >
-          <CreateFormContent info={info} onChange={handleChange} />
-        </Form>
-        <Form
-          text={PARTICIPATION}
-          setHeight={setHeight}
-          headerHeight={headerHeight}
-          content={content}
-          target={TYPE_2}
-          nonTarget={TYPE_1}
-          info={info}
-        >
-          <ParticipationFormContent info={info} onChange={handleChange} />
-        </Form>
-        {(content[TYPE_1] || content[TYPE_2]) && (
-          <OverlayPortal>
-            <Overlay onClose={handleClose} />
-          </OverlayPortal>
-        )}
+      <BottomSheet>
+        <BottomSheet.Header>
+          <BottomSheet.Button text='모임 만들기' type='button' tag={CREATE} />
+          <BottomSheet.Button text='모임 참여하기' type='button' tag={ATTEND} />
+        </BottomSheet.Header>
+        <BottomSheet.Body>
+          <Body.ClassCreateForm tag={CREATE} />
+          <Body.ClassAttendForm tag={ATTEND} />
+        </BottomSheet.Body>
       </BottomSheet>
     </>
   );
