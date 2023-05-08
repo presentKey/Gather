@@ -1,26 +1,20 @@
 import React from 'react';
-import { HiOutlineCurrencyDollar } from 'react-icons/hi';
 import { Navigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import LoadingMain from '../../components/common/LoadingMain/LoadingMain';
 import useLogin from './hooks/useLogin';
+import Symbole from '../../components/common/icons/Symbole';
 
 export default function Login() {
-  const {
-    isLoading,
-    user,
-    handleGoogleLogin,
-    handleAnonymouseLogin,
-    isWebView,
-  } = useLogin();
+  const { isLoading, user, handleGoogleLogin, handleAnonymouseLogin, isWebView } = useLogin();
 
   if (user === undefined) return <LoadingMain />;
-  if (user) return <Navigate to="/" replace />;
+  if (user) return <Navigate to='/' replace />;
 
   return (
     <section className={styles.login}>
       <div className={styles['logo-group']}>
-        <HiOutlineCurrencyDollar className={styles.logo} />
+        <Symbole />
         <h1 className={styles.title}>Gather</h1>
       </div>
       <div className={styles['btn-group']}>
@@ -34,7 +28,7 @@ export default function Login() {
         <button
           className={styles['login-btn']}
           onClick={handleGoogleLogin}
-          type="button"
+          type='button'
           disabled={isLoading || isWebView()}
         >
           로그인
@@ -42,7 +36,7 @@ export default function Login() {
         <button
           className={styles['guest-btn']}
           onClick={handleAnonymouseLogin}
-          type="button"
+          type='button'
           disabled={isLoading}
         >
           게스트

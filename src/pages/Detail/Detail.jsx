@@ -3,30 +3,25 @@ import { useLocation } from 'react-router-dom';
 import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
 import { Navigate } from 'react-router-dom';
-import { HiOutlinePlusCircle } from 'react-icons/hi';
 import styles from './Detail.module.css';
-import AddHistoryForm from './AddHistoryForm';
 import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import ModifyHistory from './ModifyHistory';
+import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
+import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
+import Body from '../../components/common/BottomSheet/Body/Body';
 
 export default function Detail() {
   const { state } = useLocation();
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const {
-    openAddForm,
-    isModification,
-    handleToggleAddForm,
-    handleModifyBtnClick,
-    sortedHistory,
-  } = useClassDetail();
+  const { isModification, handleModifyBtnClick, sortedHistory } = useClassDetail();
 
-  if (!state) return <Navigate to="/" replace />;
-  if (isLoading) return <LoadingDetail></LoadingDetail>;
+  if (!state) return <Navigate to='/' replace />;
+  if (isLoading) return <LoadingDetail />;
 
   const histories = sortedHistory(detail.history);
   const { code } = state;
@@ -34,10 +29,7 @@ export default function Detail() {
   return (
     <>
       {!isModification && (
-        <ShowHeader
-          headerInfo={detail}
-          onModifyBtnClick={handleModifyBtnClick}
-        />
+        <ShowHeader headerInfo={detail} onModifyBtnClick={handleModifyBtnClick} />
       )}
       {isModification && (
         <ModificationHeader
@@ -47,21 +39,6 @@ export default function Detail() {
         />
       )}
       <section className={styles.detail}>
-        <button
-          className={styles['plus-btn']}
-          type="button"
-          onClick={handleToggleAddForm}
-        >
-          <HiOutlinePlusCircle />
-        </button>
-        {openAddForm && (
-          <AddHistoryForm
-            code={code}
-            histories={histories}
-            onClose={handleToggleAddForm}
-          />
-        )}
-
         <ul>
           {histories.map((history) => {
             switch (history.type) {
@@ -88,6 +65,29 @@ export default function Detail() {
             }
           })}
         </ul>
+
+        <BottomSheet>
+          <BottomSheet.Header>
+            <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
+            <BottomSheet.Button text='출금' type='button' tag={WITHDRAW} />
+          </BottomSheet.Header>
+          <BottomSheet.Body>
+            <Body.TransferForm
+              code={code}
+              histories={histories}
+              text='입금'
+              tag={DEPOSIT}
+              color='red'
+            />
+            <Body.TransferForm
+              code={code}
+              histories={histories}
+              text='출금'
+              tag={WITHDRAW}
+              color='blue'
+            />
+          </BottomSheet.Body>
+        </BottomSheet>
       </section>
     </>
   );

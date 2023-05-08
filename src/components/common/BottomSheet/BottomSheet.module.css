@@ -1,0 +1,32 @@
+.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: var(--bottom-sheet-level);
+  width: 100%;
+  max-width: 48rem;
+  padding: 0.8rem;
+  background: var(--color-brand);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+  transition: transform 300ms ease-in-out;
+}
+
+.icon {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  font-size: 1.5rem;
+  color: var(--color-brand);
+  background-color: var(--color-yellow);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+@media screen and (min-width: 48rem) {
+  .sheet {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

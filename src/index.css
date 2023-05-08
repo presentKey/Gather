@@ -1,3 +1,5 @@
+@import url('./styles/normalize.css');
+
 :root {
   /* Color */
   --color-brand: #3c6255;
@@ -5,7 +7,7 @@
   --color-green: #a6bb8d;
   --color-green-light: #eae7b1;
   --color-blue: #2f58cd;
-  --color-red: #da0037;
+  --color-red: #e94560;
   --color-gray: #d3d3d3;
   --color-gray-light: #ededed;
   --color-black: #171717;
@@ -15,9 +17,10 @@
   --side-padding: 1rem;
 
   /* z-index */
-  --class-header-menu-level: 90;
+  --class-header-menu-level: 80;
+  --global-header-level: 90;
   --overlay-level: 100;
-  --add-class-toast-level: 110;
+  --bottom-sheet-level: 110;
   --confirm-modal-level: 130;
 }
 
@@ -30,29 +33,15 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
   background-color: var(--color-gray-light);
 }
 
 #root {
-  width: 100%;
   max-width: 48rem;
-  height: 100vh;
-  overflow-x: hidden;
+  min-height: 100vh;
+  margin: 0 auto;
   background-color: var(--color-white);
-}
-
-@media screen and (min-width: 48rem) {
-  html {
-    font-size: 22px;
-  }
-
-  #root {
-    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
-  }
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
 }
 
 h1 {

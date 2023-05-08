@@ -1,0 +1,11 @@
+.icon {
+  font-size: 5rem;
+  color: var(--color-yellow);
+  background-color: transparent;
+  filter: drop-shadow(0 0 4px #f2d974);
+}
+
+.responsive {
+  width: auto;
+  height: 100%;
+}

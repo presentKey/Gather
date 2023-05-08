@@ -34,11 +34,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:13.5.0"],\
             ["eslint-config-react-app", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:7.0.1"],\
             ["firebase", "npm:9.17.2"],\
+            ["lodash", "npm:4.17.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:18.2.0"],\
             ["react-icons", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0"],\
             ["react-router-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:6.8.2"],\
             ["react-scripts", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:5.0.1"],\
+            ["recoil", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:0.7.7"],\
             ["stylelint", "npm:15.2.0"],\
             ["stylelint-config-recess-order", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.0.0"],\
             ["stylelint-config-standard", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:30.0.1"],\
@@ -10505,11 +10507,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:13.5.0"],\
             ["eslint-config-react-app", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:7.0.1"],\
             ["firebase", "npm:9.17.2"],\
+            ["lodash", "npm:4.17.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:18.2.0"],\
             ["react-icons", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.8.0"],\
             ["react-router-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:6.8.2"],\
             ["react-scripts", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:5.0.1"],\
+            ["recoil", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:0.7.7"],\
             ["stylelint", "npm:15.2.0"],\
             ["stylelint-config-recess-order", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:4.0.0"],\
             ["stylelint-config-standard", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:30.0.1"],\
@@ -10765,6 +10769,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["gzip-size", "npm:6.0.0"],\
             ["duplexer", "npm:0.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["hamt_plus", [\
+        ["npm:1.0.2", {\
+          "packageLocation": "./.yarn/cache/hamt_plus-npm-1.0.2-67a52ee1df-af26ea32db.zip/node_modules/hamt_plus/",\
+          "packageDependencies": [\
+            ["hamt_plus", "npm:1.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -16618,6 +16631,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["readdirp", "npm:3.6.0"],\
             ["picomatch", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["recoil", [\
+        ["npm:0.7.7", {\
+          "packageLocation": "./.yarn/cache/recoil-npm-0.7.7-4452f58b67-65edecbcb8.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "npm:0.7.7"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:0.7.7", {\
+          "packageLocation": "./.yarn/__virtual__/recoil-virtual-95bde803ab/0/cache/recoil-npm-0.7.7-4452f58b67-65edecbcb8.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:0.7.7"],\
+            ["@types/react", null],\
+            ["@types/react-dom", null],\
+            ["@types/react-native", null],\
+            ["hamt_plus", "npm:1.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:1653637ed7b057776cfd157e464d69d4bba657aa44e58ffd9fb25c14a2b0f0996e7f20f3ab3917fac0ea6c5d55215fe23b3e7ae37758abf6a74ea0ada379879a#npm:18.2.0"],\
+            ["react-native", null]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-native",\
+            "@types/react",\
+            "react-dom",\
+            "react-native",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\

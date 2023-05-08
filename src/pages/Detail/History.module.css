@@ -12,10 +12,6 @@
   opacity: 0.4;
 }
 
-.history-list:first-child {
-  border-top: 1px solid var(--color-black);
-}
-
 .history-list:nth-child(even) {
   background-color: rgba(237, 237, 237, 0.6);
 }

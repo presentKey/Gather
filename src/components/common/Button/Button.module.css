@@ -1,0 +1,44 @@
+.button {
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: 600;
+  background-color: var(--color-white);
+  border-radius: 0.75rem;
+}
+
+.button.is-active {
+  background-color: var(--color-yellow);
+}
+
+.button.is-error {
+  animation-name: error-button;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
+.red {
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+.blue {
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+
+.yellow {
+  background-color: var(--color-yellow);
+}
+
+@keyframes error-button {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-red);
+  }
+
+  100% {
+    left: 1px;
+    color: var(--color-red);
+  }
+}
