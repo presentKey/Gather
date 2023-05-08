@@ -1,0 +1,28 @@
+.button {
+  width: 50%;
+  padding: 0.5rem;
+  border: 3px solid transparent;
+  border-radius: 4px;
+}
+
+.button.is-active {
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  border: 3px solid var(--color-brand);
+  transition: all 200ms ease;
+}
+
+.basic {
+  color: var(--color-white);
+  background-color: var(--color-brand);
+}
+
+.red {
+  color: var(--color-white);
+  background-color: var(--color-red);
+}
+
+.blue {
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}

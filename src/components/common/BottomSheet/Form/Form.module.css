@@ -1,0 +1,70 @@
+.form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 0.5rem;
+  visibility: hidden;
+  background: rgb(166, 187, 141);
+  background: linear-gradient(180deg, rgba(166, 187, 141, 1) 0%, rgba(234, 231, 177, 1) 100%);
+}
+
+.form.is-open {
+  z-index: var(--add-class-toast-level);
+  visibility: visible;
+}
+
+.button {
+  width: 100%;
+  padding: 0.625rem;
+  color: var(--color-white);
+  background-color: var(--color-brand);
+  border-radius: 4px;
+}
+
+.button.is-error {
+  animation-name: error-button-text;
+  animation-duration: 200ms;
+  animation-iteration-count: infinite;
+}
+
+.button:hover {
+  filter: brightness(1.2);
+}
+
+.button.red {
+  background-color: var(--color-red);
+}
+
+.button.blue {
+  background-color: var(--color-blue);
+}
+
+@media screen and (min-width: 48rem) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 12rem;
+  }
+}
+
+@keyframes error-button-text {
+  0% {
+    position: relative;
+    left: -1px;
+    color: var(--color-yellow);
+  }
+
+  50% {
+    position: relative;
+    left: 0;
+    color: var(--color-yellow);
+  }
+
+  100% {
+    position: relative;
+    left: 1px;
+    color: var(--color-yellow);
+  }
+}

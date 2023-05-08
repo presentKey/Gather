@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import useClass from './hooks/useClass';
 import styles from './addForm.module.css';
 import useInput from '../../hooks/useInput';
+import { throttle } from 'lodash';
 
-export default function CreateForm() {
+export default function CreateForm({ setHeight, content, headerHeight }) {
   const [info, handleChange] = useInput();
   const { isLoading, error, handleCreateSubmit } = useClass(null, info);
+  const formRef = useRef(null);
+
+  const handleResize = useCallback(
+    throttle(() => {
+      setHeight(formRef.current?.offsetHeight);
+    }, 700),
+    []
+  );
+
+  useEffect(() => {
+    if (content.create) {
+      setHeight(formRef.current?.offsetHeight);
+      window.addEventListener('resize', handleResize);
+    } else if (!content.create) {
+      setHeight(0);
+    }
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [content.create]);
 
   return (
     <>
-      <form onSubmit={handleCreateSubmit} className={styles.form}>
+      <form
+        className={`${styles.form} ${content.create && styles['is-open']}`}
+        style={{ top: headerHeight }}
+        ref={formRef}
+        onSubmit={handleCreateSubmit}
+      >
         <div className={styles['set-group']}>
           <input
             className={styles['set-anonymouse']}
