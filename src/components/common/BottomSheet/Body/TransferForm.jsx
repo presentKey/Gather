@@ -31,7 +31,7 @@ export default function TransferForm({ code, histories, text, tag, color }) {
       <Input
         type='date'
         name='date'
-        text='계좌번호'
+        text='날짜'
         min={getMinDate?.date}
         value={info}
         onChange={handleChange}
