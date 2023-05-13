@@ -2,13 +2,13 @@ import { useState } from 'react';
 import sortHistory from '../../../utils/sortHistory';
 
 export default function useClassDetail() {
-  const [isModification, setIsModification] = useState(false);
-  const handleModifyBtnClick = () => setIsModification(!isModification);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const handleUpdateButtonClick = () => setIsUpdate(!isUpdate);
   const sortedHistory = (histories) => sortHistory(histories);
 
   return {
-    isModification,
-    handleModifyBtnClick,
+    isUpdate,
+    handleUpdateButtonClick,
     sortedHistory,
   };
 }

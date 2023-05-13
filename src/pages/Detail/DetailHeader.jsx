@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './ShowHeader.module.css';
+import styles from './DetailHeader.module.css';
 import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
 
-export default function ShowHeader({
-  headerInfo: { title, account, total, members },
-  onModifyBtnClick,
+export default function DetailHeader({
+  detail: { title, account, total, members },
+  onUpdateButtonClick,
 }) {
   return (
     <header className={styles.header}>
@@ -20,7 +20,7 @@ export default function ShowHeader({
         <CiCoinInsert className={styles['money-icon']} />
         <strong className={styles.total}>{total.toLocaleString()}원</strong>
       </div>
-      <SettingMenu members={members} onModifyBtnClick={onModifyBtnClick} />
+      <SettingMenu members={members} onUpdateButtonClick={onUpdateButtonClick} />
     </header>
   );
 }

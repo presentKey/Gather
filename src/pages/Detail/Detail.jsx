@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import ShowHeader from './ShowHeader';
-import ModificationHeader from './ModificationHeader';
+import DetailHeader from './DetailHeader';
+import UpdateHeader from './UpdateHeader';
 import { Navigate } from 'react-router-dom';
 import styles from './Detail.module.css';
 import useClass from '../../components/Main/hooks/useClass';
@@ -17,7 +17,7 @@ export default function Detail() {
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const { isModification, handleModifyBtnClick, sortedHistory } = useClassDetail();
+  const { isUpdate, handleUpdateButtonClick, sortedHistory } = useClassDetail();
 
   if (!state) return <Navigate to='/' replace />;
   if (isLoading) return <LoadingDetail />;
@@ -27,14 +27,10 @@ export default function Detail() {
 
   return (
     <>
-      {isModification ? (
-        <ModificationHeader
-          code={code}
-          headerInfo={detail}
-          onModifyBtnClick={handleModifyBtnClick}
-        />
+      {isUpdate ? (
+        <UpdateHeader code={code} detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
       ) : (
-        <ShowHeader headerInfo={detail} onModifyBtnClick={handleModifyBtnClick} />
+        <DetailHeader detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
       )}
       <section className={styles.detail}>
         <HistoryList histories={histories} code={code} detail={detail} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ModificationHeader.module.css';
+import styles from './UpdateHeader.module.css';
 import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
@@ -7,10 +7,10 @@ import useInput from '../../hooks/useInput';
 import isInputLengthZero from '../../utils/isInputLengthZero';
 import useClass from '../../components/Main/hooks/useClass';
 
-export default function ModificationHeader({
+export default function UpdateHeader({
   code,
-  headerInfo: { title, account, total, allowAnonymouse },
-  onModifyBtnClick,
+  detail: { title, account, total, allowAnonymouse },
+  onUpdateButtonClick,
 }) {
   const { bank, number } = account;
   const [info, handleChange] = useInput({ title, bank, number, total, allowAnonymouse });
@@ -61,16 +61,16 @@ export default function ModificationHeader({
         />
         <label htmlFor='allowAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
       </div>
-      <SettingMenu onModifyBtnClick={onModifyBtnClick} />
+      <SettingMenu onUpdateButtonClick={onUpdateButtonClick} />
       <button
         className={`${styles['modify-btn']} ${error && styles['is-error']}`}
         type='button'
         disabled={isLoading}
-        onClick={() => handleUpdateHeader(onModifyBtnClick)}
+        onClick={() => handleUpdateHeader(onUpdateButtonClick)}
       >
         수정하기
       </button>
-      <button className={styles['cancel-btn']} type='button' onClick={onModifyBtnClick}>
+      <button className={styles['cancel-btn']} type='button' onClick={onUpdateButtonClick}>
         취소
       </button>
     </header>

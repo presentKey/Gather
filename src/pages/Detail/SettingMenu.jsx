@@ -14,7 +14,7 @@ import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
 
-export default function SettingMenu({ members, onModifyBtnClick }) {
+export default function SettingMenu({ members, onUpdateButtonClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
   const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
   const [toggleFriendModal, handleToggleFriendModal] = useModal();
@@ -25,29 +25,25 @@ export default function SettingMenu({ members, onModifyBtnClick }) {
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
-      <button
-        className={styles['setting-btn']}
-        type="button"
-        onClick={handleToggleMenu}
-      >
+      <button className={styles['setting-btn']} type='button' onClick={handleToggleMenu}>
         <IoMdSettings className={styles['setting-icon']} />
       </button>
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>
           <li className={styles['menu-item']} onClick={handleToggleFriendModal}>
-            <button type="button">
+            <button type='button'>
               <BsPersonFillAdd />
               친구 초대
             </button>
           </li>
-          <li className={styles['menu-item']} onClick={onModifyBtnClick}>
-            <button type="button">
+          <li className={styles['menu-item']} onClick={onUpdateButtonClick}>
+            <button type='button'>
               <HiPencilAlt />
               모임 수정
             </button>
           </li>
           <li className={styles['menu-item']} onClick={handleToggleLeaveModal}>
-            <button className={styles['is-leave']} type="button">
+            <button className={styles['is-leave']} type='button'>
               <ImExit />
               모임 나가기
             </button>
@@ -61,9 +57,7 @@ export default function SettingMenu({ members, onModifyBtnClick }) {
             <ConfirmModal
               message={'모임에서 나가시겠습니까?'}
               btnText={'모임 나가기'}
-              onConfirm={() =>
-                handleLeaveClass(members, handleToggleLeaveModal)
-              }
+              onConfirm={() => handleLeaveClass(members, handleToggleLeaveModal)}
               onClose={handleToggleLeaveModal}
             />
           </ModalPortal>
