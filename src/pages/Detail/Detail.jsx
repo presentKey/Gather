@@ -27,11 +27,13 @@ export default function Detail() {
 
   return (
     <>
-      {isUpdate ? (
-        <UpdateHeader code={code} detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
-      ) : (
-        <DetailHeader detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
-      )}
+      <header className={styles.header}>
+        {isUpdate ? (
+          <UpdateHeader code={code} detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
+        ) : (
+          <DetailHeader detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
+        )}
+      </header>
       <section className={styles.detail}>
         <HistoryList histories={histories} code={code} detail={detail} />
         <BottomSheet>

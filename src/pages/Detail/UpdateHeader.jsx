@@ -18,7 +18,7 @@ export default function UpdateHeader({
   const { isLoading, error, handleUpdateHeader } = useClass(code, info);
 
   return (
-    <header className={styles.header}>
+    <>
       <Input
         type='text'
         name='title'
@@ -83,6 +83,6 @@ export default function UpdateHeader({
       <button className={styles['cancel-btn']} type='button' onClick={onUpdateButtonClick}>
         취소
       </button>
-    </header>
+    </>
   );
 }

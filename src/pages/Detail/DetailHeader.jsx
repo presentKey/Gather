@@ -9,7 +9,7 @@ export default function DetailHeader({
   onUpdateButtonClick,
 }) {
   return (
-    <header className={styles.header}>
+    <>
       <h2 className={styles.title}>{title}</h2>
       <dl className={styles['bank-group']}>
         <IoMdBook className={styles['bank-icon']} />
@@ -21,6 +21,6 @@ export default function DetailHeader({
         <strong className={styles.total}>{total.toLocaleString()}원</strong>
       </div>
       <SettingMenu members={members} onUpdateButtonClick={onUpdateButtonClick} />
-    </header>
+    </>
   );
 }
