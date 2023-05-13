@@ -4,8 +4,9 @@ import { IoMdBook } from 'react-icons/io';
 import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
 import useInput from '../../hooks/useInput';
-import isInputLengthZero from '../../utils/isInputLengthZero';
 import useClass from '../../components/Main/hooks/useClass';
+import Input from '../../components/common/Input/Input';
+import CheckBox from '../../components/common/Input/CheckBox';
 
 export default function UpdateHeader({
   code,
@@ -18,52 +19,61 @@ export default function UpdateHeader({
 
   return (
     <header className={styles.header}>
-      <input
+      <Input
+        type='text'
         name='title'
-        className={`${styles.title} ${isInputLengthZero(info.title) && styles['is-error']}`}
-        value={info.title ?? ''}
+        text='모임이름'
+        value={info}
         onChange={handleChange}
+        width='long'
+        size='small'
       />
-      <div className={styles['bank-group']}>
+      <div className={styles.container}>
         <IoMdBook className={styles['bank-icon']} />
-        <input
+        <Input
+          type='text'
           name='bank'
-          className={`${styles.bank} ${isInputLengthZero(info.bank) && styles['is-error']}`}
-          value={info.bank ?? ''}
+          text='은행'
+          value={info}
           onChange={handleChange}
+          width='short'
+          size='small'
         />
-        <input
+        <Input
+          type='number'
           name='number'
-          type='number'
-          className={`${styles.number} ${isInputLengthZero(info.number) && styles['is-error']}`}
-          value={info.number ?? ''}
+          text='계좌번호'
+          value={info}
           onChange={handleChange}
+          width='long'
+          size='small'
         />
       </div>
-      <div className={styles.amount}>
+      <div className={styles.container}>
         <CiCoinInsert className={styles['money-icon']} />
-        <input
-          name='total'
+        <Input
           type='number'
-          className={`${styles.total} ${isInputLengthZero(info.total) && styles['is-error']}`}
-          value={info.total ?? ''}
+          name='total'
+          text='총 금액'
+          value={info}
           onChange={handleChange}
+          width='long'
+          size='small'
         />
       </div>
-      <div className={styles['set-group']}>
-        <input
-          className={styles['set-anonymouse']}
-          type='checkbox'
-          name='allowAnonymouse'
-          id='allowAnonymouse'
-          checked={info.allowAnonymouse}
-          onChange={handleChange}
-        />
-        <label htmlFor='allowAnonymouse'>모임 구성원으로 게스트 유저 허용</label>
-      </div>
+      <CheckBox
+        type='checkbox'
+        name='allowAnonymouse'
+        text='모임 구성원으로 게스트 유저 허용'
+        onChange={handleChange}
+        checked={info.allowAnonymouse}
+        color='black'
+        size='small'
+      />
+
       <SettingMenu onUpdateButtonClick={onUpdateButtonClick} />
       <button
-        className={`${styles['modify-btn']} ${error && styles['is-error']}`}
+        className={`${styles['update-btn']} ${error && styles['is-error']}`}
         type='button'
         disabled={isLoading}
         onClick={() => handleUpdateHeader(onUpdateButtonClick)}

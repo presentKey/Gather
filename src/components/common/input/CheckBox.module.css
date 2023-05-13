@@ -2,10 +2,14 @@
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  accent-color: var(--color-yellow);
+}
+
+.container.black {
+  accent-color: var(--color-black);
 }
 
 .input {
-  accent-color: var(--color-yellow);
   margin-right: 0.25rem;
   zoom: 1.5;
 }
@@ -15,4 +19,8 @@
   line-height: 1rem;
   color: var(--color-white);
   user-select: none;
+}
+
+.label.black {
+  color: var(--color-black);
 }
