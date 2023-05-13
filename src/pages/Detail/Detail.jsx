@@ -4,14 +4,13 @@ import ShowHeader from './ShowHeader';
 import ModificationHeader from './ModificationHeader';
 import { Navigate } from 'react-router-dom';
 import styles from './Detail.module.css';
-import History from './History';
 import useClass from '../../components/Main/hooks/useClass';
 import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
-import ModifyHistory from './ModifyHistory';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
 import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
 import Body from '../../components/common/BottomSheet/Body/Body';
+import HistoryList from './HistoryList';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -28,44 +27,17 @@ export default function Detail() {
 
   return (
     <>
-      {!isModification && (
-        <ShowHeader headerInfo={detail} onModifyBtnClick={handleModifyBtnClick} />
-      )}
-      {isModification && (
+      {isModification ? (
         <ModificationHeader
           code={code}
           headerInfo={detail}
           onModifyBtnClick={handleModifyBtnClick}
         />
+      ) : (
+        <ShowHeader headerInfo={detail} onModifyBtnClick={handleModifyBtnClick} />
       )}
       <section className={styles.detail}>
-        <ul>
-          {histories.map((history) => {
-            switch (history.type) {
-              case 'classModify':
-                return (
-                  <ModifyHistory
-                    key={history.id}
-                    code={code}
-                    histories={histories}
-                    history={history}
-                    members={detail.members}
-                  />
-                );
-              default:
-                return (
-                  <History
-                    key={history.id}
-                    code={code}
-                    histories={histories}
-                    history={history}
-                    members={detail.members}
-                  />
-                );
-            }
-          })}
-        </ul>
-
+        <HistoryList histories={histories} code={code} detail={detail} />
         <BottomSheet>
           <BottomSheet.Header>
             <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
