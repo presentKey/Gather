@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from './UpdateHeader.module.css';
-import { IoMdBook } from 'react-icons/io';
-import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
 import useInput from '../../hooks/useInput';
 import useClass from '../../components/Main/hooks/useClass';

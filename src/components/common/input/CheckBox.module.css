@@ -5,10 +5,6 @@
   accent-color: var(--color-yellow);
 }
 
-.container.black {
-  accent-color: var(--color-black);
-}
-
 .input {
   margin-right: 0.25rem;
   zoom: 1.5;
@@ -21,6 +17,20 @@
   user-select: none;
 }
 
+/* getColorStyle */
+.container.black {
+  accent-color: var(--color-black);
+}
+
 .label.black {
   color: var(--color-black);
+}
+
+/* getSize */
+.input.small {
+  zoom: 1.2;
+}
+
+.label.small {
+  font-size: 0.85rem;
 }
