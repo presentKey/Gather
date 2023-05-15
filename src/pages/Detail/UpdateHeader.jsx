@@ -7,6 +7,8 @@ import useInput from '../../hooks/useInput';
 import useClass from '../../components/Main/hooks/useClass';
 import Input from '../../components/common/Input/Input';
 import CheckBox from '../../components/common/Input/CheckBox';
+import BankIcon from '../../components/common/icons/BankIcon';
+import MoneyIcon from '../../components/common/icons/MoneyIcon';
 
 export default function UpdateHeader({
   code,
@@ -29,7 +31,7 @@ export default function UpdateHeader({
         size='small'
       />
       <div className={styles.container}>
-        <IoMdBook className={styles['bank-icon']} />
+        <BankIcon />
         <Input
           type='text'
           name='bank'
@@ -50,7 +52,7 @@ export default function UpdateHeader({
         />
       </div>
       <div className={styles.container}>
-        <CiCoinInsert className={styles['money-icon']} />
+        <MoneyIcon />
         <Input
           type='number'
           name='total'

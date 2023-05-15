@@ -1,5 +1,4 @@
 import React from 'react';
-import { IoMdSettings } from 'react-icons/io';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { HiPencilAlt } from 'react-icons/hi';
 import { ImExit } from 'react-icons/im';
@@ -13,6 +12,7 @@ import useModal from '../../hooks/useModal';
 import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
+import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
 
 export default function SettingMenu({ members, onUpdateButtonClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
@@ -26,7 +26,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
       <button className={styles['setting-btn']} type='button' onClick={handleToggleMenu}>
-        <IoMdSettings className={styles['setting-icon']} />
+        <SetMenuIcon />
       </button>
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>

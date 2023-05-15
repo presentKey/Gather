@@ -26,15 +26,6 @@
   margin-bottom: 0.25rem;
 }
 
-.bank-icon {
-  padding: 0.1rem;
-  margin-right: 0.25rem;
-  font-size: 1.5rem;
-  color: var(--color-white);
-  border-radius: 50%;
-  transform: rotate(90deg);
-}
-
 .bank {
   max-width: 3.75rem;
   margin-right: 0.25rem;
@@ -52,30 +43,6 @@
 .total {
   max-width: 16.25rem;
   font-weight: 600;
-}
-
-.money-icon {
-  margin-right: 0.25rem;
-  font-size: 1.5rem;
-  border-radius: 50%;
-}
-
-.bank-icon,
-.money-icon {
-  margin-right: 0.25rem;
-  color: var(--color-black);
-  background-color: var(--color-yellow);
-  filter: drop-shadow(0 0 2px #3c6255);
-  border-radius: 50%;
-}
-
-.bank-icon {
-  padding: 0.1rem;
-  transform: rotate(90deg);
-}
-
-.money-icon {
-  margin-right: 0.25rem;
 }
 
 @media screen and (min-width: 48rem) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './DetailHeader.module.css';
-import { IoMdBook } from 'react-icons/io';
-import { CiCoinInsert } from 'react-icons/ci';
 import SettingMenu from './SettingMenu';
+import BankIcon from '../../components/common/icons/BankIcon';
+import MoneyIcon from '../../components/common/icons/MoneyIcon';
 
 export default function DetailHeader({
   detail: { title, account, total, members },
@@ -12,12 +12,12 @@ export default function DetailHeader({
     <>
       <h2 className={styles.title}>{title}</h2>
       <dl className={styles['bank-group']}>
-        <IoMdBook className={styles['bank-icon']} />
+        <BankIcon />
         <dt className={styles.bank}>{account.bank}</dt>
         <dd className={styles.number}>{account.number}</dd>
       </dl>
       <div className={styles.amount}>
-        <CiCoinInsert className={styles['money-icon']} />
+        <MoneyIcon />
         <strong className={styles.total}>{total.toLocaleString()}원</strong>
       </div>
       <SettingMenu members={members} onUpdateButtonClick={onUpdateButtonClick} />
