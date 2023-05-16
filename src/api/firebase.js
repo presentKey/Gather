@@ -252,6 +252,8 @@ export async function updateClassHeader(uid, code, info) {
       });
     }
   });
+
+  return code;
 }
 
 export async function leaveClass(code, user, members) {
@@ -356,4 +358,6 @@ export async function deleteHistory(code, user, id) {
       });
     }
   });
+
+  return code;
 }

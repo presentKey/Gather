@@ -21,7 +21,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
   const {
     state: { code },
   } = useLocation();
-  const { handleLeaveClass } = useClass(code);
+  const { handleLeaveClass } = useClass();
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
@@ -57,7 +57,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
             <ConfirmModal
               message={'모임에서 나가시겠습니까?'}
               btnText={'모임 나가기'}
-              onConfirm={() => handleLeaveClass(members, handleToggleLeaveModal)}
+              onConfirm={() => handleLeaveClass(code, members, handleToggleLeaveModal)}
               onClose={handleToggleLeaveModal}
             />
           </ModalPortal>

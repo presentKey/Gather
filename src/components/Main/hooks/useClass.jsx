@@ -12,115 +12,118 @@ import {
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CREATE, ATTEND, DEPOSIT, WITHDRAW } from '../../../constants/bottomSheetTag';
 
-export default function useClass(code, info) {
+export default function useClass() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const ERROR = () => {
-    setError(true);
-    setTimeout(() => {
-      setError(false);
-    }, 600);
-  };
 
-  const create = useMutation(({ user, info }) => createClass(user, info), {
-    onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+  const create = useMutation(({ info }) => createClass(user, info), {
+    onSuccess: () => queryClient.invalidateQueries(['classList', user.uid]),
   });
 
-  const participation = useMutation(({ user, info }) => participationClass(user, info), {
-    onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+  const participation = useMutation(({ info }) => participationClass(user, info), {
+    onSuccess: () => queryClient.invalidateQueries(['classList', user.uid]),
   });
 
-  const updateHeader = useMutation(
-    ({ user, code, info }) => updateClassHeader(user.uid, code, info),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
-    }
-  );
+  const updateHeader = useMutation(({ code, info }) => updateClassHeader(user.uid, code, info), {
+    onSuccess: (code) => queryClient.invalidateQueries(['classDetail', code, user.uid]),
+  });
 
-  const leave = useMutation(({ code, user, members }) => leaveClass(code, user, members), {
-    onSuccess: () => queryClient.invalidateQueries(['myClasses', user.uid]),
+  const leave = useMutation(({ code, members }) => leaveClass(code, user, members), {
+    onSuccess: () => queryClient.invalidateQueries(['classList', user.uid]),
   });
 
   const addHistory = useMutation(
-    ({ code, user, info, minDate, tag }) => depositOrWithdraw(code, user, info, minDate, tag),
+    ({ code, info, minDate, tag }) => depositOrWithdraw(code, user, info, minDate, tag),
     {
-      onSuccess: (code) => queryClient.invalidateQueries(['myClass', code, user.uid]),
+      onSuccess: (code) => queryClient.invalidateQueries(['classDetail', code, user.uid]),
     }
   );
 
-  const removeHistory = useMutation(({ code, user, id }) => deleteHistory(code, user, id), {
-    onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
+  const removeHistory = useMutation(({ code, id }) => deleteHistory(code, user, id), {
+    onSuccess: (code) => queryClient.invalidateQueries(['classDetail', code, user.uid]),
   });
 
-  const classListQuery = useQuery(['myClasses', user.uid], () => getClassList(user.uid), {
+  const classListQuery = useQuery(['classList', user.uid], () => getClassList(user.uid), {
     staleTime: 1000 * 60 * 60,
   });
 
-  const classDetailQuery = useQuery(['myClass', code, user.uid], () => getClassDetail(code), {
-    enabled: !!code,
-    staleTime: 1000 * 60 * 60,
-  });
+  const useClassDetailQuery = (code) =>
+    useQuery(['classDetail', code, user.uid], () => getClassDetail(code), {
+      enabled: !!code,
+      staleTime: 1000 * 60 * 60,
+    });
 
-  const handleCreateSubmit = (info) => {
+  const handleCreateSubmit = (e, info) => {
+    e.preventDefault();
     setIsLoading(true);
     create.mutate(
-      { user, info },
+      { info },
       {
         onSuccess: () => navigate('/detail'),
-        onError: ERROR,
+        onError: () => {
+          setError(true);
+          setTimeout(() => setError(false), 600);
+        },
         onSettled: () => setIsLoading(false),
       }
     );
   };
 
-  const handleParticipationSubmit = (info) => {
+  const handleParticipationSubmit = (e, info) => {
+    e.preventDefault();
     setIsLoading(true);
     participation.mutate(
-      { user, info },
+      { info },
       {
         onSuccess: () => navigate('/detail'),
-        onError: ERROR,
+        onError: () => {
+          setError(true);
+          setTimeout(() => setError(false), 600);
+        },
         onSettled: () => setIsLoading(false),
       }
     );
   };
 
-  const handleSubmit = (e, info, tag, code, minDate, onCloseSheet) => {
+  const handleAddHistorySumbit = (e, info, tag, code, minDate, onCloseSheet) => {
     e.preventDefault();
-    switch (tag) {
-      case CREATE:
-        return handleCreateSubmit(info);
-      case ATTEND:
-        return handleParticipationSubmit(info);
-      case DEPOSIT:
-      case WITHDRAW:
-        return handleAddHistorySumbit(info, tag, code, minDate, onCloseSheet);
-      default:
-        throw new Error(`${tag}에 실패했습니다.`);
-    }
+    setIsLoading(true);
+    addHistory.mutate(
+      { code, info, minDate, tag },
+      {
+        onSuccess: () => onCloseSheet(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => setError(false), 600);
+        },
+        onSettled: () => setIsLoading(false),
+      }
+    );
   };
 
-  const handleUpdateHeader = (onModifyBtnClick) => {
+  const handleUpdateHeader = (code, info, onUpdateButtonClick) => {
     setIsLoading(true);
     updateHeader.mutate(
-      { user, code, info },
+      { code, info },
       {
-        onSuccess: () => onModifyBtnClick(),
-        onError: ERROR,
+        onSuccess: () => onUpdateButtonClick(),
+        onError: () => {
+          setError(true);
+          setTimeout(() => setError(false), 600);
+        },
         onSettled: () => setIsLoading(false),
       }
     );
   };
 
-  const handleLeaveClass = (members, onToggleModal) => {
+  const handleLeaveClass = (code, members, onToggleModal) => {
     setIsLoading(true);
     leave.mutate(
-      { code, user, members },
+      { code, members },
       {
         onSuccess: () => navigate('/'),
         onSettled: () => {
@@ -131,25 +134,16 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleAddHistorySumbit = (info, tag, code, minDate, onCloseSheet) => {
-    setIsLoading(true);
-    addHistory.mutate(
-      { code, user, info, minDate, tag },
-      {
-        onSuccess: onCloseSheet,
-        onError: ERROR,
-        onSettled: () => setIsLoading(false),
-      }
-    );
-  };
-
-  const handleDeleteHistory = (id, onToggleModal) => {
+  const handleDeleteHistory = (code, id, onToggleModal) => {
     setIsLoading(true);
     removeHistory.mutate(
-      { code, user, id },
+      { code, id },
       {
         onSuccess: () => onToggleModal(),
-        onError: ERROR,
+        onError: () => {
+          setError(true);
+          setTimeout(() => setError(false), 600);
+        },
         onSettled: () => setIsLoading(false),
       }
     );
@@ -160,11 +154,12 @@ export default function useClass(code, info) {
     isLoading,
     error,
     classListQuery,
-    classDetailQuery,
-    handleSubmit,
+    useClassDetailQuery,
+    handleCreateSubmit,
+    handleParticipationSubmit,
+    handleAddHistorySumbit,
     handleUpdateHeader,
     handleLeaveClass,
-    handleAddHistorySumbit,
     handleDeleteHistory,
   };
 }

@@ -8,11 +8,11 @@ import useClass from '../../../Main/hooks/useClass';
 export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
-  const { isLoading, error, handleSubmit } = useClass();
+  const { isLoading, error, handleParticipationSubmit } = useClass();
 
   if (toggle !== tag) return;
   return (
-    <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, tag)}>
+    <form className={styles.form} onSubmit={(e) => handleParticipationSubmit(e, info)}>
       <p className={styles.message}>모임 구성원에게 코드 공유를 요청하세요!</p>
       <Input
         type='text'

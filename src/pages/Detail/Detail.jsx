@@ -14,9 +14,8 @@ import HistoryList from './HistoryList';
 
 export default function Detail() {
   const { state } = useLocation();
-  const {
-    classDetailQuery: { isLoading, data: detail },
-  } = useClass(state?.code);
+  const { useClassDetailQuery } = useClass();
+  const { isLoading, data: detail } = useClassDetailQuery(state?.code);
   const { isUpdate, handleUpdateButtonClick } = useClassDetail();
 
   if (!state) return <Navigate to='/' replace />;

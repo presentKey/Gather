@@ -9,11 +9,11 @@ import CheckBox from '../../Input/CheckBox';
 export default function ClassCreateForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
-  const { isLoading, error, handleSubmit } = useClass();
+  const { isLoading, error, handleCreateSubmit } = useClass();
 
   if (toggle !== tag) return;
   return (
-    <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, tag)}>
+    <form className={styles.form} onSubmit={(e) => handleCreateSubmit(e, info)}>
       <CheckBox
         type='checkbox'
         name='allowAnonymouse'

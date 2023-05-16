@@ -13,7 +13,7 @@ import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
 export default function ModifiedHistory({ code, history, members }) {
   const { id, date, price, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { user, isLoading, error, handleDeleteHistory } = useClass(code);
+  const { user, isLoading, error, handleDeleteHistory } = useClass();
   const member = members.find((member) => member.uid === uid);
 
   return (
@@ -41,7 +41,7 @@ export default function ModifiedHistory({ code, history, members }) {
               btnText={'내역 삭제'}
               isLoading={isLoading}
               error={error}
-              onConfirm={() => handleDeleteHistory(id, setToggleHistoryModal)}
+              onConfirm={() => handleDeleteHistory(code, id, setToggleHistoryModal)}
               onClose={setToggleHistoryModal}
             />
           </ModalPortal>

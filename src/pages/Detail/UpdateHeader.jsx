@@ -15,7 +15,7 @@ export default function UpdateHeader({
 }) {
   const { bank, number } = account;
   const [info, handleChange] = useInput({ title, bank, number, total, allowAnonymouse });
-  const { isLoading, error, handleUpdateHeader } = useClass(code, info);
+  const { isLoading, error, handleUpdateHeader } = useClass();
 
   return (
     <header className={styles.header}>
@@ -76,7 +76,7 @@ export default function UpdateHeader({
         className={`${styles['update-btn']} ${error && styles['is-error']}`}
         type='button'
         disabled={isLoading}
-        onClick={() => handleUpdateHeader(onUpdateButtonClick)}
+        onClick={() => handleUpdateHeader(code, info, onUpdateButtonClick)}
       >
         수정하기
       </button>

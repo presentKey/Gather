@@ -9,14 +9,14 @@ import getTodayDate from '../../../../utils/getTodayDate';
 export default function TransferForm({ code, histories, text, tag, color }) {
   const { toggle, closeSheet } = useBottomSheet();
   const [info, handleChange] = useInput({ date: getTodayDate() });
-  const { isLoading, error, handleSubmit } = useClass();
+  const { isLoading, error, handleAddHistorySumbit } = useClass();
   const getMinDate = histories.find((history) => history.type === 'classModify');
 
   if (toggle !== tag) return;
   return (
     <form
       className={styles.form}
-      onSubmit={(e) => handleSubmit(e, info, tag, code, getMinDate?.date, closeSheet)}
+      onSubmit={(e) => handleAddHistorySumbit(e, info, tag, code, getMinDate?.date, closeSheet)}
     >
       <Input type='number' name='price' text='금액' value={info} onChange={handleChange} required />
       <Input
