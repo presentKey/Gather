@@ -1,31 +1,17 @@
 import History from './History';
-import ModifyHistory from './ModifyHistory';
+import ModifiedHistory from './ModifiedHistory';
 
-export default function HistoryList({ histories, code, detail }) {
+export default function HistoryList({ histories, code, members }) {
   return (
     <ul>
       {histories.map((history) => {
         switch (history.type) {
           case 'classModify':
             return (
-              <ModifyHistory
-                key={history.id}
-                code={code}
-                histories={histories}
-                history={history}
-                members={detail.members}
-              />
+              <ModifiedHistory key={history.id} code={code} history={history} members={members} />
             );
           default:
-            return (
-              <History
-                key={history.id}
-                code={code}
-                histories={histories}
-                history={history}
-                members={detail.members}
-              />
-            );
+            return <History key={history.id} code={code} history={history} members={members} />;
         }
       })}
     </ul>

@@ -33,7 +33,7 @@ export default function Detail() {
         <DetailHeader detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
       )}
       <section className={styles.detail}>
-        <HistoryList histories={histories} code={code} detail={detail} />
+        <HistoryList histories={histories} code={code} members={detail.members} />
         <BottomSheet>
           <BottomSheet.Header>
             <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />

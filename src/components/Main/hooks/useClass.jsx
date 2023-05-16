@@ -53,12 +53,9 @@ export default function useClass(code, info) {
     }
   );
 
-  const removeHistory = useMutation(
-    ({ code, user, id, histories }) => deleteHistory(code, user, id, histories),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
-    }
-  );
+  const removeHistory = useMutation(({ code, user, id }) => deleteHistory(code, user, id), {
+    onSuccess: () => queryClient.invalidateQueries(['myClass', code, user.uid]),
+  });
 
   const classListQuery = useQuery(['myClasses', user.uid], () => getClassList(user.uid), {
     staleTime: 1000 * 60 * 60,
@@ -146,10 +143,10 @@ export default function useClass(code, info) {
     );
   };
 
-  const handleDeleteHistory = (id, histories, onToggleModal) => {
+  const handleDeleteHistory = (id, onToggleModal) => {
     setIsLoading(true);
     removeHistory.mutate(
-      { code, user, id, histories },
+      { code, user, id },
       {
         onSuccess: () => onToggleModal(),
         onError: ERROR,
