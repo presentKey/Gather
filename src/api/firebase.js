@@ -139,7 +139,7 @@ export async function createClass(user, info) {
   await batch.commit();
 }
 
-export async function participationClass(user, info) {
+export async function AttendClass(user, info) {
   const { uid, photoURL } = user;
   const { code } = info;
 

@@ -8,7 +8,7 @@ import {
   getClassDetail,
   getClassList,
   leaveClass,
-  participationClass,
+  AttendClass,
   updateClassHeader,
 } from '../../../api/firebase';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -24,7 +24,7 @@ export default function useClass() {
     onSuccess: () => queryClient.invalidateQueries(['classList', user.uid]),
   });
 
-  const participation = useMutation(({ info }) => participationClass(user, info), {
+  const attend = useMutation(({ info }) => AttendClass(user, info), {
     onSuccess: () => queryClient.invalidateQueries(['classList', user.uid]),
   });
 
@@ -73,10 +73,10 @@ export default function useClass() {
     );
   };
 
-  const handleParticipationSubmit = (e, info) => {
+  const handleAttendSubmit = (e, info) => {
     e.preventDefault();
     setIsLoading(true);
-    participation.mutate(
+    attend.mutate(
       { info },
       {
         onSuccess: () => navigate('/detail'),
@@ -156,7 +156,7 @@ export default function useClass() {
     classListQuery,
     useClassDetailQuery,
     handleCreateSubmit,
-    handleParticipationSubmit,
+    handleAttendSubmit,
     handleAddHistorySumbit,
     handleUpdateHeader,
     handleLeaveClass,
