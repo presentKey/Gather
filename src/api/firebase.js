@@ -29,6 +29,7 @@ import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
 import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 import { WITHDRAW } from '../constants/bottomSheetTag';
+import sortHistory from '../utils/sortHistory';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -187,7 +188,8 @@ export async function getClassDetail(code) {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data();
+    const sortedHistory = sortHistory(docSnap.data().history);
+    return { ...docSnap.data(), history: sortedHistory };
   }
 
   return null;

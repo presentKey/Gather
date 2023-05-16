@@ -17,12 +17,11 @@ export default function Detail() {
   const {
     classDetailQuery: { isLoading, data: detail },
   } = useClass(state?.code);
-  const { isUpdate, handleUpdateButtonClick, sortedHistory } = useClassDetail();
+  const { isUpdate, handleUpdateButtonClick } = useClassDetail();
 
   if (!state) return <Navigate to='/' replace />;
   if (isLoading) return <LoadingDetail />;
 
-  const histories = sortedHistory(detail.history);
   const { code } = state;
 
   return (
@@ -33,7 +32,7 @@ export default function Detail() {
         <DetailHeader detail={detail} onUpdateButtonClick={handleUpdateButtonClick} />
       )}
       <section className={styles.detail}>
-        <HistoryList histories={histories} code={code} members={detail.members} />
+        <HistoryList histories={detail.history} code={code} members={detail.members} />
         <BottomSheet>
           <BottomSheet.Header>
             <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
@@ -42,14 +41,14 @@ export default function Detail() {
           <BottomSheet.Body>
             <Body.TransferForm
               code={code}
-              histories={histories}
+              histories={detail.history}
               text='입금'
               tag={DEPOSIT}
               color='red'
             />
             <Body.TransferForm
               code={code}
-              histories={histories}
+              histories={detail.history}
               text='출금'
               tag={WITHDRAW}
               color='blue'
