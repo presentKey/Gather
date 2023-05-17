@@ -21,7 +21,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
   const {
     state: { code },
   } = useLocation();
-  const { handleLeaveClass } = useClassList();
+  const { handleLeaveClass, isLoading, error } = useClassList();
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
@@ -59,6 +59,8 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
               btnText={'모임 나가기'}
               onConfirm={() => handleLeaveClass(code, members, handleToggleLeaveModal)}
               onClose={handleToggleLeaveModal}
+              isLoading={isLoading}
+              error={error}
             />
           </ModalPortal>
         </OverlayPortal>

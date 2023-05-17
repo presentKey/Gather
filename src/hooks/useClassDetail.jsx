@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuthContext } from '../context/AuthContext';
 import {
   deleteHistory,
@@ -7,6 +7,7 @@ import {
   getClassDetail,
   updateClassHeader,
 } from '../api/firebase';
+import useMutationClass from './useMutationClass';
 
 export default function useClassDetail(code) {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,72 +15,52 @@ export default function useClassDetail(code) {
   const { user } = useAuthContext();
   const queryClient = useQueryClient();
 
-  const useClassDetailQuery = useQuery(
-    ['classDetail', code, user.uid],
-    () => getClassDetail(code),
-    {
-      enabled: !!code,
-      staleTime: 1000 * 60 * 60,
-    }
-  );
+  const QUERY_KEY = ['classDetail', code, user.uid];
 
-  const updateHeader = useMutation(({ info }) => updateClassHeader(user.uid, code, info), {
-    onSuccess: () => queryClient.invalidateQueries(['classDetail', code, user.uid]),
+  const classDetailQuery = useQuery(QUERY_KEY, () => getClassDetail(code), {
+    enabled: !!code,
+    staleTime: 1000 * 60 * 60,
   });
 
-  const addHistory = useMutation(
-    ({ info, minDate, tag }) => depositOrWithdraw(code, user.uid, info, minDate, tag),
-    {
-      onSuccess: () => queryClient.invalidateQueries(['classDetail', code, user.uid]),
-    }
-  );
+  const updateHeader = useMutationClass(setIsLoading, setError, {
+    mutationFn: ({ info }) => updateClassHeader(user.uid, code, info),
+    onSuccess: () => queryClient.invalidateQueries(QUERY_KEY),
+  });
 
-  const removeHistory = useMutation(({ id }) => deleteHistory(code, user.uid, id), {
-    onSuccess: () => queryClient.invalidateQueries(['classDetail', code, user.uid]),
+  const addHistory = useMutationClass(setIsLoading, setError, {
+    mutationFn: ({ info, minDate, tag }) => depositOrWithdraw(code, user.uid, info, minDate, tag),
+    onSuccess: () => queryClient.invalidateQueries(QUERY_KEY),
+  });
+
+  const removeHistory = useMutationClass(setIsLoading, setError, {
+    mutationFn: ({ id }) => deleteHistory(code, user.uid, id),
+    onSuccess: () => queryClient.invalidateQueries(QUERY_KEY),
   });
 
   const handleUpdateHeader = (info, onUpdateButtonClick) => {
-    setIsLoading(true);
     updateHeader.mutate(
       { info },
       {
         onSuccess: () => onUpdateButtonClick(),
-        onError: () => {
-          setError(true);
-          setTimeout(() => setError(false), 600);
-        },
-        onSettled: () => setIsLoading(false),
       }
     );
   };
 
   const handleAddHistorySumbit = (e, info, tag, minDate, onCloseSheet) => {
     e.preventDefault();
-    setIsLoading(true);
     addHistory.mutate(
       { info, minDate, tag },
       {
         onSuccess: () => onCloseSheet(),
-        onError: () => {
-          setError(true);
-          setTimeout(() => setError(false), 600);
-        },
-        onSettled: () => setIsLoading(false),
       }
     );
   };
 
   const handleDeleteHistory = (id, onToggleModal) => {
-    setIsLoading(true);
     removeHistory.mutate(
       { id },
       {
         onSuccess: () => onToggleModal(),
-        onError: () => {
-          setError(true);
-          setTimeout(() => setError(false), 600);
-        },
-        onSettled: () => setIsLoading(false),
       }
     );
   };
@@ -88,7 +69,7 @@ export default function useClassDetail(code) {
     user,
     isLoading,
     error,
-    useClassDetailQuery,
+    classDetailQuery,
     handleAddHistorySumbit,
     handleUpdateHeader,
     handleDeleteHistory,

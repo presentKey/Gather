@@ -8,7 +8,7 @@ import useClassDetail from '../../hooks/useClassDetail';
 
 export default function ClassCard({ code }) {
   const {
-    useClassDetailQuery: { isLoading, data: myClass },
+    classDetailQuery: { isLoading, data: myClass },
   } = useClassDetail(code);
 
   if (isLoading) return <LoadingCard />;

@@ -15,8 +15,8 @@ import useClassDetail from '../../hooks/useClassDetail';
 export default function Detail() {
   const { state } = useLocation();
   const {
-    useClassDetailQuery: { isLoading, data: detail },
-  } = useClassDetail(state.code);
+    classDetailQuery: { isLoading, data: detail },
+  } = useClassDetail(state?.code);
   const { isUpdate, handleUpdateButtonClick } = useDetail();
 
   if (!state) return <Navigate to='/' replace />;
