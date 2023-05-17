@@ -5,18 +5,18 @@ import UpdateHeader from './UpdateHeader';
 import { Navigate } from 'react-router-dom';
 import styles from './Detail.module.css';
 import useClass from '../../components/Main/hooks/useClass';
-import useClassDetail from './hooks/useClassDetail';
 import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
 import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
 import Body from '../../components/common/BottomSheet/Body/Body';
 import HistoryList from './HistoryList';
+import useDetail from './hooks/useDetail';
 
 export default function Detail() {
   const { state } = useLocation();
   const { useClassDetailQuery } = useClass();
   const { isLoading, data: detail } = useClassDetailQuery(state?.code);
-  const { isUpdate, handleUpdateButtonClick } = useClassDetail();
+  const { isUpdate, handleUpdateButtonClick } = useDetail();
 
   if (!state) return <Navigate to='/' replace />;
   if (isLoading) return <LoadingDetail />;
