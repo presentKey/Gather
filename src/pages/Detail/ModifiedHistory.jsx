@@ -2,18 +2,18 @@ import React from 'react';
 import Avatar from '../../components/common/Avatar/Avatar';
 import styles from './ModifiedHistory.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import useClass from '../../components/Main/hooks/useClass';
 import useModal from '../../hooks/useModal';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
+import useClassDetail from '../../hooks/useClassDetail';
 
 export default function ModifiedHistory({ code, history, members }) {
   const { id, date, price, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { user, isLoading, error, handleDeleteHistory } = useClass();
+  const { user, isLoading, error, handleDeleteHistory } = useClassDetail(code);
   const member = members.find((member) => member.uid === uid);
 
   return (
@@ -41,7 +41,7 @@ export default function ModifiedHistory({ code, history, members }) {
               btnText={'내역 삭제'}
               isLoading={isLoading}
               error={error}
-              onConfirm={() => handleDeleteHistory(code, id, setToggleHistoryModal)}
+              onConfirm={() => handleDeleteHistory(id, setToggleHistoryModal)}
               onClose={setToggleHistoryModal}
             />
           </ModalPortal>

@@ -4,11 +4,12 @@ import styles from './ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
 import LoadingCard from './LoadingCard';
-import useClass from './hooks/useClass';
+import useClassDetail from '../../hooks/useClassDetail';
 
 export default function ClassCard({ code }) {
-  const { useClassDetailQuery } = useClass();
-  const { isLoading, data: myClass } = useClassDetailQuery(code);
+  const {
+    useClassDetailQuery: { isLoading, data: myClass },
+  } = useClassDetail(code);
 
   if (isLoading) return <LoadingCard />;
   const [members, overLength] = showMax7Members(myClass.members);

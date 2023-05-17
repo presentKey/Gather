@@ -3,13 +3,13 @@ import Button from '../../Button/Button';
 import Input from '../../Input/Input';
 import { useBottomSheet } from '../../../../context/BottomSheetContext';
 import useInput from '../../../../hooks/useInput';
-import useClass from '../../../Main/hooks/useClass';
 import CheckBox from '../../Input/CheckBox';
+import useClassList from '../../../../hooks/useClassList';
 
 export default function ClassCreateForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
-  const { isLoading, error, handleCreateSubmit } = useClass();
+  const { isLoading, error, handleCreateSubmit } = useClassList();
 
   if (toggle !== tag) return;
   return (

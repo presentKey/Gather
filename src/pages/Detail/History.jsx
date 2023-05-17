@@ -7,13 +7,13 @@ import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
-import useClass from '../../components/Main/hooks/useClass';
 import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
+import useClassDetail from '../../hooks/useClassDetail';
 
 export default function History({ code, history, members }) {
   const { id, date, price, message, type, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { user, isLoading, error, handleDeleteHistory } = useClass();
+  const { user, isLoading, error, handleDeleteHistory } = useClassDetail(code);
   const member = members.find((member) => member.uid === uid);
 
   return (
@@ -45,7 +45,7 @@ export default function History({ code, history, members }) {
               btnText={'내역 삭제'}
               isLoading={isLoading}
               error={error}
-              onConfirm={() => handleDeleteHistory(code, id, setToggleHistoryModal)}
+              onConfirm={() => handleDeleteHistory(id, setToggleHistoryModal)}
               onClose={setToggleHistoryModal}
             />
           </ModalPortal>

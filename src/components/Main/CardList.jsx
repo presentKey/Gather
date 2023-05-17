@@ -1,11 +1,11 @@
 import styles from './Main.module.css';
 import ClassCard from './ClassCard';
-import useClass from './hooks/useClass';
+import useClassList from '../../hooks/useClassList';
 
 export default function CardList() {
   const {
     classListQuery: { data: classes },
-  } = useClass();
+  } = useClassList();
 
   return (
     <>

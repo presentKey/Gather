@@ -3,12 +3,12 @@ import Button from '../../Button/Button';
 import Input from '../../Input/Input';
 import { useBottomSheet } from '../../../../context/BottomSheetContext';
 import useInput from '../../../../hooks/useInput';
-import useClass from '../../../Main/hooks/useClass';
+import useClassList from '../../../../hooks/useClassList';
 
 export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
-  const { isLoading, error, handleAttendSubmit } = useClass();
+  const { isLoading, error, handleAttendSubmit } = useClassList();
 
   if (toggle !== tag) return;
   return (

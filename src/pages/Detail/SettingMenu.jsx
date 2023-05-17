@@ -7,12 +7,12 @@ import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
-import useClass from '../../components/Main/hooks/useClass';
 import useModal from '../../hooks/useModal';
 import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
 import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
+import useClassList from '../../hooks/useClassList';
 
 export default function SettingMenu({ members, onUpdateButtonClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
@@ -21,7 +21,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
   const {
     state: { code },
   } = useLocation();
-  const { handleLeaveClass } = useClass();
+  const { handleLeaveClass } = useClassList();
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>

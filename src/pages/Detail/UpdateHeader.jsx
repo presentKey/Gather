@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './UpdateHeader.module.css';
 import SettingMenu from './SettingMenu';
 import useInput from '../../hooks/useInput';
-import useClass from '../../components/Main/hooks/useClass';
 import Input from '../../components/common/Input/Input';
 import CheckBox from '../../components/common/Input/CheckBox';
 import BankIcon from '../../components/common/icons/BankIcon';
 import MoneyIcon from '../../components/common/icons/MoneyIcon';
+import useClassDetail from '../../hooks/useClassDetail';
 
 export default function UpdateHeader({
   code,
@@ -15,7 +15,7 @@ export default function UpdateHeader({
 }) {
   const { bank, number } = account;
   const [info, handleChange] = useInput({ title, bank, number, total, allowAnonymouse });
-  const { isLoading, error, handleUpdateHeader } = useClass();
+  const { isLoading, error, handleUpdateHeader } = useClassDetail(code);
 
   return (
     <header className={styles.header}>
@@ -76,7 +76,7 @@ export default function UpdateHeader({
         className={`${styles['update-btn']} ${error && styles['is-error']}`}
         type='button'
         disabled={isLoading}
-        onClick={() => handleUpdateHeader(code, info, onUpdateButtonClick)}
+        onClick={() => handleUpdateHeader(info, onUpdateButtonClick)}
       >
         수정하기
       </button>

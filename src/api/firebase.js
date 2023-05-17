@@ -252,12 +252,9 @@ export async function updateClassHeader(uid, code, info) {
       });
     }
   });
-
-  return code;
 }
 
-export async function leaveClass(code, user, members) {
-  const { uid } = user;
+export async function leaveClass(code, uid, members) {
   const leaveMember = members.find((member) => member.uid === uid);
 
   if (!leaveMember) {
@@ -279,8 +276,7 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function depositOrWithdraw(code, user, info, minDate, type) {
-  const { uid } = user;
+export async function depositOrWithdraw(code, uid, info, minDate, type) {
   const { price, message: msg, date } = info;
   const message = msg ?? '';
   let amount = parseInt(price, 10);
@@ -319,11 +315,9 @@ export async function depositOrWithdraw(code, user, info, minDate, type) {
     }),
     total: increment(amount),
   });
-
-  return code;
 }
 
-export async function deleteHistory(code, user, id) {
+export async function deleteHistory(code, uid, id) {
   const classRef = doc(db, 'classes', code);
 
   await runTransaction(db, async (transaction) => {
@@ -333,9 +327,7 @@ export async function deleteHistory(code, user, id) {
     }
 
     const histories = classDoc.data().history;
-    const removeHistory = histories.find(
-      (history) => history.uid === user.uid && history.id === id
-    );
+    const removeHistory = histories.find((history) => history.uid === uid && history.id === id);
 
     if (!removeHistory) {
       throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
@@ -358,6 +350,4 @@ export async function deleteHistory(code, user, id) {
       });
     }
   });
-
-  return code;
 }
