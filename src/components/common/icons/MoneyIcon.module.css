@@ -1,0 +1,8 @@
+.icon {
+  margin-right: 0.25rem;
+  font-size: 1.5rem;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  filter: drop-shadow(0 0 2px #3c6255);
+  border-radius: 50%;
+}

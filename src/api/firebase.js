@@ -29,11 +29,12 @@ import getTodayDate from '../utils/getTodayDate';
 import isMobile from '../utils/isMobile';
 import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 import { WITHDRAW } from '../constants/bottomSheetTag';
+import sortHistory from '../utils/sortHistory';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_I,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 };
 const provider = new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);
@@ -138,7 +139,7 @@ export async function createClass(user, info) {
   await batch.commit();
 }
 
-export async function participationClass(user, info) {
+export async function AttendClass(user, info) {
   const { uid, photoURL } = user;
   const { code } = info;
 
@@ -187,7 +188,8 @@ export async function getClassDetail(code) {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data();
+    const sortedHistory = sortHistory(docSnap.data().history);
+    return { ...docSnap.data(), history: sortedHistory };
   }
 
   return null;
@@ -252,8 +254,7 @@ export async function updateClassHeader(uid, code, info) {
   });
 }
 
-export async function leaveClass(code, user, members) {
-  const { uid } = user;
+export async function leaveClass(code, uid, members) {
   const leaveMember = members.find((member) => member.uid === uid);
 
   if (!leaveMember) {
@@ -275,8 +276,7 @@ export async function leaveClass(code, user, members) {
   await batch.commit();
 }
 
-export async function depositOrWithdraw(code, user, info, minDate, type) {
-  const { uid } = user;
+export async function depositOrWithdraw(code, uid, info, minDate, type) {
   const { price, message: msg, date } = info;
   const message = msg ?? '';
   let amount = parseInt(price, 10);
@@ -315,11 +315,9 @@ export async function depositOrWithdraw(code, user, info, minDate, type) {
     }),
     total: increment(amount),
   });
-
-  return code;
 }
 
-export async function deleteHistory(code, user, id) {
+export async function deleteHistory(code, uid, id) {
   const classRef = doc(db, 'classes', code);
 
   await runTransaction(db, async (transaction) => {
@@ -329,9 +327,7 @@ export async function deleteHistory(code, user, id) {
     }
 
     const histories = classDoc.data().history;
-    const removeHistory = histories.find(
-      (history) => history.uid === user.uid && history.id === id
-    );
+    const removeHistory = histories.find((history) => history.uid === uid && history.id === id);
 
     if (!removeHistory) {
       throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');

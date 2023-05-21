@@ -1,44 +1,35 @@
 import React from 'react';
 import Avatar from '../../components/common/Avatar/Avatar';
-import styles from './ModifyHistory.module.css';
+import styles from './ModifiedHistory.module.css';
 import { v4 as uuidv4 } from 'uuid';
-import useClass from '../../components/Main/hooks/useClass';
-import { BsThreeDotsVertical } from 'react-icons/bs';
 import useModal from '../../hooks/useModal';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
+import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
+import useClassDetail from '../../hooks/useClassDetail';
 
-export default function ModifyHistory({ code, histories, history, members }) {
+export default function ModifiedHistory({ code, history, members }) {
   const { id, date, price, uid, deletable } = history;
   const [toggleHistoryModal, setToggleHistoryModal] = useModal();
-  const { user, isLoading, error, handleDeleteHistory } = useClass(code);
+  const { user, isLoading, error, handleDeleteHistory } = useClassDetail(code);
+  const member = members.find((member) => member.uid === uid);
 
   return (
-    <li className={styles['history-list']}>
-      <div className={styles.left}>
-        {members.map(
-          (member) =>
-            member.uid === uid && (
-              <Avatar key={uuidv4()} image={member.photoURL} />
-            )
-        )}
-        <div className={styles['text-wrap']}>
-          <span className={styles.date}>{date}</span>
+    <li className={styles.list}>
+      <div className={styles.info}>
+        <Avatar key={uuidv4()} image={member.photoURL} />
+        <div className={styles.container}>
+          <time className={styles.date}>{date}</time>
           <p className={styles.message}>
-            모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로
-            변경되었습니다.
+            모임의 돈이 <strong>{price.toLocaleString()}원</strong>으로 변경되었습니다.
           </p>
         </div>
       </div>
       {deletable && user.uid === uid && (
-        <button
-          className={styles['set-btn']}
-          type="button"
-          onClick={setToggleHistoryModal}
-        >
-          <BsThreeDotsVertical className={styles['set-icon']} />
+        <button className={styles['set-btn']} type='button' onClick={setToggleHistoryModal}>
+          <SetHistoryIcon />
         </button>
       )}
       {toggleHistoryModal && (
@@ -50,9 +41,7 @@ export default function ModifyHistory({ code, histories, history, members }) {
               btnText={'내역 삭제'}
               isLoading={isLoading}
               error={error}
-              onConfirm={() =>
-                handleDeleteHistory(id, histories, setToggleHistoryModal)
-              }
+              onConfirm={() => handleDeleteHistory(id, setToggleHistoryModal)}
               onClose={setToggleHistoryModal}
             />
           </ModalPortal>

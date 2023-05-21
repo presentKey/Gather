@@ -1,5 +1,4 @@
 import React from 'react';
-import { IoMdSettings } from 'react-icons/io';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { HiPencilAlt } from 'react-icons/hi';
 import { ImExit } from 'react-icons/im';
@@ -8,46 +7,43 @@ import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import ModalPortal from '../../components/common/Modal/ModalProtal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
-import useClass from '../../components/Main/hooks/useClass';
 import useModal from '../../hooks/useModal';
 import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './SettingMenu.module.css';
+import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
+import useClassList from '../../hooks/useClassList';
 
-export default function SettingMenu({ members, onModifyBtnClick }) {
+export default function SettingMenu({ members, onUpdateButtonClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
   const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
   const [toggleFriendModal, handleToggleFriendModal] = useModal();
   const {
     state: { code },
   } = useLocation();
-  const { handleLeaveClass } = useClass(code);
+  const { handleLeaveClass, isLoading, error } = useClassList();
 
   return (
     <div ref={menuRef} className={styles['setting-menu-group']}>
-      <button
-        className={styles['setting-btn']}
-        type="button"
-        onClick={handleToggleMenu}
-      >
-        <IoMdSettings className={styles['setting-icon']} />
+      <button className={styles['setting-btn']} type='button' onClick={handleToggleMenu}>
+        <SetMenuIcon />
       </button>
       <div className={`${styles.menu} ${toggleMenu && styles['is-open']}`}>
         <ul className={styles['menu-list']}>
           <li className={styles['menu-item']} onClick={handleToggleFriendModal}>
-            <button type="button">
+            <button type='button'>
               <BsPersonFillAdd />
               친구 초대
             </button>
           </li>
-          <li className={styles['menu-item']} onClick={onModifyBtnClick}>
-            <button type="button">
+          <li className={styles['menu-item']} onClick={onUpdateButtonClick}>
+            <button type='button'>
               <HiPencilAlt />
               모임 수정
             </button>
           </li>
           <li className={styles['menu-item']} onClick={handleToggleLeaveModal}>
-            <button className={styles['is-leave']} type="button">
+            <button className={styles['is-leave']} type='button'>
               <ImExit />
               모임 나가기
             </button>
@@ -61,10 +57,10 @@ export default function SettingMenu({ members, onModifyBtnClick }) {
             <ConfirmModal
               message={'모임에서 나가시겠습니까?'}
               btnText={'모임 나가기'}
-              onConfirm={() =>
-                handleLeaveClass(members, handleToggleLeaveModal)
-              }
+              onConfirm={() => handleLeaveClass(code, members, handleToggleLeaveModal)}
               onClose={handleToggleLeaveModal}
+              isLoading={isLoading}
+              error={error}
             />
           </ModalPortal>
         </OverlayPortal>

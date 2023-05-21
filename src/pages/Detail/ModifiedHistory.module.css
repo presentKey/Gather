@@ -1,4 +1,4 @@
-.history-list {
+.list {
   position: relative;
   display: flex;
   align-items: center;
@@ -9,16 +9,16 @@
   border-bottom: 1px solid var(--color-black);
 }
 
-.history-list:hover {
+.list:hover {
   filter: brightness(1.05);
 }
 
-.left {
+.info {
   display: flex;
   align-items: center;
 }
 
-.text-wrap {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
