@@ -3,16 +3,16 @@ import Button from '../../Button/Button';
 import Input from '../../Input/Input';
 import { useBottomSheet } from '../../../../context/BottomSheetContext';
 import useInput from '../../../../hooks/useInput';
-import useClass from '../../../Main/hooks/useClass';
+import useClassList from '../../../../hooks/useClassList';
 
 export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();
   const [info, handleChange] = useInput();
-  const { isLoading, error, handleSubmit } = useClass();
+  const { isLoading, error, handleAttendSubmit } = useClassList();
 
   if (toggle !== tag) return;
   return (
-    <form className={styles.form} onSubmit={(e) => handleSubmit(e, info, tag)}>
+    <form className={styles.form} onSubmit={(e) => handleAttendSubmit(e, info)}>
       <p className={styles.message}>모임 구성원에게 코드 공유를 요청하세요!</p>
       <Input
         type='text'

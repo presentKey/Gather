@@ -1,4 +1,4 @@
-.history-list {
+.list {
   position: relative;
   display: flex;
   align-items: center;
@@ -8,15 +8,15 @@
   border-bottom: 1px solid var(--color-black);
 }
 
-.history-list.disabled {
+.list.disabled {
   opacity: 0.4;
 }
 
-.history-list:nth-child(even) {
+.list:nth-child(even) {
   background-color: rgba(237, 237, 237, 0.6);
 }
 
-.history-list:hover {
+.list:hover {
   background-color: rgba(234, 231, 177, 0.6);
 }
 
@@ -25,7 +25,7 @@
   align-items: center;
 }
 
-.text-wrap {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;

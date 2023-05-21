@@ -10,15 +10,10 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-}
-
-.setting-icon {
-  color: var(--color-white);
-  filter: drop-shadow(0 0 3px #000);
   transition: transform 300ms ease;
 }
 
-.setting-btn:active .setting-icon {
+.setting-btn:active {
   transform: rotate(90deg);
 }
 

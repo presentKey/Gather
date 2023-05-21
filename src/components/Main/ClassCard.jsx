@@ -4,12 +4,12 @@ import styles from './ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
 import LoadingCard from './LoadingCard';
-import useClass from './hooks/useClass';
+import useClassDetail from '../../hooks/useClassDetail';
 
 export default function ClassCard({ code }) {
   const {
     classDetailQuery: { isLoading, data: myClass },
-  } = useClass(code);
+  } = useClassDetail(code);
 
   if (isLoading) return <LoadingCard />;
   const [members, overLength] = showMax7Members(myClass.members);
@@ -17,7 +17,7 @@ export default function ClassCard({ code }) {
   return (
     <>
       {myClass && (
-        <Link to="/detail" state={{ code }} className={styles.card}>
+        <Link to='/detail' state={{ code }} className={styles.card}>
           <li className={styles['card-list']}>
             <h2 className={styles.title}>{myClass.title}</h2>
             <dl>
@@ -33,9 +33,7 @@ export default function ClassCard({ code }) {
               {overLength !== 0 && <b>+{overLength}</b>}
             </div>
             <div className={styles.amount}>
-              <span
-                className={styles.total}
-              >{`${myClass.total.toLocaleString()}원`}</span>
+              <span className={styles.total}>{`${myClass.total.toLocaleString()}원`}</span>
             </div>
           </li>
         </Link>

@@ -52,3 +52,25 @@ input[type='date']::-webkit-calendar-picker-indicator {
   cursor: pointer;
   background: transparent;
 }
+
+/* getContainerWidth() */
+.container.short {
+  width: 7rem;
+}
+
+.container.long {
+  width: 14rem;
+}
+
+/* getSize() */
+.input.small {
+  padding: 0.3rem;
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.label.small {
+  top: -0.3rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}

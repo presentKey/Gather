@@ -15,7 +15,7 @@ export default function Body({ children }) {
   const bodyRef = useRef();
   useEffect(
     () => (toggle ? setSheetHeight(bodyRef.current?.offsetHeight) : setSheetHeight(0)),
-    [toggle]
+    [toggle, setSheetHeight]
   );
 
   if (!toggle) return;
