@@ -34,10 +34,14 @@
   background-color: var(--color-blue);
 }
 
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -moz-appearance: none;
   -webkit-appearance: none;
-  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
