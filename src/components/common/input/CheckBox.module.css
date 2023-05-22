@@ -6,8 +6,9 @@
 }
 
 .input {
+  width: 1rem;
+  height: 1rem;
   margin-right: 0.25rem;
-  zoom: 1.5;
 }
 
 .label {
@@ -28,7 +29,8 @@
 
 /* getSize */
 .input.small {
-  zoom: 1.2;
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .label.small {
