@@ -37,7 +37,7 @@ export default function ClassCreateForm({ tag }) {
         onChange={handleChange}
         required
       />
-      <Button text='모임 생성!' type='submit' color='yellow' isLoading={isLoading} error={error} />
+      <Button text='모임 생성!' type='submit' color='yellow' isLoading={isLoading} />
     </form>
   );
 }

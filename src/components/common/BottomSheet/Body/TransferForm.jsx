@@ -37,7 +37,7 @@ export default function TransferForm({ code, histories, text, tag, color }) {
         onChange={handleChange}
         required
       />
-      <Button text={text} type='submit' color={color} isLoading={isLoading} error={error} />
+      <Button text={text} type='submit' color={color} isLoading={isLoading} />
     </form>
   );
 }

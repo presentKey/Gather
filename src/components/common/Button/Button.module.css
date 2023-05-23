@@ -10,12 +10,6 @@
   background-color: var(--color-yellow);
 }
 
-.button.is-error {
-  animation-name: error-button;
-  animation-duration: 200ms;
-  animation-iteration-count: infinite;
-}
-
 .red {
   color: var(--color-white);
   background-color: var(--color-red);
@@ -28,17 +22,4 @@
 
 .yellow {
   background-color: var(--color-yellow);
-}
-
-@keyframes error-button {
-  0% {
-    position: relative;
-    left: -1px;
-    color: var(--color-red);
-  }
-
-  100% {
-    left: 1px;
-    color: var(--color-red);
-  }
 }

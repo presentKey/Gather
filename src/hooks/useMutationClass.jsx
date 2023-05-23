@@ -11,9 +11,9 @@ export default function useMutationClass(setIsLoading, setError, { mutationFn, o
         onSuccess();
       }
     },
-    onError: () => {
-      setError(true);
-      setTimeout(() => setError(false), 600);
+    onError: ({ message }) => {
+      setError({ state: true, message });
+      setTimeout(() => setError({ state: false, message: '' }), 3000);
     },
     onSettled: () => setIsLoading(false),
   });
