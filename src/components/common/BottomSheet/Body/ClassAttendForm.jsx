@@ -27,6 +27,7 @@ export default function ClassAttendForm({ tag }) {
         />
         <Button text='모임 참여!' type='submit' color='yellow' isLoading={isLoading} />
       </form>
+
       {error.state && (
         <ModalPortal>
           <ToastNotification message={error.message} />
