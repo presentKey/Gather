@@ -4,6 +4,7 @@ export default function useMutationClass(setIsLoading, setError, { mutationFn, o
   const mutationResult = useMutation({
     mutationFn: async (args) => {
       setIsLoading(true);
+      setError({ state: false, message: '' });
       return mutationFn(args);
     },
     onSuccess: () => {
@@ -11,9 +12,8 @@ export default function useMutationClass(setIsLoading, setError, { mutationFn, o
         onSuccess();
       }
     },
-    onError: () => {
-      setError(true);
-      setTimeout(() => setError(false), 600);
+    onError: ({ message }) => {
+      setError({ state: true, message });
     },
     onSettled: () => setIsLoading(false),
   });

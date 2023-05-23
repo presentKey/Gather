@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useModal from '../../hooks/useModal';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
-import ModalPortal from '../../components/common/Modal/ModalProtal';
+import ModalPortal from '../../components/common/Modal/ModalPortal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
 import useClassDetail from '../../hooks/useClassDetail';

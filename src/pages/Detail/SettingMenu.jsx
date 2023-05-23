@@ -4,7 +4,7 @@ import { HiPencilAlt } from 'react-icons/hi';
 import { ImExit } from 'react-icons/im';
 import { useLocation } from 'react-router-dom';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
-import ModalPortal from '../../components/common/Modal/ModalProtal';
+import ModalPortal from '../../components/common/Modal/ModalPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useModal from '../../hooks/useModal';
