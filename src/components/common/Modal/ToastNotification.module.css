@@ -1,0 +1,81 @@
+.toast {
+  position: fixed;
+  z-index: var(--toast-notification-level);
+  display: flex;
+  align-items: center;
+  min-height: 4rem;
+  padding: 1rem 2rem 1rem 0.5rem;
+  overflow: hidden;
+  color: var(--color-white);
+  background-color: var(--color-red);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  animation-name: show-toast;
+  animation-duration: 400ms;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.time-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-white);
+  animation-name: bar-decrease;
+  animation-duration: 3000ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.issue-icon {
+  flex-shrink: 0;
+  margin-right: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  font-size: 1.2rem;
+  background-color: var(--color-white);
+  border-radius: 50%;
+}
+
+@keyframes show-toast {
+  from {
+    top: 1rem;
+    left: -10%;
+  }
+
+  to {
+    top: 1rem;
+    left: 2%;
+  }
+}
+
+@keyframes bar-decrease {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+    visibility: hidden;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  @keyframes show-toast {
+    from {
+      bottom: -10%;
+      left: 1rem;
+    }
+
+    to {
+      bottom: 3%;
+      left: 1rem;
+    }
+  }
+}

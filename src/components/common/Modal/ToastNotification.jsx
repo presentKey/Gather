@@ -9,7 +9,7 @@ export default function ToastNotification({ message }) {
   useEffect(() => {
     let id;
     if (open) {
-      id = setTimeout(() => setOpen(false), 4000);
+      id = setTimeout(() => setOpen(false), 3000);
     }
 
     return () => clearInterval(id);
@@ -19,13 +19,16 @@ export default function ToastNotification({ message }) {
     <>
       {open && (
         <aside className={styles.toast}>
-          <GoIssueOpened />
-          {message}
-          <GrFormClose
-            onClick={() => {
-              setOpen(false);
-            }}
-          />
+          <GoIssueOpened className={styles['issue-icon']} />
+          <p>{message}</p>
+          <button type='button'>
+            <GrFormClose
+              className={styles['close-icon']}
+              onClick={() => {
+                setOpen(false);
+              }}
+            />
+          </button>
           <div className={styles['time-bar']}></div>
         </aside>
       )}
