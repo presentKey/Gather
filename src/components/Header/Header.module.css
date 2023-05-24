@@ -26,15 +26,16 @@
   position: relative;
   right: -0.25rem;
   padding: 0.25rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--color-white);
 }
 
 .button:hover {
-  color: var(--color-white);
+  color: var(--color-gray-light);
 }
 
-.logout {
-  position: relative;
-  top: 0.125rem;
+@media screen and (min-width: 48rem) {
+  .button {
+    font-size: 1rem;
+  }
 }

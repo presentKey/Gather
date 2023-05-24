@@ -33,7 +33,7 @@
 }
 
 .date {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 .message {
@@ -53,7 +53,7 @@
 }
 
 .type {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: var(--color-red);
 }
 
@@ -79,9 +79,14 @@
 @media screen and (min-width: 48rem) {
   .message {
     max-width: 19rem;
+    font-size: 0.95rem;
   }
 
   .price {
     max-width: 15rem;
+  }
+
+  .date {
+    font-size: 0.85rem;
   }
 }
