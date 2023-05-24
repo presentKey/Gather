@@ -25,16 +25,13 @@
   margin: 0 0.5rem;
 }
 
-.date,
-.message {
-  font-size: 0.8rem;
-}
-
 .date {
   flex-shrink: 0;
+  font-size: 0.75rem;
 }
 
 .message {
+  font-size: 0.85rem;
   color: var(--color-blue);
 }
 
@@ -44,4 +41,14 @@
   right: 2px;
   padding: 0.5rem;
   border-radius: 50%;
+}
+
+@media screen and (min-width: 48rem) {
+  .date {
+    font-size: 0.85rem;
+  }
+
+  .message {
+    font-size: 0.95rem;
+  }
 }

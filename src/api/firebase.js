@@ -108,15 +108,10 @@ async function saveMemberInDB(uid, isAnonymous) {
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number, allowAnonymouse } = info;
-  let accountNumber = parseInt(number, 10);
+  const accountNumber = parseInt(number, 10);
 
-  if (!title || !bank || !number) {
-    throw new Error('정보가 누락되었습니다.');
-  }
-
-  if (Number.isNaN(accountNumber)) {
-    throw new Error('숫자가 아닙니다.');
-  }
+  if (!title || !bank || !number) throw new Error('모든 정보를 입력해주세요.');
+  if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
 
   const code = generateCode();
   const batch = writeBatch(db);
@@ -143,20 +138,14 @@ export async function AttendClass(user, info) {
   const { uid, photoURL } = user;
   const { code } = info;
 
-  if (!code) {
-    throw new Error('정보가 누락되었습니다.');
-  }
+  if (!code) throw new Error('코드를 입력해주세요.');
 
   const docRef = doc(db, 'classes', code);
   const docSnap = await getDoc(docRef);
 
-  if (!docSnap.exists()) {
-    throw new Error('코드가 잘못되었습니다.');
-  }
-
-  if (!docSnap.data().allowAnonymouse) {
+  if (!docSnap.exists()) throw new Error('코드를 다시 한 번 확인해주세요.');
+  if (!docSnap.data().allowAnonymouse)
     throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
-  }
 
   const batch = writeBatch(db);
   const codeRef = doc(db, 'classes', code);
@@ -198,27 +187,18 @@ export async function getClassDetail(code) {
 export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
-  let accountNumber = parseInt(number, 10);
+  const accountNumber = parseInt(number, 10);
 
-  if (title.trim().length === 0 || bank.trim().length === 0) {
-    throw new Error('정보가 누락되었습니다.');
-  }
-
-  if (Number.isNaN(amount)) {
-    throw new Error('숫자가 아닙니다.');
-  }
-
-  if (Number.isNaN(accountNumber)) {
-    throw new Error('숫자가 아닙니다.');
-  }
+  if (title.trim().length === 0 || bank.trim().length === 0)
+    throw new Error('모임이름 또는 은행 정보를 입력해주세요.');
+  if (Number.isNaN(amount)) throw new Error('총 금액을 다시 한 번 확인해주세요.');
+  if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
 
   const classRef = doc(db, 'classes', code);
 
   await runTransaction(db, async (transaction) => {
     const classDoc = await transaction.get(classRef);
-    if (!classDoc.exists()) {
-      throw new Error('모임이 존재하지 않습니다.');
-    }
+    if (!classDoc.exists()) throw new Error('모임이 존재하지 않습니다.');
 
     const { history: histories, total: prevTotal } = classDoc.data();
 
@@ -257,9 +237,7 @@ export async function updateClassHeader(uid, code, info) {
 export async function leaveClass(code, uid, members) {
   const leaveMember = members.find((member) => member.uid === uid);
 
-  if (!leaveMember) {
-    throw new Error('존재하지 않는 멤버입니다.');
-  }
+  if (!leaveMember) throw new Error('존재하지 않는 멤버입니다.');
 
   const batch = writeBatch(db);
 
@@ -281,21 +259,11 @@ export async function depositOrWithdraw(code, uid, info, minDate, type) {
   const message = msg ?? '';
   let amount = parseInt(price, 10);
 
-  if (!checkDateRegExp(date)) {
-    throw new Error('날짜 형식이 맞지 않습니다.');
-  }
-
-  if (minDate && minDate > date) {
-    throw new Error('모임 수정 내역의 날짜보다 더 이른 날은 등록할 수 없습니다.');
-  }
-
-  if (Number.isNaN(amount)) {
-    throw new Error('숫자가 아닙니다.');
-  }
-
-  if (message?.length > 20) {
-    throw new Error('메시지 길이가 적절하지 않습니다.');
-  }
+  if (!checkDateRegExp(date)) throw new Error('날짜 형식이 맞지 않습니다.');
+  if (minDate && minDate > date)
+    throw new Error('최근 모임 수정 날짜보다 더 이른 날은 등록할 수 없습니다.');
+  if (Number.isNaN(amount)) throw new Error('금액을 다시 한 번 확인해주세요.');
+  if (message.length > 20) throw new Error('최대 20글자까지 입력할 수 있습니다.');
 
   if (type === WITHDRAW && amount >= 0) {
     amount = amount * -1;
@@ -322,16 +290,12 @@ export async function deleteHistory(code, uid, id) {
 
   await runTransaction(db, async (transaction) => {
     const classDoc = await transaction.get(classRef);
-    if (!classDoc.exists()) {
-      throw new Error('모임이 존재하지 않습니다.');
-    }
+    if (!classDoc.exists()) throw new Error('모임이 존재하지 않습니다.');
 
     const histories = classDoc.data().history;
     const removeHistory = histories.find((history) => history.uid === uid && history.id === id);
 
-    if (!removeHistory) {
-      throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
-    }
+    if (!removeHistory) throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
 
     if (removeHistory.type === 'classModify') {
       const historyRange = setRangeOfDeletableHistory(histories, removeHistory);

@@ -7,7 +7,7 @@ import useMutationClass from './useMutationClass';
 
 export default function useClassList() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ state: false, message: '' });
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const queryClient = useQueryClient();

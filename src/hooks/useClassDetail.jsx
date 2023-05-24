@@ -11,7 +11,7 @@ import useMutationClass from './useMutationClass';
 
 export default function useClassDetail(code) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ state: false, message: '' });
   const { user } = useAuthContext();
   const queryClient = useQueryClient();
 
