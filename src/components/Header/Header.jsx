@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
-import Avatar from '../common/Avatar/Avatar';
 import styles from './Header.module.css';
+import Avatar from '../common/Avatar';
 
 export default function Header() {
   const { user, logout } = useAuthContext();
@@ -10,10 +10,10 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Avatar image={user.photoURL} />
-      <Link to="/" className={styles.title}>
+      <Link to='/' className={styles.title}>
         Gather
       </Link>
-      <button className={styles.button} type="button" onClick={logout}>
+      <button className={styles.button} type='button' onClick={logout}>
         로그아웃
       </button>
     </header>

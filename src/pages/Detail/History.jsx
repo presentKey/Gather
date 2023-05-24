@@ -1,5 +1,4 @@
 import React from 'react';
-import Avatar from '../../components/common/Avatar/Avatar';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './History.module.css';
 import useModal from '../../hooks/useModal';
@@ -9,6 +8,7 @@ import ModalPortal from '../../components/common/Modal/ModalPortal';
 import ConfirmModal from '../../components/common/Modal/ConfirmModal';
 import SetHistoryIcon from '../../components/common/icons/SetHistoryIcon';
 import useClassDetail from '../../hooks/useClassDetail';
+import Avatar from '../../components/common/Avatar';
 
 export default function History({ code, history, members }) {
   const { id, date, price, message, type, uid, deletable } = history;
