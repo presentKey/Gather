@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import styles from './Login.module.css';
+import styles from './css/Login.module.css';
 import useLogin from './hooks/useLogin';
 import Symbole from '../../components/common/icons/Symbole';
 import LoadingMain from '../../components/common/Loading/LoadingMain';
