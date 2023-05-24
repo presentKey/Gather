@@ -10,7 +10,7 @@ import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useModal from '../../hooks/useModal';
 import clipboard from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
-import styles from './SettingMenu.module.css';
+import styles from './css/SettingMenu.module.css';
 import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
 import useClassList from '../../hooks/useClassList';
 

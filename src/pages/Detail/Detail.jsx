@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import DetailHeader from './DetailHeader';
 import UpdateHeader from './UpdateHeader';
 import { Navigate } from 'react-router-dom';
-import styles from './Detail.module.css';
+import styles from './css/Detail.module.css';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
 import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
 import SheetBody from '../../components/common/BottomSheet/SheetBody';
@@ -33,6 +33,7 @@ export default function Detail() {
       )}
       <section className={styles.detail}>
         <HistoryList histories={detail.history} code={code} members={detail.members} />
+
         <BottomSheet>
           <BottomSheet.Header>
             <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />

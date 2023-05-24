@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ModifiedHistory.module.css';
+import styles from './css/ModifiedHistory.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import useModal from '../../hooks/useModal';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
