@@ -1,4 +1,4 @@
-import styles from './Main.module.css';
+import styles from './css/CardList.module.css';
 import ClassCard from './ClassCard';
 import useClassList from '../../hooks/useClassList';
 import EmptyList from './EmptyList';

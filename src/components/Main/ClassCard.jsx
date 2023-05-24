@@ -1,6 +1,6 @@
 import React from 'react';
-import Avatar from '../common/Avatar/Avatar';
-import styles from './ClassCard.module.css';
+import Avatar from '../common/Avatar';
+import styles from './css/ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
 import LoadingCard from './LoadingCard';
