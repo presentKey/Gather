@@ -1,5 +1,5 @@
 import styles from './css/BottomSheet.module.css';
-import Button from '../Button/Button';
+import Button from '../Button';
 import SheetBody from './SheetBody';
 import SheetHeader from './SheetHeader';
 import { BsPlusCircle } from 'react-icons/bs';

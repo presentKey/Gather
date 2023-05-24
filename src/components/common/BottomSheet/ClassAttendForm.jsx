@@ -1,5 +1,5 @@
 import styles from './css/BottomSheetForm.module.css';
-import Button from '../Button/Button';
+import Button from '../Button';
 import Input from '../Input/Input';
 import { useBottomSheet } from '../../../context/BottomSheetContext';
 import useInput from '../../../hooks/useInput';

@@ -1,4 +1,4 @@
-import styles from './SetMenuIcon.module.css';
+import styles from './css/SetMenuIcon.module.css';
 import { IoMdSettings } from 'react-icons/io';
 
 export default function SetMenuIcon() {

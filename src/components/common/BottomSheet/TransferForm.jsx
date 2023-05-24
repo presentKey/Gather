@@ -2,7 +2,7 @@ import styles from './css/BottomSheetForm.module.css';
 import { useBottomSheet } from '../../../context/BottomSheetContext';
 import useInput from '../../../hooks/useInput';
 import Input from '../Input/Input';
-import Button from '../Button/Button';
+import Button from '../Button';
 import getTodayDate from '../../../utils/getTodayDate';
 import useClassDetail from '../../../hooks/useClassDetail';
 import ModalPortal from '../Modal/ModalPortal';
