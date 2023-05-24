@@ -3,8 +3,8 @@ import Avatar from '../common/Avatar';
 import styles from './css/ClassCard.module.css';
 import showMax7Members from '../../utils/showMax7Members';
 import { Link } from 'react-router-dom';
-import LoadingCard from './LoadingCard';
 import useClassDetail from '../../hooks/useClassDetail';
+import LoadingCard from '../common/Loading/LoadingCard';
 
 export default function ClassCard({ code }) {
   const {

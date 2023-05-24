@@ -4,13 +4,13 @@ import DetailHeader from './DetailHeader';
 import UpdateHeader from './UpdateHeader';
 import { Navigate } from 'react-router-dom';
 import styles from './Detail.module.css';
-import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
 import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
 import SheetBody from '../../components/common/BottomSheet/SheetBody';
 import HistoryList from './HistoryList';
 import useDetail from './hooks/useDetail';
 import useClassDetail from '../../hooks/useClassDetail';
+import LoadingDetail from '../../components/common/Loading/LoadingDetail';
 
 export default function Detail() {
   const { state } = useLocation();
