@@ -1,7 +1,7 @@
-import styles from './BottomSheet.module.css';
+import styles from './css/BottomSheet.module.css';
 import Button from '../Button/Button';
-import Body from './Body/Body';
-import Header from './Header/Header';
+import SheetBody from './SheetBody';
+import SheetHeader from './SheetHeader';
 import { BsPlusCircle } from 'react-icons/bs';
 import { useEffect, useRef } from 'react';
 import { throttle } from 'lodash';
@@ -36,8 +36,8 @@ export default function BottomSheet({ children }) {
   );
 }
 
-BottomSheet.Header = Header;
-BottomSheet.Body = Body;
+BottomSheet.Header = SheetHeader;
+BottomSheet.Body = SheetBody;
 BottomSheet.Button = Button;
 
 function translate3d(ref, screenWidth, height) {

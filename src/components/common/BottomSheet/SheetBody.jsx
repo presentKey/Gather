@@ -1,15 +1,15 @@
-import styles from './Body.module.css';
-import Symbole from '../../icons/Symbole';
-import { useBottomSheet } from '../../../../context/BottomSheetContext';
-import OverlayPortal from '../../Overlay/OverlayPortal';
-import Overlay from '../../Overlay/Overlay';
+import styles from './css/SheetBody.module.css';
+import Symbole from '../icons/Symbole';
+import { useBottomSheet } from '../../../context/BottomSheetContext';
+import OverlayPortal from '../Overlay/OverlayPortal';
+import Overlay from '../Overlay/Overlay';
 import { useEffect, useRef } from 'react';
 import ClassCreateForm from './ClassCreateForm';
 import ClassAttendForm from './ClassAttendForm';
 import TransferForm from './TransferForm';
-import useSheetHeight from '../../../../recoil/BottomSheet/useSheetHeight';
+import useSheetHeight from '../../../recoil/BottomSheet/useSheetHeight';
 
-export default function Body({ children }) {
+export default function SheetBody({ children }) {
   const { toggle, handleToggle } = useBottomSheet();
   const { setSheetHeight } = useSheetHeight();
   const bodyRef = useRef();
@@ -34,6 +34,6 @@ export default function Body({ children }) {
   );
 }
 
-Body.ClassCreateForm = ClassCreateForm;
-Body.ClassAttendForm = ClassAttendForm;
-Body.TransferForm = TransferForm;
+SheetBody.ClassCreateForm = ClassCreateForm;
+SheetBody.ClassAttendForm = ClassAttendForm;
+SheetBody.TransferForm = TransferForm;
