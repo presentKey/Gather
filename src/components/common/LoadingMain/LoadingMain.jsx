@@ -9,9 +9,7 @@ export default function LoadingMain() {
         <div className={styles.avatar}></div>
         <h1 className={styles.title}>Gather</h1>
       </header>
-      <div className={styles.loading}>
-        <LoadingSpinner />
-      </div>
+      <LoadingSpinner />
       <div className={styles.toast}></div>
     </>
   );
