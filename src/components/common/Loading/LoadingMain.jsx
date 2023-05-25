@@ -1,6 +1,6 @@
 import React from 'react';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import styles from './LoadingMain.module.css';
+import LoadingSpinner from './LoadingSpinner';
+import styles from './css/LoadingMain.module.css';
 
 export default function LoadingMain() {
   return (

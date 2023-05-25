@@ -1,8 +1,8 @@
-import styles from './Main.module.css';
+import styles from './css/CardList.module.css';
 import ClassCard from './ClassCard';
 import useClassList from '../../hooks/useClassList';
 import EmptyList from './EmptyList';
-import LoadingSpinner from '../common/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../common/Loading/LoadingSpinner';
 
 export default function CardList() {
   const {

@@ -1,4 +1,4 @@
-import styles from './CheckBox.module.css';
+import styles from './css/CheckBox.module.css';
 
 export default function CheckBox({ type, name, text, onChange, color, size, ...rest }) {
   return (

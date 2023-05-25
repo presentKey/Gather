@@ -3,14 +3,14 @@ import { useLocation } from 'react-router-dom';
 import DetailHeader from './DetailHeader';
 import UpdateHeader from './UpdateHeader';
 import { Navigate } from 'react-router-dom';
-import styles from './Detail.module.css';
-import LoadingDetail from '../../components/common/LoadingDetail/LoadingDetail';
+import styles from './css/Detail.module.css';
 import BottomSheet from '../../components/common/BottomSheet/BottomSheet';
 import { DEPOSIT, WITHDRAW } from '../../constants/bottomSheetTag';
-import Body from '../../components/common/BottomSheet/Body/Body';
+import SheetBody from '../../components/common/BottomSheet/SheetBody';
 import HistoryList from './HistoryList';
 import useDetail from './hooks/useDetail';
 import useClassDetail from '../../hooks/useClassDetail';
+import LoadingDetail from '../../components/common/Loading/LoadingDetail';
 
 export default function Detail() {
   const { state } = useLocation();
@@ -33,20 +33,21 @@ export default function Detail() {
       )}
       <section className={styles.detail}>
         <HistoryList histories={detail.history} code={code} members={detail.members} />
+
         <BottomSheet>
           <BottomSheet.Header>
             <BottomSheet.Button text='입금' type='button' tag={DEPOSIT} />
             <BottomSheet.Button text='출금' type='button' tag={WITHDRAW} />
           </BottomSheet.Header>
           <BottomSheet.Body>
-            <Body.TransferForm
+            <SheetBody.TransferForm
               code={code}
               histories={detail.history}
               text='입금'
               tag={DEPOSIT}
               color='red'
             />
-            <Body.TransferForm
+            <SheetBody.TransferForm
               code={code}
               histories={detail.history}
               text='출금'

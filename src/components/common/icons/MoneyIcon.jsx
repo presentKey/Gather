@@ -1,4 +1,4 @@
-import styles from './MoneyIcon.module.css';
+import styles from './css/MoneyIcon.module.css';
 import { CiCoinInsert } from 'react-icons/ci';
 
 export default function MoneyIcon() {

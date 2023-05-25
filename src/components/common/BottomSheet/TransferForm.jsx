@@ -1,12 +1,12 @@
-import styles from './BottomSheetForm.module.css';
-import { useBottomSheet } from '../../../../context/BottomSheetContext';
-import useInput from '../../../../hooks/useInput';
-import Input from '../../Input/Input';
-import Button from '../../Button/Button';
-import getTodayDate from '../../../../utils/getTodayDate';
-import useClassDetail from '../../../../hooks/useClassDetail';
-import ModalPortal from '../../Modal/ModalPortal';
-import ToastNotification from '../../Modal/ToastNotification';
+import styles from './css/BottomSheetForm.module.css';
+import { useBottomSheet } from '../../../context/BottomSheetContext';
+import useInput from '../../../hooks/useInput';
+import Input from '../Input/Input';
+import Button from '../Button';
+import getTodayDate from '../../../utils/getTodayDate';
+import useClassDetail from '../../../hooks/useClassDetail';
+import ModalPortal from '../Modal/ModalPortal';
+import ToastNotification from '../Modal/ToastNotification';
 
 export default function TransferForm({ code, histories, text, tag, color }) {
   const { toggle, closeSheet } = useBottomSheet();

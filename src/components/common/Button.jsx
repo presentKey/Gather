@@ -1,5 +1,5 @@
-import { useBottomSheet } from '../../../context/BottomSheetContext';
-import styles from './Button.module.css';
+import { useBottomSheet } from '../../context/BottomSheetContext';
+import styles from './css/Button.module.css';
 
 export default function Button({ text, type, tag, color = 'white', isLoading }) {
   const { toggle, handleToggle } = useBottomSheet();

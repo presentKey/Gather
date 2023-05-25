@@ -1,4 +1,4 @@
-import styles from './EmptyList.module.css';
+import styles from './css/EmptyList.module.css';
 
 export default function EmptyList() {
   return (

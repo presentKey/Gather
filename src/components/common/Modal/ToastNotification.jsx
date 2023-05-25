@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './ToastNotification.module.css';
+import styles from './css/ToastNotification.module.css';
 import { GoIssueOpened } from 'react-icons/go';
 import { GrFormClose } from 'react-icons/gr';
 

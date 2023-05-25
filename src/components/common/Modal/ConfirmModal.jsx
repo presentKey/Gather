@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ConfirmModal.module.css';
+import styles from './css/ConfirmModal.module.css';
 import ModalPortal from './ModalPortal';
 import ToastNotification from './ToastNotification';
 

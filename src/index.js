@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './styles/normalize.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

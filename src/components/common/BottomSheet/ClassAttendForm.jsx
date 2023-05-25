@@ -1,11 +1,11 @@
-import styles from './BottomSheetForm.module.css';
-import Button from '../../Button/Button';
-import Input from '../../Input/Input';
-import { useBottomSheet } from '../../../../context/BottomSheetContext';
-import useInput from '../../../../hooks/useInput';
-import useClassList from '../../../../hooks/useClassList';
-import ModalPortal from '../../Modal/ModalPortal';
-import ToastNotification from '../../Modal/ToastNotification';
+import styles from './css/BottomSheetForm.module.css';
+import Button from '../Button';
+import Input from '../Input/Input';
+import { useBottomSheet } from '../../../context/BottomSheetContext';
+import useInput from '../../../hooks/useInput';
+import useClassList from '../../../hooks/useClassList';
+import ModalPortal from '../Modal/ModalPortal';
+import ToastNotification from '../Modal/ToastNotification';
 
 export default function ClassAttendForm({ tag }) {
   const { toggle } = useBottomSheet();
