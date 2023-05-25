@@ -31,6 +31,12 @@ import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 import { WITHDRAW } from '../constants/bottomSheetTag';
 import sortHistory from '../utils/sortHistory';
 
+/**
+ * firebase 문서
+ * @desc 인증: https://firebase.google.com/docs/auth/web/start?hl=ko
+ * @desc firestore: https://firebase.google.com/docs/firestore/quickstart?hl=ko
+ * */
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -41,6 +47,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+/**
+ * 구글 로그인
+ * @desc 모바일 인 경우 Redirect 방식 (Firefox 제외)
+ * @desc 모바일이 아닌 경우 Popup 방식
+ * */
 export function googleLogin() {
   if (isMobile()) {
     signInWithRedirect(auth, provider);
@@ -54,6 +65,7 @@ export function googleLogin() {
   }
 }
 
+/** Google Login Reirect 결과를 받아오는 함수 */
 export function googleRedirectResult() {
   if (isMobile()) {
     getRedirectResult(auth)
@@ -66,6 +78,7 @@ export function googleRedirectResult() {
   }
 }
 
+/** 게스트 로그인 */
 export function anonymouseLogin() {
   signInAnonymously(auth)
     .then((result) => {
@@ -79,12 +92,18 @@ export function logout() {
   signOut(auth).catch(console.error);
 }
 
+/** 사용자의 로그인 상태가 변경될 때마다 호출 */
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, (user) => {
     callback(user);
   });
 }
 
+/**
+ * 등록된 사용자인지 판별하는 함수
+ * @param uid 사용자의 uid
+ * @param isAnonymous 게스트 유저 구분
+ */
 async function isMember(uid, isAnonymous) {
   const docRef = doc(db, 'members', uid);
   const docSnap = await getDoc(docRef);
@@ -94,6 +113,10 @@ async function isMember(uid, isAnonymous) {
   }
 }
 
+/** 사용자 등록
+ * @param uid 사용자의 uid
+ * @param isAnonymous 게스트 유저 구분
+ */
 async function saveMemberInDB(uid, isAnonymous) {
   const docData = {
     uid,
@@ -105,6 +128,11 @@ async function saveMemberInDB(uid, isAnonymous) {
   await setDoc(memberRef, docData);
 }
 
+/**
+ * 모임 만들기
+ * @param user 사용자 정보
+ * @param info 입력 정보
+ */
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number, allowAnonymouse } = info;
@@ -134,6 +162,11 @@ export async function createClass(user, info) {
   await batch.commit();
 }
 
+/**
+ * 모임 참여하기
+ * @param user 사용자 정보
+ * @param info 입력 정보
+ */
 export async function AttendClass(user, info) {
   const { uid, photoURL } = user;
   const { code } = info;
@@ -161,6 +194,10 @@ export async function AttendClass(user, info) {
   await batch.commit();
 }
 
+/**
+ * 사용자의 모임 List를 가져오는 함수
+ * @param uid 사용자의 uid
+ */
 export async function getClassList(uid) {
   const docRef = doc(db, 'members', uid);
   const docSnap = await getDoc(docRef);
@@ -172,6 +209,10 @@ export async function getClassList(uid) {
   return null;
 }
 
+/**
+ * 특정 모임의 상세 정보를 가져오는 함수
+ * @param code 모임의 고유 코드
+ */
 export async function getClassDetail(code) {
   const docRef = doc(db, 'classes', code);
   const docSnap = await getDoc(docRef);
@@ -184,6 +225,12 @@ export async function getClassDetail(code) {
   return null;
 }
 
+/**
+ * 모임의 정보를 업데이트 하는 함수
+ * @param uid 사용자의 uid
+ * @param code 모임의 고유 코드
+ * @param info 입력 정보
+ */
 export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
@@ -234,6 +281,12 @@ export async function updateClassHeader(uid, code, info) {
   });
 }
 
+/**
+ * 모임에서 나가기
+ * @param code 모임의 고유 코드
+ * @param uid 사용자의 uid
+ * @param members 모임의 현재 인원들
+ */
 export async function leaveClass(code, uid, members) {
   const leaveMember = members.find((member) => member.uid === uid);
 
@@ -254,6 +307,14 @@ export async function leaveClass(code, uid, members) {
   await batch.commit();
 }
 
+/**
+ * 입금 및 출금 내역 생성
+ * @param code 모임의 고유 코드
+ * @param uid 사용자의 uid
+ * @param info 입력 정보
+ * @param minDate 모임 정보 수정(updateClassHeader)을 통해 가장 최근 돈이 수정된 날짜
+ * @param type 입금 또는 출금 tag
+ */
 export async function depositOrWithdraw(code, uid, info, minDate, type) {
   const { price, message: msg, date } = info;
   const message = msg ?? '';
@@ -285,6 +346,12 @@ export async function depositOrWithdraw(code, uid, info, minDate, type) {
   });
 }
 
+/**
+ * 입출금 및 모임 수정 내역 삭제
+ * @param code 모임의 고유 코드
+ * @param uid 사용자의 uid
+ * @param id 내역의 id
+ */
 export async function deleteHistory(code, uid, id) {
   const classRef = doc(db, 'classes', code);
 
