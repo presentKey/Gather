@@ -55,14 +55,15 @@ const db = getFirestore(app);
 export function googleLogin() {
   if (isMobile()) {
     signInWithRedirect(auth, provider);
-  } else {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const { uid, isAnonymous } = result.user;
-        isMember(uid, isAnonymous);
-      })
-      .catch(console.error);
+    return;
   }
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const { uid, isAnonymous } = result.user;
+      isMember(uid, isAnonymous);
+    })
+    .catch(console.error);
 }
 
 /** Google Login Reirect 결과를 받아오는 함수 */
@@ -139,6 +140,7 @@ export async function createClass(user, info) {
   const accountNumber = parseInt(number, 10);
 
   if (!title || !bank || !number) throw new Error('모든 정보를 입력해주세요.');
+
   if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
 
   const code = generateCode();
@@ -177,6 +179,7 @@ export async function AttendClass(user, info) {
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) throw new Error('코드를 다시 한 번 확인해주세요.');
+
   if (!docSnap.data().allowAnonymouse)
     throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
 
@@ -238,46 +241,53 @@ export async function updateClassHeader(uid, code, info) {
 
   if (title.trim().length === 0 || bank.trim().length === 0)
     throw new Error('모임이름 또는 은행 정보를 입력해주세요.');
+
   if (Number.isNaN(amount)) throw new Error('총 금액을 다시 한 번 확인해주세요.');
+
   if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
 
   const classRef = doc(db, 'classes', code);
 
   await runTransaction(db, async (transaction) => {
     const classDoc = await transaction.get(classRef);
+
     if (!classDoc.exists()) throw new Error('모임이 존재하지 않습니다.');
 
     const { history: histories, total: prevTotal } = classDoc.data();
 
+    // 총 금액 변동이 없는 경우
     if (prevTotal === amount) {
       transaction.update(classRef, {
         account: { bank, number: accountNumber },
         title,
         allowAnonymouse,
       });
-    } else {
-      const undeletableHistories = histories.map((history) => ({
-        ...history,
-        deletable: false,
-      }));
 
-      transaction.update(classRef, { history: undeletableHistories });
-      transaction.update(classRef, {
-        account: { bank, number: accountNumber },
-        title,
-        total: amount,
-        allowAnonymouse,
-        history: arrayUnion({
-          id: uuidv4(),
-          uid,
-          price: amount,
-          date: getTodayDate(),
-          timestamp: new Date(),
-          type: 'classModify',
-          deletable: true,
-        }),
-      });
+      return;
     }
+
+    // 총 금액 변동이 있는 경우
+    const undeletableHistories = histories.map((history) => ({
+      ...history,
+      deletable: false,
+    }));
+
+    transaction.update(classRef, { history: undeletableHistories });
+    transaction.update(classRef, {
+      account: { bank, number: accountNumber },
+      title,
+      total: amount,
+      allowAnonymouse,
+      history: arrayUnion({
+        id: uuidv4(),
+        uid,
+        price: amount,
+        date: getTodayDate(),
+        timestamp: new Date(),
+        type: 'classModify',
+        deletable: true,
+      }),
+    });
   });
 }
 
@@ -321,9 +331,12 @@ export async function depositOrWithdraw(code, uid, info, minDate, type) {
   let amount = parseInt(price, 10);
 
   if (!checkDateRegExp(date)) throw new Error('날짜 형식이 맞지 않습니다.');
+
   if (minDate && minDate > date)
     throw new Error('최근 모임 수정 날짜보다 더 이른 날은 등록할 수 없습니다.');
+
   if (Number.isNaN(amount)) throw new Error('금액을 다시 한 번 확인해주세요.');
+
   if (message.length > 20) throw new Error('최대 20글자까지 입력할 수 있습니다.');
 
   if (type === WITHDRAW && amount >= 0) {
@@ -364,6 +377,7 @@ export async function deleteHistory(code, uid, id) {
 
     if (!removeHistory) throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
 
+    // 삭제 내역이 모임 수정 내역인 경우
     if (removeHistory.type === 'classModify') {
       const historyRange = setRangeOfDeletableHistory(histories, removeHistory);
 
@@ -374,11 +388,14 @@ export async function deleteHistory(code, uid, id) {
         history: arrayRemove(removeHistory),
         total: calcTotalPrice(historyRange, id),
       });
-    } else {
-      transaction.update(classRef, {
-        history: arrayRemove(removeHistory),
-        total: increment(removeHistory.price * -1),
-      });
+
+      return;
     }
+
+    // 일반 입출금 내역인 경우
+    transaction.update(classRef, {
+      history: arrayRemove(removeHistory),
+      total: increment(removeHistory.price * -1),
+    });
   });
 }
