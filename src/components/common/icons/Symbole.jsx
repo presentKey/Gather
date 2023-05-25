@@ -1,4 +1,4 @@
-import styles from './Symbole.module.css';
+import styles from './css/Symbole.module.css';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi';
 
 export default function Symbole({ responsive }) {

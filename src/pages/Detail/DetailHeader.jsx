@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './DetailHeader.module.css';
+import styles from './css/DetailHeader.module.css';
 import SettingMenu from './SettingMenu';
 import BankIcon from '../../components/common/icons/BankIcon';
 import MoneyIcon from '../../components/common/icons/MoneyIcon';

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './LoadingCard.module.css';
+import styles from './css/LoadingCard.module.css';
 
 export default function LoadingCard() {
   return (

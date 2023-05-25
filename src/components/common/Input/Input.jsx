@@ -1,4 +1,4 @@
-import styles from './Input.module.css';
+import styles from './css/Input.module.css';
 
 export default function Input({ type, name, text, value, onChange, width, size, ...rest }) {
   return (

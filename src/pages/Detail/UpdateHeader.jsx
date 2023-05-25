@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './UpdateHeader.module.css';
+import styles from './css/UpdateHeader.module.css';
 import SettingMenu from './SettingMenu';
 import useInput from '../../hooks/useInput';
 import Input from '../../components/common/Input/Input';

@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomSheet from '../common/BottomSheet/BottomSheet';
-import Body from '../common/BottomSheet/Body/Body';
+import SheetBody from '../common/BottomSheet/SheetBody';
 import { ATTEND, CREATE } from '../../constants/bottomSheetTag';
 import CardList from './CardList';
 
@@ -14,8 +14,8 @@ export default function Main() {
           <BottomSheet.Button text='모임 참여하기' type='button' tag={ATTEND} />
         </BottomSheet.Header>
         <BottomSheet.Body>
-          <Body.ClassCreateForm tag={CREATE} />
-          <Body.ClassAttendForm tag={ATTEND} />
+          <SheetBody.ClassCreateForm tag={CREATE} />
+          <SheetBody.ClassAttendForm tag={ATTEND} />
         </BottomSheet.Body>
       </BottomSheet>
     </>

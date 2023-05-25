@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import LoadingMain from '../components/common/LoadingMain/LoadingMain';
 import { useAuthContext } from '../context/AuthContext';
+import LoadingMain from '../components/common/Loading/LoadingMain';
 
 export default function ProtectedRoute({ children }) {
   const { user } = useAuthContext();
@@ -12,5 +12,5 @@ export default function ProtectedRoute({ children }) {
     return children;
   }
 
-  return <Navigate to="/login" replace />;
+  return <Navigate to='/login' replace />;
 }
