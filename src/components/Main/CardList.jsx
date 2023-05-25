@@ -12,9 +12,9 @@ export default function CardList() {
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
-      {classes.myClasses.length === 0 ? (
-        <EmptyList />
-      ) : (
+      {(!classes || classes.myClasses.length === 0) && <EmptyList />}
+
+      {classes && (
         <ul className={styles['class-list']}>
           {classes.myClasses.map((myClass) => (
             <ClassCard key={myClass} code={myClass} />

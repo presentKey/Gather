@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/normalize.css';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import NotFound from './pages/NotFound/NotFound';
 import Main from './components/Main/Main';
 import Login from './pages/Login/Login';
@@ -43,5 +42,3 @@ root.render(
     </RecoilRoot>
   </React.StrictMode>
 );
-
-reportWebVitals();
