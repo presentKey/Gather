@@ -33,6 +33,7 @@
 .message {
   font-size: 0.85rem;
   color: var(--color-blue);
+  word-break: break-all;
 }
 
 .set-btn {
