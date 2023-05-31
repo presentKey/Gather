@@ -12,6 +12,7 @@ export default function ClassCard({ code }) {
   } = useClassDetail(code);
 
   if (isLoading) return <LoadingCard />;
+  const { bank, number } = myClass.account;
   const [members, overLength] = showMax7Members(myClass.members);
 
   return (
@@ -20,10 +21,12 @@ export default function ClassCard({ code }) {
         <Link to='/detail' state={{ code }} className={styles.card}>
           <li className={styles['card-list']}>
             <h2 className={styles.title}>{myClass.title}</h2>
-            <dl>
-              <dt className={styles.bank}>{myClass.account.bank}</dt>
-              <dd className={styles.number}>{myClass.account.number}</dd>
-            </dl>
+            {((bank && bank.trim().length !== 0) || number) && (
+              <dl>
+                <dt className={styles.bank}>{bank && bank.trim().length !== 0 ? bank : '_'}</dt>
+                <dd className={styles.number}>{number ? number : '_'}</dd>
+              </dl>
+            )}
             <div className={styles['member-content']}>
               <ul className={styles['member-list']}>
                 {members.map((member) => (
