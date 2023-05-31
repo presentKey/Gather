@@ -30,6 +30,7 @@ import isMobile from '../utils/isMobile';
 import setRangeOfDeletableHistory from '../utils/setRangeOfDeletableHistory';
 import { WITHDRAW } from '../constants/bottomSheetTag';
 import sortHistory from '../utils/sortHistory';
+import checkAccountNumberRegExp from '../utils/checkAccountNumberRegExp';
 
 /**
  * firebase 문서
@@ -137,11 +138,10 @@ async function saveMemberInDB(uid, isAnonymous) {
 export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number, allowAnonymouse } = info;
-  const accountNumber = parseInt(number, 10);
 
-  if (!title || !bank || !number) throw new Error('모든 정보를 입력해주세요.');
+  if (!title || title.trim().length === 0) throw new Error('모임 이름을 입력해주세요.');
 
-  if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
+  if (number && !checkAccountNumberRegExp(number)) throw new Error('계좌번호 숫자만 입력해주세요.');
 
   const code = generateCode();
   const batch = writeBatch(db);
@@ -149,7 +149,7 @@ export async function createClass(user, info) {
   const codeRef = doc(db, 'classes', code);
   batch.set(codeRef, {
     title,
-    account: { bank, number: accountNumber },
+    account: { bank: bank ?? '', number: number ?? '' },
     members: [{ uid, photoURL }],
     history: [],
     total: 0,

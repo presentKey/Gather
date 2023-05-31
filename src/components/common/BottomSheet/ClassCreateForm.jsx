@@ -29,16 +29,25 @@ export default function ClassCreateForm({ tag }) {
           text='모임 이름'
           value={info}
           onChange={handleChange}
+          placeholder='[필수]'
           required
         />
-        <Input type='text' name='bank' text='은행' value={info} onChange={handleChange} required />
         <Input
-          type='number'
+          type='text'
+          name='bank'
+          text='은행'
+          value={info}
+          onChange={handleChange}
+          placeholder='[선택사항]'
+        />
+        <Input
+          type='text'
+          inputMode='numeric'
           name='number'
           text='계좌번호'
           value={info}
           onChange={handleChange}
-          required
+          placeholder='[선택사항] 숫자만 입력해주세요.'
         />
         <Button text='모임 생성!' type='submit' color='yellow' isLoading={isLoading} />
       </form>
