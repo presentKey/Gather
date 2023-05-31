@@ -41,15 +41,18 @@ export default function UpdateHeader({
             onChange={handleChange}
             width='short'
             size='small'
+            placeholder='[선택사항]'
           />
           <Input
-            type='number'
+            type='text'
+            inputMode='numeric'
             name='number'
             text='계좌번호'
             value={info}
             onChange={handleChange}
             width='long'
             size='small'
+            placeholder='[선택사항] 숫자만 입력해주세요.'
           />
         </div>
         <div className={styles.container}>

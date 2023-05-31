@@ -237,14 +237,12 @@ export async function getClassDetail(code) {
 export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
-  const accountNumber = parseInt(number, 10);
 
-  if (title.trim().length === 0 || bank.trim().length === 0)
-    throw new Error('모임이름 또는 은행 정보를 입력해주세요.');
+  if (!title || title.trim().length === 0) throw new Error('모임 이름을 입력해주세요.');
 
   if (Number.isNaN(amount)) throw new Error('총 금액을 다시 한 번 확인해주세요.');
 
-  if (Number.isNaN(accountNumber)) throw new Error('계좌번호를 다시 한 번 확인해주세요.');
+  if (number && !checkAccountNumberRegExp(number)) throw new Error('계좌번호 숫자만 입력해주세요.');
 
   const classRef = doc(db, 'classes', code);
 
@@ -258,7 +256,7 @@ export async function updateClassHeader(uid, code, info) {
     // 총 금액 변동이 없는 경우
     if (prevTotal === amount) {
       transaction.update(classRef, {
-        account: { bank, number: accountNumber },
+        account: { bank: bank ?? '', number: number ?? '' },
         title,
         allowAnonymouse,
       });
@@ -274,7 +272,7 @@ export async function updateClassHeader(uid, code, info) {
 
     transaction.update(classRef, { history: undeletableHistories });
     transaction.update(classRef, {
-      account: { bank, number: accountNumber },
+      account: { bank: bank ?? '', number: number ?? '' },
       title,
       total: amount,
       allowAnonymouse,
