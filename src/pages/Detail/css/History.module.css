@@ -37,12 +37,11 @@
 }
 
 .message {
-  max-width: 8rem;
   overflow: hidden;
   font-size: 0.85rem;
   font-weight: 700;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: break-all;
 }
 
 .right {
@@ -62,7 +61,7 @@
 }
 
 .price {
-  max-width: 6rem;
+  max-width: 9.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -78,12 +77,11 @@
 
 @media screen and (min-width: 48rem) {
   .message {
-    max-width: 19rem;
     font-size: 0.95rem;
   }
 
   .price {
-    max-width: 15rem;
+    max-width: 25rem;
   }
 
   .date {
