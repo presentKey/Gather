@@ -3,7 +3,7 @@
   padding: 1.5rem 0.75rem;
   margin-bottom: 1rem;
   background: rgb(166, 187, 141);
-  background: linear-gradient(160deg, rgba(166, 187, 141, 1) 0%, rgba(234, 231, 177, 1) 100%);
+  background: linear-gradient(160deg, rgba(166, 187, 141, 1) 0%, rgba(237, 237, 237, 1) 100%);
   border: 1px solid var(--color-brand);
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
