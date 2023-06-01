@@ -8,7 +8,7 @@ import ModalPortal from '../../components/common/Modal/ModalPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useModal from '../../hooks/useModal';
-import clipboard from '../../utils/clipboard';
+import { copyCode } from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './css/SettingMenu.module.css';
 import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
@@ -74,7 +74,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
               code={code}
               btnText={'코드 복사'}
               onConfirm={() => {
-                clipboard(code);
+                copyCode(code);
                 handleToggleFriendModal();
               }}
               onClose={handleToggleFriendModal}
