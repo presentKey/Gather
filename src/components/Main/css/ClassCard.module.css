@@ -48,7 +48,7 @@
 }
 
 .number {
-  width: 16.25rem;
+  max-width: 16.25rem;
 }
 
 .member-content {
