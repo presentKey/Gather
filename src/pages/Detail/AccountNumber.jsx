@@ -17,7 +17,7 @@ export default function AccountNumber({ number }) {
 
       {open && (
         <ModalPortal>
-          <ToastNotification message='계좌번호가 복사되었습니다.' />
+          <ToastNotification type='success' message='계좌번호가 복사되었습니다.' />
         </ModalPortal>
       )}
     </>

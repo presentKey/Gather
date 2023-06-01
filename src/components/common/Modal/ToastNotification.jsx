@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import styles from './css/ToastNotification.module.css';
 import { GoIssueOpened } from 'react-icons/go';
 import { GrFormClose } from 'react-icons/gr';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 
-export default function ToastNotification({ message }) {
+export default function ToastNotification({ type, message }) {
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
@@ -18,8 +19,10 @@ export default function ToastNotification({ message }) {
   return (
     <>
       {open && (
-        <aside className={styles.toast}>
-          <GoIssueOpened className={styles['issue-icon']} />
+        <aside className={`${styles.toast} ${styles[getBackgrounColor(type)]}`}>
+          <span className={styles['toast-icon']}>
+            {type === 'success' ? <BsFillCheckCircleFill /> : <GoIssueOpened />}
+          </span>
           <p>{message}</p>
           <button type='button'>
             <GrFormClose
@@ -34,4 +37,8 @@ export default function ToastNotification({ message }) {
       )}
     </>
   );
+}
+
+function getBackgrounColor(type) {
+  return type === 'success' ? 'success' : 'fail';
 }
