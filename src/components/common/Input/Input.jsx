@@ -8,7 +8,11 @@ export default function Input({ type, name, text, value, onChange, width, size, 
         type={type}
         id={name}
         name={name}
-        value={value[name] ?? ''}
+        value={
+          name === 'total'
+            ? value[name].toLocaleString('fullwide', { useGrouping: false })
+            : value[name] ?? ''
+        }
         onChange={onChange}
         onWheel={(e) => e.target.blur()}
         {...rest}
