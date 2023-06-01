@@ -17,7 +17,7 @@ export default function ModifiedHistory({ code, history, members }) {
   const member = members.find((member) => member.uid === uid);
 
   return (
-    <li className={styles.list}>
+    <li className={`${styles.list} ${!deletable && styles.disabled}`}>
       <div className={styles.info}>
         <Avatar key={uuidv4()} image={member.photoURL} />
         <div className={styles.container}>

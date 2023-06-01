@@ -9,6 +9,10 @@
   border-bottom: 1px solid var(--color-black);
 }
 
+.list.disabled {
+  opacity: 0.4;
+}
+
 .list:hover {
   filter: brightness(1.05);
 }
