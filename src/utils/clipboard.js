@@ -14,7 +14,12 @@ export function copyCode(code, closeModal) {
 /**
  * 계좌번호 복사
  * @param number 계좌번호
+ * @param setOpen state set function
  */
-export function copyAccountNumber(number) {
-  window.navigator.clipboard.writeText(number);
+export function copyAccountNumber(number, setOpen) {
+  setOpen(false);
+  window.navigator.clipboard.writeText(number).then(
+    () => setOpen(true), // clipboard successfully set
+    () => setOpen(false) // clipboard write failed
+  );
 }

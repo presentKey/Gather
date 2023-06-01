@@ -3,6 +3,7 @@ import styles from './css/DetailHeader.module.css';
 import SettingMenu from './SettingMenu';
 import BankIcon from '../../components/common/icons/BankIcon';
 import MoneyIcon from '../../components/common/icons/MoneyIcon';
+import AccountNumber from './AccountNumber';
 
 export default function DetailHeader({
   detail: {
@@ -20,7 +21,7 @@ export default function DetailHeader({
         <dl className={styles['bank-group']}>
           <BankIcon />
           {<dt className={styles.bank}>{bank && bank.trim().length !== 0 ? bank : '_'}</dt>}
-          {<dd className={styles.number}>{number ? number : '_'}</dd>}
+          {<dd className={styles.number}>{number ? <AccountNumber number={number} /> : '_'}</dd>}
         </dl>
       )}
       <div className={styles.amount}>
