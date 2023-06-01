@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { HiPencilAlt } from 'react-icons/hi';
 import { ImExit } from 'react-icons/im';
@@ -8,16 +8,18 @@ import ModalPortal from '../../components/common/Modal/ModalPortal';
 import Overlay from '../../components/common/Overlay/Overlay';
 import OverlayPortal from '../../components/common/Overlay/OverlayPortal';
 import useModal from '../../hooks/useModal';
-import clipboard from '../../utils/clipboard';
+import { copyCode } from '../../utils/clipboard';
 import useMenu from './hooks/useMenu';
 import styles from './css/SettingMenu.module.css';
 import SetMenuIcon from '../../components/common/icons/SetMenuIcon';
 import useClassList from '../../hooks/useClassList';
+import ToastNotification from '../../components/common/Modal/ToastNotification';
 
 export default function SettingMenu({ members, onUpdateButtonClick }) {
   const { menuRef, toggleMenu, handleToggleMenu } = useMenu();
   const [toggleLeaveModal, handleToggleLeaveModal] = useModal();
   const [toggleFriendModal, handleToggleFriendModal] = useModal();
+  const [toast, setToast] = useState(false);
   const {
     state: { code },
   } = useLocation();
@@ -50,6 +52,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
           </li>
         </ul>
       </div>
+
       {toggleLeaveModal && (
         <OverlayPortal>
           <Overlay onClose={handleToggleLeaveModal} />
@@ -65,6 +68,7 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
           </ModalPortal>
         </OverlayPortal>
       )}
+
       {toggleFriendModal && (
         <OverlayPortal>
           <Overlay onClose={handleToggleFriendModal} />
@@ -74,13 +78,19 @@ export default function SettingMenu({ members, onUpdateButtonClick }) {
               code={code}
               btnText={'코드 복사'}
               onConfirm={() => {
-                clipboard(code);
+                copyCode(code, setToast);
                 handleToggleFriendModal();
               }}
               onClose={handleToggleFriendModal}
             />
           </ModalPortal>
         </OverlayPortal>
+      )}
+
+      {toast && (
+        <ModalPortal>
+          <ToastNotification type='success' message='코드가 복사되었습니다.' />
+        </ModalPortal>
       )}
     </div>
   );

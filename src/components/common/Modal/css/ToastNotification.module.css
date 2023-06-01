@@ -7,7 +7,6 @@
   padding: 1rem 2rem 1rem 0.5rem;
   overflow: hidden;
   color: var(--color-white);
-  background-color: var(--color-red);
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   animation-name: show-toast;
@@ -29,8 +28,10 @@
   animation-fill-mode: forwards;
 }
 
-.issue-icon {
+.toast-icon {
+  display: flex;
   flex-shrink: 0;
+  align-items: center;
   margin-right: 0.2rem;
   font-size: 1.2rem;
 }
@@ -78,4 +79,13 @@
       left: 1rem;
     }
   }
+}
+
+/* getBackgroundColor */
+.toast.fail {
+  background-color: var(--color-red);
+}
+
+.toast.success {
+  background-color: var(--color-blue);
 }

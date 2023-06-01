@@ -12,6 +12,10 @@
   border-radius: 8px;
 }
 
+.input::placeholder {
+  font-size: 0.8rem;
+}
+
 .label {
   position: absolute;
   top: -0.2rem;
