@@ -19,7 +19,7 @@ export default function History({ code, history, members }) {
   return (
     <li className={`${styles.list} ${!deletable && styles.disabled}`}>
       <div className={styles.left}>
-        <Avatar key={uuidv4()} image={member.photoURL} />
+        <Avatar key={uuidv4()} image={member?.photoURL} />
         <div className={styles.container}>
           <span className={styles.date}>{date}</span>
           <p className={styles.message}>{message}</p>
@@ -32,7 +32,11 @@ export default function History({ code, history, members }) {
         <strong className={styles.price}>{price.toLocaleString()}원</strong>
       </div>
       {deletable && user.uid === uid && (
-        <button className={styles['set-btn']} type='button' onClick={setToggleHistoryModal}>
+        <button
+          className={styles['set-btn']}
+          type='button'
+          onClick={setToggleHistoryModal}
+        >
           <SetHistoryIcon />
         </button>
       )}
