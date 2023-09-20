@@ -139,9 +139,11 @@ export async function createClass(user, info) {
   const { uid, photoURL } = user;
   const { title, bank, number, allowAnonymouse } = info;
 
-  if (!title || title.trim().length === 0) throw new Error('모임 이름을 입력해주세요.');
+  if (!title || title.trim().length === 0)
+    throw new Error('모임 이름을 입력해주세요.');
 
-  if (number && !checkAccountNumberRegExp(number)) throw new Error('계좌번호 숫자만 입력해주세요.');
+  if (number && !checkAccountNumberRegExp(number))
+    throw new Error('계좌번호 숫자만 입력해주세요.');
 
   const code = generateCode();
   const batch = writeBatch(db);
@@ -170,7 +172,7 @@ export async function createClass(user, info) {
  * @param info 입력 정보
  */
 export async function AttendClass(user, info) {
-  const { uid, photoURL } = user;
+  const { uid, photoURL, isAnonymous } = user;
   const { code } = info;
 
   if (!code) throw new Error('코드를 입력해주세요.');
@@ -180,7 +182,7 @@ export async function AttendClass(user, info) {
 
   if (!docSnap.exists()) throw new Error('코드를 다시 한 번 확인해주세요.');
 
-  if (!docSnap.data().allowAnonymouse)
+  if (docSnap.data().allowAnonymouse === false && isAnonymous === true)
     throw new Error('게스트 유저는 해당 모임에 참여할 수 없습니다.');
 
   const batch = writeBatch(db);
@@ -238,11 +240,14 @@ export async function updateClassHeader(uid, code, info) {
   const { title, bank, number, total, allowAnonymouse } = info;
   const amount = parseInt(total, 10);
 
-  if (!title || title.trim().length === 0) throw new Error('모임 이름을 입력해주세요.');
+  if (!title || title.trim().length === 0)
+    throw new Error('모임 이름을 입력해주세요.');
 
-  if (Number.isNaN(amount)) throw new Error('총 금액을 다시 한 번 확인해주세요.');
+  if (Number.isNaN(amount))
+    throw new Error('총 금액을 다시 한 번 확인해주세요.');
 
-  if (number && !checkAccountNumberRegExp(number)) throw new Error('계좌번호 숫자만 입력해주세요.');
+  if (number && !checkAccountNumberRegExp(number))
+    throw new Error('계좌번호 숫자만 입력해주세요.');
 
   const classRef = doc(db, 'classes', code);
 
@@ -335,7 +340,8 @@ export async function depositOrWithdraw(code, uid, info, minDate, type) {
 
   if (Number.isNaN(amount)) throw new Error('금액을 다시 한 번 확인해주세요.');
 
-  if (message.length > 20) throw new Error('최대 20글자까지 입력할 수 있습니다.');
+  if (message.length > 20)
+    throw new Error('최대 20글자까지 입력할 수 있습니다.');
 
   if (type === WITHDRAW && amount >= 0) {
     amount = amount * -1;
@@ -371,9 +377,12 @@ export async function deleteHistory(code, uid, id) {
     if (!classDoc.exists()) throw new Error('모임이 존재하지 않습니다.');
 
     const histories = classDoc.data().history;
-    const removeHistory = histories.find((history) => history.uid === uid && history.id === id);
+    const removeHistory = histories.find(
+      (history) => history.uid === uid && history.id === id
+    );
 
-    if (!removeHistory) throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
+    if (!removeHistory)
+      throw new Error('작성자가 아니거나 존재하지 않는 내역입니다.');
 
     // 삭제 내역이 모임 수정 내역인 경우
     if (removeHistory.type === 'classModify') {
